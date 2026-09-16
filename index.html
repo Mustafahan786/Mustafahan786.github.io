@@ -3,18 +3,28 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Academic and research portfolio of Muhammad Mustafa Khan — robotics, control systems, precision mechatronics, embedded systems, and Physical AI.">
+  <meta name="description" content="Academic portfolio of Muhammad Mustafa Khan — robotics, control systems, precision mechatronics, embedded systems, and Physical AI.">
+  <meta name="author" content="Muhammad Mustafa Khan">
+  <meta property="og:title" content="Muhammad Mustafa Khan | Research Portfolio">
+  <meta property="og:description" content="Research in robotics, control systems, precision mechatronics, embedded systems, and Physical AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://mustafahan786.github.io/">
   <title>Muhammad Mustafa Khan | Research Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="site-header">
     <div class="container nav-wrap">
       <a class="brand" href="#home">Muhammad Mustafa Khan</a>
+      <button class="menu-toggle" type="button" aria-label="Toggle navigation" aria-expanded="false">Menu</button>
       <nav class="nav" aria-label="Primary navigation">
         <a href="#about">About</a>
         <a href="#research">Research</a>
         <a href="#projects">Projects</a>
+        <a href="#outputs">Outputs</a>
         <a href="#education">Education</a>
         <a href="#contact">Contact</a>
       </nav>
@@ -24,61 +34,101 @@
   <main>
     <section id="home" class="hero">
       <div class="container hero-grid">
-        <div>
+        <div class="hero-copy">
           <p class="eyebrow">Robotics · Control Systems · Physical AI</p>
-          <h1>Muhammad Mustafa Khan</h1>
+          <h1>Muhammad<br>Mustafa Khan</h1>
           <p class="hero-text">
-            Researcher working at the intersection of precision mechatronics, embedded control,
-            robotics, and intelligent physical systems.
+            Master's researcher developing high-performance control and intelligent systems for
+            precision mechatronics, robotics, and real-world physical interaction.
           </p>
           <div class="hero-actions">
-            <a class="button primary" href="#research">View research</a>
+            <a class="button primary" href="#research">Explore research</a>
             <a class="button secondary" href="https://github.com/Mustafahan786" target="_blank" rel="noopener">GitHub</a>
+            <a class="button ghost" href="#contact">Contact</a>
+          </div>
+          <div class="hero-meta" aria-label="Research profile summary">
+            <div><strong>GIST</strong><span>Master's Researcher</span></div>
+            <div><strong>Control + Robotics</strong><span>Research Focus</span></div>
+            <div><strong>Embedded Systems</strong><span>Real-time Implementation</span></div>
           </div>
         </div>
-        <div class="profile-card">
-          <img src="https://avatars.githubusercontent.com/u/101884967?v=4" alt="Portrait of Muhammad Mustafa Khan">
-          <div>
-            <strong>Master's Researcher</strong>
-            <span>Gwangju Institute of Science and Technology (GIST)</span>
+
+        <aside class="profile-card">
+          <div class="portrait-wrap">
+            <img src="https://avatars.githubusercontent.com/u/101884967?v=4" alt="Portrait of Muhammad Mustafa Khan">
           </div>
-        </div>
+          <div class="profile-card-copy">
+            <p class="mini-label">Current position</p>
+            <h2>Master's Researcher</h2>
+            <p>School of Mechanical &amp; Robotics Engineering<br>Gwangju Institute of Science and Technology (GIST)</p>
+            <div class="profile-links">
+              <a href="https://github.com/Mustafahan786" target="_blank" rel="noopener">GitHub ↗</a>
+              <a href="https://www.linkedin.com/in/mustafa-khan-marwat-6815601b9/" target="_blank" rel="noopener">LinkedIn ↗</a>
+            </div>
+          </div>
+        </aside>
       </div>
     </section>
 
     <section id="about" class="section">
-      <div class="container narrow">
-        <p class="section-label">About</p>
-        <h2>Engineering intelligent systems that interact with the physical world.</h2>
-        <p>
-          My work focuses on feedback control, precision engineering, embedded implementation,
-          robotics, and machine learning. I am particularly interested in high-performance control
-          for mechatronic systems and research that connects physical system dynamics with modern
-          intelligent algorithms.
-        </p>
+      <div class="container split-section">
+        <div>
+          <p class="section-label">About</p>
+          <h2>Engineering intelligent systems that interact with the physical world.</h2>
+        </div>
+        <div class="body-copy">
+          <p>
+            My research interests span feedback control, precision mechatronics, embedded systems,
+            robotics, and machine learning. I am especially interested in improving the performance
+            of physical systems by combining accurate dynamic models, real-time control, sensing,
+            and computational intelligence.
+          </p>
+          <p>
+            My current work focuses on increasing the closed-loop bandwidth and imaging speed of
+            contact-mode Atomic Force Microscopy through system identification, loop shaping,
+            embedded digital control, and resonance-aware filtering.
+          </p>
+        </div>
       </div>
     </section>
 
     <section id="research" class="section alt">
       <div class="container">
-        <p class="section-label">Research</p>
-        <h2>Current research directions</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>High-Speed Atomic Force Microscopy</h3>
-            <p>Closed-loop Z-axis control, system identification, resonance suppression, loop shaping, and scan-speed improvement for contact-mode AFM.</p>
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Research</p>
+            <h2>Current research directions</h2>
+          </div>
+          <p class="section-intro">Work centered on high-performance physical systems, from plant dynamics to real-time embedded implementation.</p>
+        </div>
+
+        <div class="research-grid">
+          <article class="research-card featured">
+            <span class="card-number">01</span>
+            <div>
+              <p class="mini-label">Primary research</p>
+              <h3>High-Speed Atomic Force Microscopy</h3>
+              <p>Closed-loop Z-axis control for contact-mode AFM, with emphasis on bandwidth extension, scan-speed improvement, resonance suppression, and quantitative imaging performance.</p>
+              <div class="chips"><span>System Identification</span><span>Loop Shaping</span><span>PI Control</span><span>Digital Notch Filtering</span></div>
+            </div>
           </article>
-          <article class="card">
+
+          <article class="research-card">
+            <span class="card-number">02</span>
             <h3>Embedded Feedback Control</h3>
-            <p>Real-time digital control on STM32 platforms, high-rate ADC/DMA acquisition, PI control, digital filters, and hardware-aware implementation.</p>
+            <p>Real-time digital control on STM32 platforms using high-rate ADC/DMA acquisition, deterministic feedback loops, and hardware-aware implementation.</p>
           </article>
-          <article class="card">
+
+          <article class="research-card">
+            <span class="card-number">03</span>
             <h3>Precision Mechatronics</h3>
             <p>Model-based analysis and control of piezoelectric actuators, sensing electronics, amplifiers, and precision motion systems.</p>
           </article>
-          <article class="card">
-            <h3>Robotics & Physical AI</h3>
-            <p>Robotics, reinforcement learning, rehabilitation systems, and intelligent control for machines that operate in the physical world.</p>
+
+          <article class="research-card">
+            <span class="card-number">04</span>
+            <h3>Robotics &amp; Physical AI</h3>
+            <p>Intelligent control, reinforcement learning, and robotics for systems that sense, reason, and act in the physical world.</p>
           </article>
         </div>
       </div>
@@ -86,59 +136,122 @@
 
     <section id="projects" class="section">
       <div class="container">
-        <p class="section-label">Selected Projects</p>
-        <h2>Technical work</h2>
-        <div class="project-list">
-          <article class="project">
-            <div>
-              <h3>AFM High-Bandwidth Z-Axis Control</h3>
-              <p>Experimental work on increasing feedback bandwidth and imaging speed using plant identification, PI control, and resonance-aware digital filtering.</p>
-            </div>
-            <span class="tag">Control · Embedded · AFM</span>
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Selected Projects</p>
+            <h2>Technical work</h2>
+          </div>
+          <a class="text-link" href="https://github.com/Mustafahan786?tab=repositories" target="_blank" rel="noopener">View all repositories ↗</a>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card project-primary">
+            <div class="project-topline"><span>Research System</span><span>2026</span></div>
+            <h3>AFM High-Bandwidth Z-Axis Control</h3>
+            <p>Experimental control-system development for faster contact-mode AFM imaging, including plant identification, PI control, resonance analysis, embedded STM32 implementation, and scan-performance evaluation.</p>
+            <div class="chips"><span>Control</span><span>STM32</span><span>AFM</span><span>LabVIEW</span><span>Signal Processing</span></div>
           </article>
-          <article class="project">
-            <div>
-              <h3>MUSED-I</h3>
-              <p>Research dataset and signal-processing work related to rehabilitation and gesture analysis.</p>
-            </div>
-            <a href="https://github.com/Mustafahan786/MUSED-1" target="_blank" rel="noopener">Repository →</a>
+
+          <article class="project-card">
+            <div class="project-topline"><span>Dataset &amp; Research</span><span>Open Source</span></div>
+            <h3>MUSED-I</h3>
+            <p>Multimodal upper-limb gesture data and related signal-processing work for rehabilitation and human-motion analysis.</p>
+            <a class="text-link" href="https://github.com/Mustafahan786/MUSED-1" target="_blank" rel="noopener">Repository ↗</a>
           </article>
-          <article class="project">
-            <div>
-              <h3>Machine Learning & Reinforcement Learning</h3>
-              <p>Projects in deep learning, transfer learning, residual networks, sentiment analysis, and deep Q-learning.</p>
-            </div>
-            <a href="https://github.com/Mustafahan786?tab=repositories" target="_blank" rel="noopener">Repositories →</a>
+
+          <article class="project-card">
+            <div class="project-topline"><span>Machine Learning</span><span>Portfolio</span></div>
+            <h3>Deep Learning &amp; Reinforcement Learning</h3>
+            <p>Implementations spanning residual networks, transfer learning, sentiment analysis, deep Q-learning, and model-building workflows.</p>
+            <a class="text-link" href="https://github.com/Mustafahan786?tab=repositories" target="_blank" rel="noopener">Repositories ↗</a>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="education" class="section alt">
+    <section id="outputs" class="section alt">
       <div class="container">
-        <p class="section-label">Education</p>
-        <h2>Academic background</h2>
+        <p class="section-label">Research Outputs</p>
+        <h2>Selected academic work</h2>
+        <div class="output-list">
+          <article class="output-item">
+            <div class="output-year">2026</div>
+            <div>
+              <p class="output-type">Conference Poster · IFAC World Congress 2026</p>
+              <h3>Model Based Digital PI Feedback Control for the Speed Enhancement of Contact Mode AFM</h3>
+              <p>Work on model-based digital feedback control, loop-shaping analysis, and higher-speed AFM scanning.</p>
+            </div>
+          </article>
+          <article class="output-item">
+            <div class="output-year">Dataset</div>
+            <div>
+              <p class="output-type">Open Research Resource</p>
+              <h3>MUSED-I</h3>
+              <p>Dataset supporting research in gesture analysis, rehabilitation, and human-machine interaction.</p>
+              <a class="text-link" href="https://github.com/Mustafahan786/MUSED-1" target="_blank" rel="noopener">View project ↗</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="education" class="section">
+      <div class="container">
+        <div class="section-heading">
+          <div>
+            <p class="section-label">Education</p>
+            <h2>Academic background</h2>
+          </div>
+        </div>
         <div class="timeline">
-          <div class="timeline-item">
-            <h3>Gwangju Institute of Science and Technology (GIST)</h3>
-            <p>Graduate research in mechanical and robotics engineering, with a focus on dynamics, control, and precision systems.</p>
-          </div>
-          <div class="timeline-item">
-            <h3>National University of Sciences and Technology (NUST)</h3>
-            <p>Mechanical Engineering.</p>
-          </div>
+          <article class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <p class="mini-label">Graduate Research</p>
+              <h3>Gwangju Institute of Science and Technology (GIST)</h3>
+              <p>School of Mechanical &amp; Robotics Engineering · Dynamics &amp; Control research with emphasis on precision systems, feedback control, and AFM.</p>
+            </div>
+          </article>
+          <article class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div>
+              <p class="mini-label">Mechanical Engineering</p>
+              <h3>National University of Sciences and Technology (NUST)</h3>
+              <p>Foundation in mechanical engineering with work spanning robotics, rehabilitation systems, signal processing, and intelligent systems.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section toolkit">
+      <div class="container">
+        <p class="section-label">Technical Toolkit</p>
+        <h2>Methods &amp; platforms</h2>
+        <div class="tool-groups">
+          <div><h3>Control</h3><p>System identification · PID/PI control · Loop shaping · Frequency-response analysis · Digital filtering</p></div>
+          <div><h3>Embedded</h3><p>STM32 · C/C++ · ADC/DMA · Real-time control · Sensor and actuator interfacing</p></div>
+          <div><h3>Scientific Computing</h3><p>MATLAB · Python · NumPy · Pandas · Machine learning workflows</p></div>
+          <div><h3>Experimental Systems</h3><p>AFM · PZT actuation · QPD sensing · LabVIEW · NI DAQ · Oscilloscope/FRA measurements</p></div>
         </div>
       </div>
     </section>
 
     <section id="contact" class="section contact">
-      <div class="container narrow">
-        <p class="section-label">Contact</p>
-        <h2>Research collaboration and academic contact</h2>
-        <p>For research discussions, collaboration, or academic opportunities, contact me by email or GitHub.</p>
-        <div class="contact-links">
-          <a href="mailto:mustafamarvat786@gmail.com">mustafamarvat786@gmail.com</a>
-          <a href="https://github.com/Mustafahan786" target="_blank" rel="noopener">github.com/Mustafahan786</a>
+      <div class="container contact-grid">
+        <div>
+          <p class="section-label">Contact</p>
+          <h2>Research collaboration and academic opportunities.</h2>
+        </div>
+        <div>
+          <p>For research discussions, collaboration, or academic opportunities, contact me through email or one of the profiles below.</p>
+          <div class="contact-links">
+            <a href="mailto:mustafamarvat786@gmail.com"><span>Email</span><strong>mustafamarvat786@gmail.com</strong></a>
+            <a href="https://github.com/Mustafahan786" target="_blank" rel="noopener"><span>GitHub</span><strong>@Mustafahan786</strong></a>
+            <a href="https://www.linkedin.com/in/mustafa-khan-marwat-6815601b9/" target="_blank" rel="noopener"><span>LinkedIn</span><strong>Muhammad Mustafa Khan</strong></a>
+            <a href="https://www.kaggle.com/mustafamarwat" target="_blank" rel="noopener"><span>Kaggle</span><strong>@mustafamarwat</strong></a>
+            <a href="https://medium.com/@mustafamarvat786" target="_blank" rel="noopener"><span>Medium</span><strong>@mustafamarvat786</strong></a>
+          </div>
         </div>
       </div>
     </section>
@@ -147,7 +260,7 @@
   <footer>
     <div class="container footer-wrap">
       <span>© <span id="year"></span> Muhammad Mustafa Khan</span>
-      <span>Hosted with GitHub Pages</span>
+      <span>Research portfolio · Hosted with GitHub Pages</span>
     </div>
   </footer>
 

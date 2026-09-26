@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 530" width="620" height="530" role="img"
+     aria-labelledby="t d" font-family="'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Induction-motor monitoring architecture and the model's six inputs</title>
+  <desc id="d">Temperature, RMS current and shaft speed are read by an Arduino on a fixed reporting
+    interval and logged to CSV by a Python logger. Ten-sample windows produce six features: the mean and
+    standard deviation of temperature, of RMS current and of shaft speed. Those six values are the inputs to
+    a dense autoencoder with layers six, four, two, four, six, trained on healthy operation only. The
+    reconstruction error is compared with a hand-set threshold and shown on a dashboard. Vibration was
+    acquired and explored in the wider pipeline but is not one of the six inputs to the deployed model.</desc>
+  <defs>
+    <marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8f8574"/>
+    </marker>
+    <style>
+      .b { fill:#ffffff; stroke:#d9d3c7; stroke-width:1.5 }
+      .key { fill:#e7eff1; stroke:#0f5c6e; stroke-width:1.75 }
+      .out { fill:#f4f1ea; stroke:#c6bfb1; stroke-width:1.5; stroke-dasharray:5 4 }
+      .t { font-size:17px; font-weight:600; fill:#1d2126 }
+      .s { font-size:13.5px; fill:#565d66; font-family:'IBM Plex Mono', ui-monospace, monospace }
+      .l { stroke:#8f8574; stroke-width:1.6; fill:none }
+      .note { font-size:14px; fill:#565d66 }
+      .hd { font-size:12px; fill:#0f5c6e; font-family:'IBM Plex Mono', ui-monospace, monospace; letter-spacing:0.08em }
+    </style>
+  </defs>
+  <rect width="620" height="530" fill="#fbfaf7"/>
+
+  <!-- sensing -->
+  <text x="24" y="28" class="hd">SENSING</text>
+  <rect x="24" y="38" width="176" height="58" rx="4" class="b"/>
+  <text x="38" y="62" class="t">Temperature</text>
+  <text x="38" y="82" class="s">DS18B20</text>
+
+  <rect x="212" y="38" width="176" height="58" rx="4" class="b"/>
+  <text x="226" y="62" class="t">Current (RMS)</text>
+  <text x="226" y="82" class="s">ACS712</text>
+
+  <rect x="400" y="38" width="196" height="58" rx="4" class="b"/>
+  <text x="414" y="62" class="t">Shaft speed</text>
+  <text x="414" y="82" class="s">A3144 Hall</text>
+
+  <!-- vibration: acquired, not in the model -->
+  <rect x="400" y="110" width="196" height="58" rx="4" class="out"/>
+  <text x="414" y="134" class="t" fill="#565d66">Vibration</text>
+  <text x="414" y="154" class="s">MPU-6050 · explored</text>
+  <text x="400" y="186" class="note">not an input to the deployed model</text>
+
+  <line x1="112" y1="96" x2="112" y2="132" class="l"/>
+  <line x1="300" y1="96" x2="300" y2="132" class="l"/>
+  <line x1="498" y1="96" x2="498" y2="110" class="l" stroke-dasharray="4 4"/>
+  <line x1="112" y1="132" x2="300" y2="132" class="l"/>
+  <line x1="300" y1="132" x2="300" y2="200" class="l" marker-end="url(#ah4)"/>
+
+  <!-- acquisition -->
+  <text x="24" y="222" class="hd">ACQUISITION</text>
+  <rect x="24" y="202" width="270" height="58" rx="4" class="b"/>
+  <text x="38" y="226" class="t">Arduino UNO</text>
+  <text x="38" y="246" class="s">fixed 0.5 s record · CSV line</text>
+
+  <rect x="326" y="202" width="270" height="58" rx="4" class="b"/>
+  <text x="340" y="226" class="t">Python logger</text>
+  <text x="340" y="246" class="s">validated parse → CSV</text>
+  <line x1="294" y1="231" x2="322" y2="231" class="l" marker-end="url(#ah4)"/>
+
+  <line x1="460" y1="260" x2="460" y2="292" class="l" marker-end="url(#ah4)"/>
+
+  <!-- features -->
+  <text x="24" y="314" class="hd">FEATURES — THE MODEL'S SIX INPUTS</text>
+  <rect x="24" y="294" width="572" height="100" rx="4" class="b key"/>
+  <text x="40" y="330" class="t">10-sample window → 6 values</text>
+  <text x="40" y="354" class="s">mean + std of temperature · mean + std of current RMS</text>
+  <text x="40" y="376" class="s">mean + std of shaft speed</text>
+
+  <line x1="310" y1="394" x2="310" y2="414" class="l" marker-end="url(#ah4)"/>
+
+  <!-- model -->
+  <rect x="24" y="416" width="290" height="62" rx="4" class="b"/>
+  <text x="38" y="442" class="t">Autoencoder</text>
+  <text x="38" y="464" class="s">6 → 4 → 2 → 4 → 6 · healthy only</text>
+
+  <line x1="314" y1="447" x2="342" y2="447" class="l" marker-end="url(#ah4)"/>
+  <rect x="344" y="416" width="252" height="62" rx="4" class="b"/>
+  <text x="358" y="442" class="t">Novelty score</text>
+  <text x="358" y="464" class="s">error vs hand-set threshold</text>
+
+  <text x="24" y="506" class="s" fill="#8f8574">Diagram — drawn from the logging and training code</text>
+</svg>

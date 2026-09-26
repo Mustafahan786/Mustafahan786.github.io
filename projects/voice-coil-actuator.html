@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fbfaf7">
+<script>document.documentElement.className += ' js';</script>
+<title>Voice-Coil Actuator Positioning System — Muhammad Mustafa Khan</title>
+<meta name="description" content="A voice-coil positioning stage designed in SolidWorks and built, driven by a PA51 transconductance stage, identified as a mass–damper plant with no restoring spring, and closed with analog compensators measured on the hardware.">
+<link rel="canonical" href="https://mustafahan786.github.io/projects/voice-coil-actuator.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Voice-Coil Actuator Positioning System">
+<meta property="og:description" content="A stage built from CAD, a transconductance current drive, a mass–damper plant with no restoring spring, and six analog compensators measured on hardware.">
+<meta property="og:url" content="https://mustafahan786.github.io/projects/voice-coil-actuator.html">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/vca.jpg">
+<meta property="og:image:alt" content="Voice-coil actuator positioning system — project">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html">Muhammad Mustafa Khan</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="bars" aria-hidden="true"><span></span></span>Menu
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#outputs">Outputs</a>
+      <a href="../index.html#about">About</a>
+      <a class="nav-cta" href="../cv.html">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="case-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> Voice-coil actuator</p>
+      <p class="case-meta">Research project · Individual · GIST · Winter 2025–26</p>
+      <h1 class="case-title">Voice-Coil Actuator Positioning System</h1>
+      <p class="case-sub">Identification and analog feedback control of a stage with no restoring spring.</p>
+
+      <figure class="fig fig-hero fig-wide fig-pad">
+        <a class="zoom" href="../assets/img/vca/vca-bench-cad-card-900.jpg">
+          <img src="../assets/img/vca/vca-bench-cad-card-900.jpg" width="900" height="675" decoding="async"
+               alt="SolidWorks assembly of the voice-coil stage with an inset photograph of the same stage built on the laboratory bench.">
+        </a>
+        <figcaption><span class="tag">CAD</span> and <span class="tag">Photograph</span>The stage as drawn
+          and as built. Inset: the assembled bench with the laser displacement sensor in place.</figcaption>
+      </figure>
+
+      <div class="brief">
+        <h2 class="sr-only">Research brief</h2>
+        <dl>
+          <div>
+            <dt>Objective</dt>
+            <dd>Position a voice-coil stage whose plant integrates twice and supplies no phase lead of its
+              own, using compensation designed on a measured model.</dd>
+          </div>
+          <div>
+            <dt>Approach</dt>
+            <dd>Design and build the stage, drive the coil from a current source, measure the open-loop
+              frequency response, then build and measure each candidate compensator.</dd>
+          </div>
+          <div>
+            <dt>Individual contribution</dt>
+            <dd>Everything: CAD and fabrication, the transconductance drive stage, instrumentation,
+              identification, and all six analog compensators.</dd>
+          </div>
+          <div>
+            <dt>Experimental evidence</dt>
+            <dd>Six compensators built and measured. Measured responses followed the predicted Bode trends
+              over the observed range; <strong>lead compensation was retained</strong> and its closed-loop
+              response verified on the bench.</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>A plant with nothing pulling it back</h2>
+      <div class="split split-wide-media">
+        <div class="prose">
+          <p>
+            The moving assembly has mass and some damping from the guide, but no spring returning it to a
+            rest position. Force to position is therefore a double integrator with damping — a mass–damper
+            plant — and the measured open-loop response carries the accompanying phase.
+          </p>
+          <p>
+            That is the design constraint in one sentence: the plant supplies no phase lead of its own, so
+            the compensator has to.
+          </p>
+          <p>
+            Before any of that could be measured, the stage had to be worth measuring. It constrains the
+            moving mass to one axis, holds the coil concentric in the magnet assembly, and gives the laser
+            sensor a flat, square target — otherwise the measurement records the fixture rather than the
+            actuator.
+          </p>
+        </div>
+        <figure class="fig split-media fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-fra-openloop-1500.jpg">
+            <img src="../assets/img/vca/vca-fra-openloop-750.jpg"
+                 srcset="../assets/img/vca/vca-fra-openloop-750.jpg 750w, ../assets/img/vca/vca-fra-openloop-1500.jpg 1500w"
+                 sizes="(min-width: 860px) 52vw, 92vw" width="750" height="562" loading="lazy" decoding="async"
+                 alt="Measured open-loop frequency response of the actuator: magnitude falling with frequency and the corresponding phase.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Open-loop frequency response of the actuator and
+            drive, measured on the bench.</figcaption>
+        </figure>
+      </div>
+      <figure class="fig fig-mid">
+        <video controls preload="none" playsinline
+               poster="../assets/video/vca-fra-measurement-poster.jpg" width="1280" height="720">
+          <source src="../assets/video/vca-fra-measurement.mp4" type="video/mp4">
+          Your browser cannot play this video. It shows the frequency-response measurement running on the bench.
+        </video>
+        <figcaption><span class="tag">Video</span>The frequency-response measurement in progress.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>Driving the coil with current, not voltage</h2>
+      <div class="split split-wide-media">
+        <div class="prose">
+          <p>
+            A voice coil produces force in proportion to the current through it. Drive it from a voltage
+            source and the coil's resistance, inductance and motional back-EMF sit between the command and
+            the force, so the position loop inherits electrical dynamics as well as mechanical ones.
+          </p>
+          <p>
+            A voltage drive is workable if those dynamics are modelled. I chose a transconductance stage
+            instead — a PA51 power operational amplifier configured to deliver current in proportion to its
+            input — so that the plant presented to the compensator stays close to force-per-volt and the
+            design problem stays mechanical. Position is measured by laser triangulation.
+          </p>
+        </div>
+        <figure class="fig split-media fig-pad">
+          <a class="zoom" href="../assets/img/vca/vca-control-loop.svg">
+            <img src="../assets/img/vca/vca-control-loop.svg" width="700" height="360" loading="lazy" decoding="async"
+                 alt="Block diagram: reference, summing junction, lead compensator, PA51 transconductance stage, coil and moving mass, with laser displacement feedback.">
+          </a>
+          <figcaption><span class="tag">Diagram</span>The closed loop as built.</figcaption>
+        </figure>
+      </div>
+      <div class="fig-grid fig-grid-2">
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-current-amp-1024.jpg">
+            <img src="../assets/img/vca/vca-current-amp-1024.jpg" width="1024" height="800" loading="lazy" decoding="async"
+                 alt="The current-amplifier stage built on the bench with the power amplifier, heatsink and sense resistor.">
+          </a>
+          <figcaption><span class="tag">Schematic</span>The transconductance stage: a PA51 driving the coil
+            through a sense resistor, with the current set by the input and feedback network.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-current-amp-scope-800.jpg">
+            <img src="../assets/img/vca/vca-current-amp-scope-800.jpg" width="800" height="503" loading="lazy" decoding="async"
+                 alt="Oscilloscope capture of the current-amplifier input and output during bench verification.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Verifying the stage on the oscilloscope before
+            closing the position loop.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>Six compensators, all built and all measured</h2>
+      <div class="prose">
+        <p>
+          Rather than settling on one controller, I built proportional, derivative, PD, PI, lead and lag
+          compensators as op-amp circuits and measured each on the same stage. Every candidate was designed
+          on the identified model first, so the measured response could be compared against a prediction
+          rather than judged on feel.
+        </p>
+        <p>
+          The PI compensator behaved as its structure predicts: the integrator's phase lag near crossover
+          cost more margin than the improved low-frequency tracking was worth on this plant. The lead
+          compensator supplies phase exactly where the double integrator has none, and it was the one
+          retained.
+        </p>
+      </div>
+
+      <div class="fig-grid fig-grid-2">
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-lead-bode-1280.jpg">
+            <img src="../assets/img/vca/vca-lead-bode-640.jpg"
+                 srcset="../assets/img/vca/vca-lead-bode-640.jpg 640w, ../assets/img/vca/vca-lead-bode-1280.jpg 1280w"
+                 sizes="(min-width: 720px) 45vw, 92vw" width="640" height="515" loading="lazy" decoding="async"
+                 alt="Bode plot for the lead compensator: measured magnitude and phase overlaid on the predicted response.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Lead compensator — measurement against prediction.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-lag-bode-1184.jpg">
+            <img src="../assets/img/vca/vca-lag-bode-592.jpg"
+                 srcset="../assets/img/vca/vca-lag-bode-592.jpg 592w, ../assets/img/vca/vca-lag-bode-1184.jpg 1184w"
+                 sizes="(min-width: 720px) 45vw, 92vw" width="592" height="453" loading="lazy" decoding="async"
+                 alt="Bode plot for the lag compensator: measured magnitude and phase overlaid on the predicted response.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Lag compensator — measurement against prediction.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-lead-circuit-800.jpg">
+            <img src="../assets/img/vca/vca-lead-circuit-800.jpg" width="800" height="440" loading="lazy" decoding="async"
+                 alt="Op-amp lead compensator circuit with its resistor and capacitor network.">
+          </a>
+          <figcaption><span class="tag">Schematic</span>The lead network as built.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-lag-circuit-800.jpg">
+            <img src="../assets/img/vca/vca-lag-circuit-800.jpg" width="800" height="480" loading="lazy" decoding="async"
+                 alt="Op-amp lag compensator circuit with its resistor and capacitor network.">
+          </a>
+          <figcaption><span class="tag">Schematic</span>The lag network as built.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="fig fig-mid">
+        <video controls preload="none" playsinline
+               poster="../assets/video/vca-lead-sine-poster.jpg" width="1280" height="720">
+          <source src="../assets/video/vca-lead-sine.mp4" type="video/mp4">
+          Your browser cannot play this video. It shows the stage tracking a sinusoidal reference under lead compensation.
+        </video>
+        <figcaption><span class="tag">Video</span>The stage following a sinusoidal reference with the lead
+          compensator in the loop.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <h2>Moving the loop into software</h2>
+          <div class="prose">
+            <p>
+              After the analog work I implemented the same loop digitally on an Arduino R4 Minima: a 1 kHz
+              control rate, a 12-bit DAC driving the same transconductance stage, integral clamping to
+              prevent wind-up, and a Keyence IL-065 laser sensor for feedback.
+            </p>
+            <p>
+              This is implementation experience rather than a second set of results. The digital loop was
+              built and run, but no measured comparison between the analog and digital closed loops was
+              recorded, so no claim of equivalence is made.
+            </p>
+          </div>
+        </div>
+        <div class="split-media">
+          <div class="metrics metrics-stack">
+            <div><span class="metric-value">1 kHz</span><span class="metric-label">Digital control rate</span></div>
+            <div><span class="metric-value">12-bit</span><span class="metric-label">DAC resolution to the drive stage</span></div>
+            <div><span class="metric-value">6</span><span class="metric-label">Analog compensators built and measured</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>Limitations</h2>
+      <div class="limits">
+        <h3>Not established</h3>
+        <ul class="tight">
+          <li><strong>Band of validity</strong> — the model was identified and checked over the frequency
+            range that was measured. Where measurement and prediction diverge at the edges of that range, the
+            cause was not isolated: sensor bandwidth, drive-stage limits, fixture compliance and excitation
+            level were not separated by dedicated experiments.</li>
+          <li><strong>Time-domain performance</strong> — settling time, overshoot and steady-state error were
+            not characterised as a formal benchmark set, so no positioning-accuracy figure is claimed.</li>
+          <li><strong>Digital comparison</strong> — the discrete implementation was not measured against the
+            analog one.</li>
+          <li><strong>Scope</strong> — a single-axis teaching-scale stage with one actuator and one sensor.</li>
+        </ul>
+      </div>
+
+      <h2 class="related-h">Related projects</h2>
+      <div class="related">
+        <a href="afm-high-speed-control.html">
+          <img src="../assets/img/afm/afm-head-wide-660.jpg" width="660" height="391" loading="lazy" decoding="async" alt="">
+          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>The same method applied to a precision instrument</span></span>
+        </a>
+        <a href="soft-robotic-glove.html">
+          <img src="../assets/img/glove/glove-actuators-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
+          <span><b>REHABOTICS Soft Robotic Glove</b><span>Actuator design and control in a compliant wearable system</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-name">Muhammad Mustafa Khan</p>
+      <p>Open to PhD positions and research collaboration in control, precision mechatronics and
+        learning-enabled control of physical systems.</p>
+      <ul class="footer-links">
+        <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
+        <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
+        <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#outputs">Outputs</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../cv.html">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+</footer>
+<script src="../script.js" defer></script>
+</body>
+</html>

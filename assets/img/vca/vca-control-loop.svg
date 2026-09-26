@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" width="700" height="380" role="img"
+     aria-labelledby="t d" font-family="'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Voice-coil position control loop as built</title>
+  <desc id="d">Block diagram. A reference voltage is compared with the sensor voltage in an op-amp
+    subtractor. The error passes through the analog lead compensator to a PA51 power op-amp configured as a
+    transconductance stage at 0.1 amperes per volt, which drives the voice coil acting on a moving mass with
+    damping and no restoring spring. A laser-triangulation sensor at 10 millimetres per volt measures
+    position and returns it to the subtractor.</desc>
+  <defs>
+    <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8f8574"/>
+    </marker>
+    <style>
+      .b { fill:#ffffff; stroke:#d9d3c7; stroke-width:1.5 }
+      .key { fill:#e7eff1; stroke:#0f5c6e; stroke-width:1.75 }
+      .t { font-size:17px; font-weight:600; fill:#1d2126 }
+      .s { font-size:13px; fill:#565d66; font-family:'IBM Plex Mono', ui-monospace, monospace }
+      .l { stroke:#8f8574; stroke-width:1.6; fill:none }
+      .note { font-size:14.5px; fill:#565d66 }
+    </style>
+  </defs>
+  <rect width="700" height="380" fill="#fbfaf7"/>
+
+  <text x="20" y="84" class="note">Reference</text>
+  <line x1="20" y1="110" x2="62" y2="110" class="l" marker-end="url(#ah3)"/>
+  <circle cx="80" cy="110" r="17" fill="#ffffff" stroke="#8f8574" stroke-width="1.6"/>
+  <text x="80" y="116" class="t" text-anchor="middle">Σ</text>
+  <text x="60" y="148" class="s">+</text>
+  <text x="96" y="148" class="s">−</text>
+
+  <line x1="97" y1="110" x2="118" y2="110" class="l" marker-end="url(#ah3)"/>
+  <rect x="120" y="80" width="180" height="62" rx="4" class="b key"/>
+  <text x="136" y="106" class="t">Lead compensator</text>
+  <text x="136" y="128" class="s">op-amp network</text>
+
+  <line x1="300" y1="110" x2="328" y2="110" class="l" marker-end="url(#ah3)"/>
+  <rect x="330" y="80" width="200" height="62" rx="4" class="b"/>
+  <text x="346" y="106" class="t">PA51 drive</text>
+  <text x="346" y="128" class="s">0.1 A/V current drive</text>
+
+  <line x1="530" y1="110" x2="548" y2="110" class="l" marker-end="url(#ah3)"/>
+  <rect x="550" y="80" width="130" height="62" rx="4" class="b"/>
+  <text x="566" y="106" class="t">Coil + mass</text>
+  <text x="566" y="128" class="s">mass–damper</text>
+
+  <line x1="615" y1="142" x2="615" y2="200" class="l" marker-end="url(#ah3)"/>
+  <rect x="380" y="202" width="300" height="62" rx="4" class="b"/>
+  <text x="396" y="228" class="t">Laser displacement</text>
+  <text x="396" y="250" class="s">triangulation · 10 mm/V</text>
+
+  <line x1="380" y1="233" x2="80" y2="233" class="l"/>
+  <line x1="80" y1="233" x2="80" y2="129" class="l" marker-end="url(#ah3)"/>
+
+  <text x="20" y="308" class="note">Driving current rather than voltage keeps coil force proportional to the command</text>
+  <text x="20" y="330" class="note">within the amplifier's compliance and useful bandwidth.</text>
+  <text x="20" y="364" class="s" fill="#8f8574">Diagram — the configuration built on the bench</text>
+</svg>

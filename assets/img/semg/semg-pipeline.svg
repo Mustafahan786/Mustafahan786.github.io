@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 450" width="720" height="450" role="img"
+     aria-labelledby="t d">
+<title id="t">Surface EMG processing chain</title>
+<desc id="d">Eight-channel Myo armband at a fixed 200 hertz sampling rate feeds 150 millisecond sliding
+windows with 73 percent overlap. Each window yields four time-domain features per channel — integrated EMG,
+mean absolute value, root mean square and waveform length — which are Z-score normalised and passed to a
+gradient-boosting model that outputs an estimated hand state driving tasks at one, two or three degrees of
+freedom.</desc>
+<defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <path d="M0 0 L10 5 L0 10 z" fill="#8a8272"/>
+  </marker>
+  <style>
+    .bx { fill:#ffffff; stroke:#cfc8bb; stroke-width:1.2; rx:5 }
+    .bx-a { fill:#e7eff1; stroke:#0f5c6e; stroke-width:1.6; rx:5 }
+    .n { font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:16px; font-weight:600; fill:#1a1e23 }
+    .s { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; font-size:13px; fill:#565d66 }
+    .st { font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:12.5px; font-weight:600;
+          letter-spacing:.06em; fill:#0f5c6e }
+    .cap { font-family:"IBM Plex Sans",system-ui,sans-serif; font-size:13px; fill:#565d66 }
+    .ln { stroke:#8a8272; stroke-width:1.3; fill:none; marker-end:url(#a) }
+  </style>
+</defs>
+<rect width="720" height="450" fill="#fbfaf7"/>
+
+<text class="st" x="24" y="30">ACQUISITION</text>
+<rect class="bx" x="24" y="42" width="196" height="66"/>
+<text class="n" x="40" y="68">Myo armband</text>
+<text class="s" x="40" y="90">8 channels · 200 Hz fixed</text>
+
+<text class="st" x="262" y="30">SEGMENTATION</text>
+<rect class="bx" x="262" y="42" width="196" height="66"/>
+<text class="n" x="278" y="68">Sliding window</text>
+<text class="s" x="278" y="90">150 ms · 73 % overlap</text>
+
+<text class="st" x="500" y="30">FEATURES</text>
+<rect class="bx" x="500" y="42" width="196" height="66"/>
+<text class="n" x="516" y="68">4 per channel</text>
+<text class="s" x="516" y="90">IEMG · MAV · RMS · WL</text>
+
+<line class="ln" x1="222" y1="75" x2="258" y2="75"/>
+<line class="ln" x1="460" y1="75" x2="496" y2="75"/>
+
+<!-- wrap down to second row -->
+<path class="ln" d="M598 110 L598 150"/>
+
+<text class="st" x="500" y="172">NORMALISATION</text>
+<rect class="bx" x="500" y="184" width="196" height="66"/>
+<text class="n" x="516" y="210">Z-score</text>
+<text class="s" x="516" y="232">per feature</text>
+
+<text class="st" x="262" y="172">MODEL</text>
+<rect class="bx-a" x="262" y="184" width="196" height="66"/>
+<text class="n" x="278" y="210">Gradient boosting</text>
+<text class="s" x="278" y="232">selected by cross-validation</text>
+
+<text class="st" x="24" y="172">OUTPUT</text>
+<rect class="bx" x="24" y="184" width="196" height="66"/>
+<text class="n" x="40" y="210">Estimated hand state</text>
+<text class="s" x="40" y="232">1, 2 or 3 DOF task</text>
+
+<line class="ln" x1="496" y1="217" x2="462" y2="217"/>
+<line class="ln" x1="258" y1="217" x2="224" y2="217"/>
+
+<!-- candidate models considered -->
+<rect x="24" y="286" width="672" height="60" fill="#f4f1ea" stroke="#e4dfd4" stroke-width="1" rx="4"/>
+<text class="st" x="42" y="310">COMPARED BY CROSS-VALIDATION</text>
+<text class="s" x="42" y="332">SVM · decision tree · XGBoost · CatBoost · gradient boosting  →  gradient boosting deployed online</text>
+
+<text class="cap" x="24" y="380">Diagram — drawn from the implemented pipeline.</text>
+<text class="cap" x="24" y="402">The ≈300 ms intent-to-response budget this chain is designed against is a figure taken from the</text>
+<text class="cap" x="24" y="422">myoelectric-control literature, not a latency measured in this project.</text>
+</svg>

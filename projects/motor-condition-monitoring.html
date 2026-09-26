@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fbfaf7">
+<script>document.documentElement.className += ' js';</script>
+<title>Induction-Motor Condition Monitoring — Muhammad Mustafa Khan</title>
+<meta name="description" content="A multisensor induction-motor rig, a synchronised logging and windowed feature pipeline, and an autoencoder trained only on healthy operation whose reconstruction error serves as a novelty score.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://mustafahan786.github.io/projects/motor-condition-monitoring.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Induction-Motor Condition Monitoring">
+<meta property="og:description" content="Labelled fault data were unavailable, so the model learns healthy operation and reports distance from it.">
+<meta property="og:url" content="https://mustafahan786.github.io/projects/motor-condition-monitoring.html">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/motor.jpg">
+<meta property="og:image:alt" content="Induction-motor condition monitoring — project">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html">Muhammad Mustafa Khan</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="bars" aria-hidden="true"><span></span></span>Menu
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#outputs">Outputs</a>
+      <a href="../index.html#about">About</a>
+      <a class="nav-cta" href="../cv.html">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="case-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> Motor monitoring</p>
+      <p class="case-meta">Team project · Team of three · GIST · Autumn 2025</p>
+      <h1 class="case-title">Induction-Motor Condition Monitoring</h1>
+      <p class="case-sub">Healthy-baseline modelling from multisensor data.</p>
+
+      <figure class="fig fig-hero fig-wide fig-pad">
+        <a class="zoom" href="../assets/img/motor/motor-architecture.svg">
+          <img src="../assets/img/motor/motor-architecture.svg" width="700" height="470" decoding="async"
+               alt="System architecture: temperature, current and shaft-speed sensors feed an Arduino writing a record every 0.5 seconds to a Python logger; ten-sample windows produce six features for a 6-4-2-4-6 autoencoder trained on healthy data, whose reconstruction error is compared against a hand-set threshold. Vibration is drawn separately as acquired but not an input to the deployed model.">
+        </a>
+        <figcaption><span class="tag">Diagram</span>The implemented pipeline, drawn from the logging and
+          model code. Vibration is shown where it sits: acquired, but outside the deployed model.</figcaption>
+      </figure>
+
+      <div class="brief">
+        <h2 class="sr-only">Research brief</h2>
+        <dl>
+          <div>
+            <dt>Objective</dt>
+            <dd>Monitor a running induction motor when labelled fault data could not be produced safely in a
+              shared laboratory.</dd>
+          </div>
+          <div>
+            <dt>Approach</dt>
+            <dd>Because labelled fault data were unavailable, we modelled healthy operation instead and used
+              autoencoder reconstruction error as a novelty score.</dd>
+          </div>
+          <div>
+            <dt>Individual contribution</dt>
+            <dd>Team of three. Mine: the logging architecture and file formats, the signal processing and
+              windowed feature pipeline, the model comparison and the deployed autoencoder.</dd>
+          </div>
+          <div>
+            <dt>Current status</dt>
+            <dd>A <strong>9,822-record</strong> healthy baseline acquired and a novelty score deployed behind
+              a monitoring dashboard. <strong>No validated fault detector was produced.</strong></dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <div class="split split-media-first">
+        <figure class="fig split-media fig-frame">
+          <a class="zoom" href="../assets/img/motor/motor-rig-1600.jpg">
+            <img src="../assets/img/motor/motor-rig-800.jpg"
+                 srcset="../assets/img/motor/motor-rig-800.jpg 800w, ../assets/img/motor/motor-rig-1600.jpg 1600w"
+                 sizes="(min-width: 860px) 52vw, 92vw" width="800" height="378" loading="lazy" decoding="async"
+                 alt="The instrumented rig showing the motor, sensor mounts, breadboard wiring, Arduino and single-board computer.">
+          </a>
+          <figcaption><span class="tag">Photograph</span>The rig as instrumented — sensing, acquisition and
+            logging on one bench.</figcaption>
+        </figure>
+        <div>
+          <h2>The constraint that shaped the project</h2>
+          <div class="prose">
+            <p>
+              The original objectives named bearing wear, imbalance and misalignment. Supervised detection
+              needs labelled examples of each, and producing them means damaging a working machine in a
+              shared laboratory.
+            </p>
+            <p>
+              That constraint determined the method rather than merely limiting it. A model trained only on
+              healthy data can be built from what was actually available, and it answers a narrower but
+              answerable question: does this look like the operation it was trained on?
+            </p>
+            <p>
+              The machine was instrumented for surface temperature (DS18B20), line current (ACS712), shaft
+              speed by Hall effect (A3144) and vibration (MPU-6050). An Arduino acquires them and writes a
+              record every 0.5 s; a Python logger timestamps and stores it. Current is the noisiest channel,
+              so a moving average is applied before the RMS value is taken.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>From samples to six features</h2>
+      <div class="prose">
+        <p>
+          Single records are too noisy to judge. The pipeline works on ten-sample windows and reduces each to
+          six numbers: the mean and standard deviation of temperature, of current RMS and of shaft speed.
+          Mean captures the operating point; standard deviation captures how steadily the machine holds it.
+        </p>
+        <p>
+          Vibration was acquired throughout and is not an input to the deployed model. The logger records one
+          value per channel every 0.5 s, so the stored vibration series describes slow changes in level
+          rather than the frequency content in which bearing or imbalance signatures would appear. Including
+          it would have implied a capability the logging rate did not support.
+        </p>
+      </div>
+      <figure class="fig fig-wide">
+        <a class="zoom" href="../assets/img/motor/motor-baseline.svg">
+          <img src="../assets/img/motor/motor-baseline.svg" width="640" height="556" loading="lazy" decoding="async"
+               alt="Three stacked plots of the logged healthy baseline — temperature, current RMS and shaft speed — each drawn as a shaded band spanning the minimum and maximum logged value in each horizontal position.">
+        </a>
+        <figcaption><span class="tag">Measured</span>The healthy baseline, from the 9,822 logged records used
+          for training. Each channel is drawn as a per-column minimum–maximum envelope of the logged samples,
+          not as a single trace; the record contains appended sessions and intervals where the speed channel
+          reads zero.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <h2>Learning what healthy looks like</h2>
+          <div class="prose">
+            <p>
+              A support vector machine, a k-nearest-neighbour model and an autoencoder were compared offline
+              on the baseline, and the autoencoder was selected. Its reconstruction error is a continuous
+              quantity rather than a hard class boundary, which suits a score that has to be thresholded
+              later.
+            </p>
+            <p>
+              The final network is a dense 6–4–2–4–6 autoencoder. It compresses the six features to two
+              numbers and reconstructs them. Trained on healthy windows alone, it reconstructs familiar
+              operation accurately; the mean squared reconstruction error is the intended novelty score,
+              compared against a hand-set threshold.
+            </p>
+          </div>
+        </div>
+        <div class="split-media">
+          <div class="eq" role="img" aria-label="The novelty score is the mean squared error between the six input features and their reconstruction. An alert is raised when that score exceeds a hand-set threshold.">
+            z = f<sub>enc</sub>(x),  x̂ = f<sub>dec</sub>(z)<br>
+            s = ‖x − x̂‖² ⁄ 6<br>
+            alert ⇔ s &gt; τ<sub>manual</sub>
+          </div>
+          <p class="small muted">Six features in, a two-dimensional bottleneck, six out. The score is the
+            reconstruction error; τ was set by hand from the baseline.</p>
+        </div>
+      </div>
+
+      <div class="callout">
+        <h3>What this score means</h3>
+        <p>
+          Reconstruction error measures distance from the training distribution. It is the quantity the
+          design intends to use as a novelty score — it is not a fault classifier, it does not identify which
+          fault is present, and because it was never exercised against real faults there is no evidence about
+          how it responds to one. A genuine fault could raise it, leave it unchanged, or resemble an
+          operating condition simply absent from the baseline.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <div class="split split-wide-media">
+        <div>
+          <h2>The operator view</h2>
+          <div class="prose">
+            <p>
+              A dashboard presents the live readings and the current novelty score, so the model's output is
+              legible to someone standing at the machine rather than reading a log file.
+            </p>
+            <p>
+              The capture beside this text is the interface running on placeholder values, not a recording of
+              the motor. It shows the layout and information design only.
+            </p>
+          </div>
+        </div>
+        <figure class="fig split-media fig-frame">
+          <a class="zoom" href="../assets/img/motor/motor-dashboard-preview-1376.jpg">
+            <img src="../assets/img/motor/motor-dashboard-preview-688.jpg"
+                 srcset="../assets/img/motor/motor-dashboard-preview-688.jpg 688w, ../assets/img/motor/motor-dashboard-preview-1376.jpg 1376w"
+                 sizes="(min-width: 860px) 52vw, 92vw" width="688" height="388" loading="lazy" decoding="async"
+                 alt="Monitoring dashboard layout showing temperature, current and speed readouts with a health indicator and trend charts.">
+          </a>
+          <figcaption><span class="tag tag-sim">Interface preview</span>Layout only — the values shown are
+            placeholders, not measurements from the motor.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="wrap">
+      <h2>Limitations and next steps</h2>
+      <div class="limits">
+        <h3>Not established</h3>
+        <ul class="tight">
+          <li><strong>No validated fault detection</strong> — bearing wear, imbalance and misalignment were
+            named as objectives and never tested. No sensitivity, false-alarm rate or detection latency is
+            claimed.</li>
+          <li><strong>One machine, one baseline</strong> — the training data covers a single motor over a
+            limited set of operating conditions. Normal operation outside that set would look novel to the
+            model.</li>
+          <li><strong>Threshold set by hand</strong> — τ was chosen by inspection of the baseline, not
+            against a calibrated false-positive target.</li>
+          <li><strong>Model comparison not quantified here</strong> — the three candidates were compared
+            offline during the project; no ranking metric is published on this page.</li>
+        </ul>
+      </div>
+      <div class="prose" style="margin-top:1.5rem">
+        <p>
+          The honest next step is not a larger model. It is a rig where faults can be introduced safely and
+          reversibly — a swappable bearing, an added imbalance mass — so the score can be measured against
+          something real, and vibration acquisition fast enough to give it a channel worth reading.
+        </p>
+        <p class="small muted">
+          Team of three. Taseer Abbas led hardware integration, sensor calibration and data validation;
+          Ahmed Cho handled the mechanical arrangement, wiring and safety.
+        </p>
+      </div>
+
+      <h2 class="related-h">Related projects</h2>
+      <div class="related">
+        <a href="afm-high-speed-control.html">
+          <img src="../assets/img/afm/afm-head-wide-660.jpg" width="660" height="391" loading="lazy" decoding="async" alt="">
+          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>Measuring a system before deciding what to do about it</span></span>
+        </a>
+        <a href="semg-rehabilitation-interface.html">
+          <img src="../assets/img/semg/semg-pipeline-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
+          <span><b>Real-Time sEMG Interface</b><span>Windowed features and classifiers on a noisier signal</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-name">Muhammad Mustafa Khan</p>
+      <p>Open to PhD positions and research collaboration in control, precision mechatronics and
+        learning-enabled control of physical systems.</p>
+      <ul class="footer-links">
+        <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
+        <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
+        <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#outputs">Outputs</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../cv.html">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+</footer>
+<script src="../script.js" defer></script>
+</body>
+</html>

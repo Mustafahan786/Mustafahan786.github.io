@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fbfaf7">
+<script>document.documentElement.className += ' js';</script>
+<title>Real-Time sEMG Rehabilitation Interface — Muhammad Mustafa Khan</title>
+<meta name="description" content="Eight channels of forearm sEMG, four time-domain features per 150 ms window and a gradient-boosting model driving one-, two- and three-degree-of-freedom rehabilitation tasks, evaluated with Fitts' law metrics.">
+<link rel="canonical" href="https://mustafahan786.github.io/projects/semg-rehabilitation-interface.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Real-Time sEMG Rehabilitation Interface">
+<meta property="og:description" content="Eight channels, 150 ms windows, four time-domain features and an online gradient-boosting model driving interactive rehabilitation tasks.">
+<meta property="og:url" content="https://mustafahan786.github.io/projects/semg-rehabilitation-interface.html">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/semg.jpg">
+<meta property="og:image:alt" content="Real-time sEMG rehabilitation interface — project">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html">Muhammad Mustafa Khan</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="bars" aria-hidden="true"><span></span></span>Menu
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#outputs">Outputs</a>
+      <a href="../index.html#about">About</a>
+      <a class="nav-cta" href="../cv.html">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="case-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> sEMG interface</p>
+      <p class="case-meta">Research project · Human System Lab, NUST · June 2022 – August 2023</p>
+      <h1 class="case-title">Real-Time sEMG Rehabilitation Interface</h1>
+      <p class="case-sub">Eight-channel hand-state estimation for post-stroke upper-limb training.</p>
+      <ul class="case-links">
+        <li><a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">MUSED-I dataset · IEEE DataPort</a></li>
+        <li><a href="#evaluation">Experimental evidence</a></li>
+      </ul>
+
+      <figure class="fig fig-hero fig-wide fig-pad">
+        <a class="zoom" href="../assets/img/semg/semg-pipeline.svg">
+          <img src="../assets/img/semg/semg-pipeline.svg" width="720" height="450" decoding="async"
+               alt="Processing chain: an eight-channel Myo armband at 200 hertz feeds 150 millisecond sliding windows with 73 percent overlap; four time-domain features per channel are Z-score normalised and passed to a gradient-boosting model that outputs an estimated hand state for tasks at one, two or three degrees of freedom.">
+        </a>
+        <figcaption><span class="tag">Diagram</span>The processing chain as implemented, from electrodes to
+          estimated hand state.</figcaption>
+      </figure>
+
+      <div class="brief">
+        <h2 class="sr-only">Research brief</h2>
+        <dl>
+          <div>
+            <dt>Objective</dt>
+            <dd>Estimate intended hand state from forearm sEMG quickly enough that a person can steer an
+              interactive rehabilitation task.</dd>
+          </div>
+          <div>
+            <dt>Approach</dt>
+            <dd>Fixed-length overlapping windows, four time-domain features per channel, normalisation, and
+              a model chosen by cross-validation and deployed online.</dd>
+          </div>
+          <div>
+            <dt>Individual contribution</dt>
+            <dd>Acquisition and feature pipeline, classifier comparison and online deployment, three task
+              interfaces including a custom three-DOF maze, and the evaluation protocol.</dd>
+          </div>
+          <div>
+            <dt>Experimental evidence</dt>
+            <dd>Online control demonstrated at 1, 2 and 3 DOF. Fitts' law regression of completion time on
+              index of difficulty gave <strong><i>R</i>² ≥ 0.98</strong> across ten able-bodied participants
+              and <i>R</i>² ≥ 0.88 for two participants with chronic stroke.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <nav class="contents" aria-labelledby="contents-h">
+        <h2 id="contents-h">Contents</h2>
+        <ol>
+          <li><a href="#budget">The time budget</a></li>
+          <li><a href="#pipeline">From skin to decision</a></li>
+          <li><a href="#tasks">The tasks</a></li>
+          <li><a href="#evaluation">Experimental evidence</a></li>
+          <li><a href="#limits">Limitations</a></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <section class="stage" id="budget">
+    <div class="wrap">
+      <h2>Designing against a time budget</h2>
+      <div class="prose">
+        <p>
+          The myoelectric-control literature converges on roughly 300 ms as the outer limit for the delay
+          between intent and response before an interface stops feeling controllable. That figure is a design
+          constraint taken from the literature, not a latency measured in this project.
+        </p>
+        <p>
+          It still shapes every decision downstream. Window length, overlap, feature count and model
+          complexity all spend from the same budget, so each was chosen with the total in mind rather than
+          optimised on its own.
+        </p>
+      </div>
+      <div class="metrics">
+        <div><span class="metric-value">8</span><span class="metric-label">Channels of forearm sEMG at a fixed 200 Hz</span></div>
+        <div><span class="metric-value">150 ms</span><span class="metric-label">Analysis window, 73 % overlap</span></div>
+        <div><span class="metric-value">≈300 ms</span><span class="metric-label">Literature delay budget the design targets</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="pipeline">
+    <div class="wrap">
+      <div class="split split-wide-media">
+        <div>
+          <h2>From skin to decision</h2>
+          <div class="prose">
+            <p>
+              Eight channels arrive at a fixed 200 Hz. Each 150 ms window — overlapped by 73 % so decisions
+              arrive faster than the window length alone would allow — is reduced to four time-domain
+              features per channel: integrated EMG, mean absolute value, root mean square and waveform
+              length. They are cheap to compute and describe amplitude and activity without a frequency
+              transform.
+            </p>
+            <p>
+              Features are Z-score normalised, because raw amplitude shifts with electrode placement, skin
+              condition and session. Five models were then compared under cross-validation on the same
+              features — a support vector machine, a decision tree, XGBoost, CatBoost and gradient boosting —
+              and gradient boosting was deployed for online inference.
+            </p>
+          </div>
+        </div>
+        <figure class="fig split-media fig-frame">
+          <a class="zoom" href="../assets/img/semg/semg-realtime-wide-1240.jpg">
+            <img src="../assets/img/semg/semg-realtime-wide-700.jpg"
+                 srcset="../assets/img/semg/semg-realtime-wide-700.jpg 700w, ../assets/img/semg/semg-realtime-wide-1240.jpg 1240w"
+                 sizes="(min-width: 860px) 45vw, 92vw" width="700" height="350" loading="lazy" decoding="async"
+                 alt="Live classification display showing eight sEMG channel traces beside the predicted hand motion during a recording session.">
+          </a>
+          <figcaption><span class="tag">Photograph</span>The deployed model running live: channel traces on
+            the left, current prediction on the right.</figcaption>
+        </figure>
+      </div>
+
+      <figure class="fig fig-mid">
+        <video controls preload="none" playsinline
+               poster="../assets/video/semg-realtime-classification-poster.jpg" width="1272" height="720">
+          <source src="../assets/video/semg-realtime-classification.mp4" type="video/mp4">
+          Your browser cannot play this video. It shows the online model responding to forearm movements.
+        </video>
+        <figcaption><span class="tag">Video</span>The deployed model responding to forearm movements in real
+          time. Recorded in the laboratory on the author's own arm.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stage" id="tasks">
+    <div class="wrap">
+      <h2>Three tasks, increasing in demand</h2>
+      <div class="prose">
+        <p>
+          A model that scores well on held-out data has not yet been shown to work as a control interface.
+          The tasks were the test: a brick-breaker for one degree of freedom, a space shooter for two, and a
+          maze for three, so the same pipeline had to hold up as the control problem grew.
+        </p>
+        <p>
+          The maze was built from scratch. It is the most demanding of the three — continuous navigation
+          rather than discrete reactions — and it is where a pipeline that is merely accurate offline starts
+          to feel laggy or unstable.
+        </p>
+      </div>
+
+      <figure class="fig fig-mid">
+        <video controls preload="none" playsinline
+               poster="../assets/video/semg-maze-game-poster.jpg" width="1280" height="720">
+          <source src="../assets/video/semg-maze-game.mp4" type="video/mp4">
+          Your browser cannot play this video. It shows the three-degree-of-freedom maze task under sEMG control.
+        </video>
+        <figcaption><span class="tag">Video</span>The three-degree-of-freedom maze task under live sEMG
+          control.</figcaption>
+      </figure>
+
+      <figure class="fig fig-mid fig-frame">
+        <a class="zoom" href="../assets/img/semg/semg-games-mapping-923.jpg">
+          <img src="../assets/img/semg/semg-games-mapping-923.jpg" width="923" height="608" loading="lazy" decoding="async"
+               alt="Figure mapping hand gestures to control actions across the three interactive tasks.">
+        </a>
+        <figcaption>Gesture-to-action mapping across the three tasks. Figure prepared by the project
+          team.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="stage" id="evaluation">
+    <div class="wrap">
+      <h2>Evaluating it as an interface, not a model</h2>
+      <div class="prose">
+        <p>
+          Classification accuracy says nothing about whether a person can steer with the signal. The
+          evaluation therefore used Fitts' law, which relates movement time to target distance and width — a
+          standard way of characterising a pointing interface — alongside completion rate, overshoot, path
+          efficiency and goniometric joint-angle measurements.
+        </p>
+        <p>
+          Regressing completion time on index of difficulty produced strong participant-level model fits:
+          <i>R</i>² ≥ 0.98 for the ten able-bodied participants and <i>R</i>² ≥ 0.88 for the two participants
+          with chronic stroke.
+        </p>
+      </div>
+      <div class="callout">
+        <h3>Reading these numbers</h3>
+        <p>
+          <i>R</i>² here describes how well the linear Fitts relationship fits each participant's recorded
+          movement times under this evaluation. It is a measure of regression fit, not of skill, speed or
+          clinical status. With ten and two participants the two values cannot support inference about
+          population-level differences, and a lower <i>R</i>² is not by itself evidence of greater
+          variability. No therapeutic benefit or clinical outcome is claimed anywhere in this work.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage" id="limits">
+    <div class="wrap">
+      <h2>Limitations</h2>
+      <div class="limits">
+        <h3>Not established</h3>
+        <ul class="tight">
+          <li><strong>Latency was never measured</strong> — the 300 ms figure is a design target from the
+            literature. End-to-end delay from muscle activation to on-screen response was not
+            instrumented.</li>
+          <li><strong>Small, uneven groups</strong> — ten able-bodied and two post-stroke participants. The
+            evaluation characterises the interface; it does not compare populations.</li>
+          <li><strong>No clinical claim</strong> — this is an engineering evaluation of a control interface.
+            Rehabilitation efficacy was not assessed here.</li>
+          <li><strong>Session dependence</strong> — normalisation reduces but does not remove sensitivity to
+            electrode placement and skin condition; cross-session and cross-user generalisation was not
+            characterised.</li>
+        </ul>
+      </div>
+
+      <div class="prose" style="margin-top:1.75rem">
+        <h3>Output</h3>
+        <p>
+          M. M. Khan, M. Farhan, A. Shahzad, H. S. Qarni, A. Waris and O. Gilani, “MUSED-I: Multi-Gesture
+          Surface Electromyography (sEMG) Dataset for Stroke Rehabilitation”, <em>IEEE DataPort</em>,
+          August 2023. doi:10.21227/04zq-yz45 ·
+          <a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">record</a>
+        </p>
+        <p class="small muted">
+          A laboratory project with a larger team. Colleagues extended the interface set and ran the sessions
+          with clinical participants; recordings were made under NUST Research Ethics Committee approval.
+        </p>
+      </div>
+
+      <h2 class="related-h">Related projects</h2>
+      <div class="related">
+        <a href="soft-robotic-glove.html">
+          <img src="../assets/img/glove/glove-actuators-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
+          <span><b>REHABOTICS Soft Robotic Glove</b><span>The actuator this interface was built to drive</span></span>
+        </a>
+        <a href="afm-high-speed-control.html">
+          <img src="../assets/img/afm/afm-head-wide-660.jpg" width="660" height="391" loading="lazy" decoding="async" alt="">
+          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>Real-time sensing and embedded feedback at a different physical scale</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-name">Muhammad Mustafa Khan</p>
+      <p>Open to PhD positions and research collaboration in control, precision mechatronics and
+        learning-enabled control of physical systems.</p>
+      <ul class="footer-links">
+        <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
+        <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
+        <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#outputs">Outputs</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../cv.html">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+</footer>
+<script src="../script.js" defer></script>
+</body>
+</html>

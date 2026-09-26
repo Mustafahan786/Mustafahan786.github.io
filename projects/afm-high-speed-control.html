@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="theme-color" content="#fbfaf7">
+<script>document.documentElement.className += ' js';</script>
+<title>Model-Based Digital PI Control for High-Speed Contact-Mode AFM — Muhammad Mustafa Khan</title>
+<meta name="description" content="Frequency-response identification of a contact-mode AFM Z-axis, a digital PI controller implemented on an STM32F407 at 18.4 kHz, and trace–retrace evaluation from 2 to 20 Hz.">
+<link rel="canonical" href="https://mustafahan786.github.io/projects/afm-high-speed-control.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Model-Based Digital PI Control for High-Speed Contact-Mode AFM">
+<meta property="og:description" content="Measured plant dynamics, a digital PI loop on an STM32F407 at 18.4 kHz, and trace–retrace evaluation from 2 to 20 Hz.">
+<meta property="og:url" content="https://mustafahan786.github.io/projects/afm-high-speed-control.html">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/afm.jpg">
+<meta property="og:image:alt" content="Model-Based Digital PI Control for High-Speed Contact-Mode AFM — project">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../style.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="brand" href="../index.html">Muhammad Mustafa Khan</a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+      <span class="bars" aria-hidden="true"><span></span></span>Menu
+    </button>
+    <nav class="nav" id="site-nav" aria-label="Primary">
+      <a href="index.html" aria-current="page">Work</a>
+      <a href="../index.html#research">Research</a>
+      <a href="../index.html#outputs">Outputs</a>
+      <a href="../index.html#about">About</a>
+      <a class="nav-cta" href="../cv.html">CV</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="case-hero">
+    <div class="wrap">
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> AFM Z-axis Control</p>
+      <p class="case-meta">Current research · Dynamics &amp; Control Lab, GIST · September 2025 – present</p>
+      <h1 class="case-title">Model-Based Digital PI Control for High-Speed Contact-Mode AFM</h1>
+      <p class="case-sub"><strong>System identification, embedded control implementation, and trace–retrace
+        evaluation of the AFM Z-axis feedback loop.</strong></p>
+      <ul class="case-links">
+        <li><a href="#output"><strong>View poster · 23rd IFAC World Congress 2026</strong></a></li>
+      </ul>
+
+      <div class="brief brief-3">
+        <h2 class="sr-only">Summary</h2>
+        <dl>
+          <div>
+            <dt>Research question</dt>
+            <dd>What closed-loop tracking bandwidth is achievable with digital PI control of the contact-mode AFM
+              Z-axis, and how does the practical tracking limit manifest in trace–retrace fidelity as scan
+              frequency increases?</dd>
+          </div>
+          <div>
+            <dt>What I did</dt>
+            <dd>Measured the contact-mode frequency response, identified a plant model, implemented the PI
+              controller on an STM32, and evaluated scans at different frequencies.</dd>
+          </div>
+          <div>
+            <dt>Key result</dt>
+            <dd>At scan frequencies up to 5&nbsp;Hz, trace–retrace correlation remained at least
+              <strong>0.977</strong>, with NRMSE no greater than <strong>7.7%</strong>. At 20&nbsp;Hz, correlation
+              fell to <strong>0.856</strong> and NRMSE rose to <strong>19.5%</strong>, indicating reduced tracking
+              fidelity, particularly near step edges.</dd>
+          </div>
+        </dl>
+      </div>
+
+      <nav class="contents" aria-labelledby="contents-h">
+        <h2 id="contents-h">Contents</h2>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#system">Closed-Loop Control of AFM</a></li>
+          <li><a href="#identification">System identification</a></li>
+          <li><a href="#controller">Controller Design and Implementation</a></li>
+          <li><a href="#experiments">Experiments</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#ongoing-research">Ongoing research</a></li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- ========== 1. overview ========== -->
+  <section class="stage" id="overview">
+    <div class="wrap">
+      <h2>Overview</h2>
+      <div class="prose">
+        <p>
+          In contact-mode atomic force microscopy (AFM), an X–Y nanostage rasters the sample beneath a cantilever
+          whose tip remains in contact with the surface. An optical lever measures cantilever deflection, while a
+          PI-controlled Z-piezo adjusts the cantilever height to maintain the deflection setpoint. As scan frequency
+          increases, finite Z-axis tracking can reduce agreement between trace and retrace images, particularly
+          near step edges.
+        </p>
+        <p>
+          This work measures the contact-mode frequency response, identifies the plant dynamics, and implements
+          digital PI control on an STM32. Images acquired at 2, 5, 10 and 20&nbsp;Hz are evaluated using
+          trace–retrace correlation and normalised root-mean-square error (NRMSE) to quantify image consistency.
+        </p>
+      </div>
+
+      <figure class="fig fig-wide fig-overview-video">
+        <div class="video-frame">
+          <video controls preload="none" playsinline muted width="1920" height="1080"
+                 poster="../assets/video/afm-overview-instrument-poster.jpg"
+                 aria-label="Illustrative animation of contact-mode AFM operation: a laser reflects from the cantilever onto the quadrant photodiode, the PI controller drives the Z-piezo to hold the setpoint deflection as the tip crosses a step, and trace and retrace profiles are recorded.">
+            <source src="../assets/video/afm-overview-loop-1080p.mp4" type="video/mp4">
+            Your browser cannot play this video. It is an illustrative animation of contact-mode AFM: the laser
+            spot on the quadrant photodiode shifts as the cantilever bends at a surface step, the PI controller
+            retracts the Z-piezo to restore the setpoint, and the controller output forms the trace and retrace
+            height profiles.
+          </video>
+        </div>
+        <figcaption><span class="tag">Video</span>Contact-mode AFM sensing and trace–retrace imaging · Illustrative;
+          height not to scale.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 2. AFM system ========== -->
+  <section class="stage" id="system">
+    <div class="wrap">
+      <h2>Closed-Loop Control of AFM</h2>
+      <div class="prose">
+        <p>
+          The contact-mode AFM uses optical-lever sensing to measure cantilever deflection and Z-axis feedback to
+          maintain its setpoint. A laser beam is reflected from the back of the cantilever onto a quadrant photodiode (Hamamatsu S4349); the normalised
+          difference between the upper and lower quadrant pairs gives the vertical deflection. The signal is
+          conditioned by a transimpedance and difference stage, shifted into the ADC input range and sampled by an
+          STM32F407 microcontroller, which computes the control update. The DAC output is amplified by a PA88
+          high-voltage stage (0–150 V) driving a stacked piezoelectric Z-actuator on the head side, while a
+          voice-coil leaf-spring nanostage rasters the sample in X–Y.
+        </p>
+      </div>
+
+      <figure class="fig fig-wide fig-center">
+        <a class="zoom" href="../assets/img/afm/afm-z-loop-schematic-1200.jpg">
+          <img src="../assets/img/afm/afm-z-loop-schematic-1200.jpg"
+               srcset="../assets/img/afm/afm-z-loop-schematic-640.jpg 640w, ../assets/img/afm/afm-z-loop-schematic-1200.jpg 1200w"
+               sizes="(min-width: 1000px) 940px, 92vw" width="1200" height="584" loading="lazy" decoding="async"
+               alt="Schematic of the AFM Z-axis loop. A laser reflects from the cantilever onto a quadrant photodiode; the tip rests on a 100 nm step standard carried by an X–Y nanostage. The photodiode signal passes through the QPD signal processing board and a level shifter to an STM32F407 running at 18.4 kHz, where the ADC output is compared with the setpoint and processed by a PI controller. The DAC output drives the PA88 high-voltage amplifier, which drives the Z-piezo stack on the head side.">
+        </a>
+        <figcaption><span class="tag">Schematic</span>Z-axis feedback loop of the instrument. Not to scale; step
+          height exaggerated.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 3. system identification ========== -->
+  <section class="stage" id="identification">
+    <div class="wrap">
+      <h2>System identification</h2>
+      <div class="prose">
+        <p>
+          The contact-mode open-loop response was measured using a 10 mV rms swept sine from 50 Hz to 10 kHz.
+          Measuring with the tip in contact captures the tip–sample interaction.
+        </p>
+        <p>
+          The response shows a dominant resonance at 4.82 kHz and a second mode at higher frequency. A fourth-order
+          structural model captures the principal magnitude features over 100 Hz–8 kHz. The figure compares measured
+          and modelled magnitude; the phase panel shows the measured response.
+        </p>
+      </div>
+
+      <figure class="fig fig-wide fig-center">
+        <a class="zoom" href="../assets/img/afm/afm-contact-mode-frequency-response.svg">
+          <img src="../assets/img/afm/afm-contact-mode-frequency-response.svg" width="940" height="630" loading="lazy" decoding="async"
+               alt="Bode plot, 100 hertz to 8 kilohertz, of the measured contact-mode open-loop response and the magnitude of the fourth-order model. Magnitude is about 27 decibels at low frequency, rises to a resonance peak near 43 decibels at 4.82 kilohertz, dips, shows a second mode near 6 kilohertz and falls to about 26 decibels at 8 kilohertz; the model magnitude follows it closely. The phase panel shows the measured phase only: it starts near plus 180 degrees, falls to about 0 degrees just above the resonance and to about minus 110 degrees at 8 kilohertz.">
+        </a>
+        <figcaption><span class="tag">Model</span>Contact-mode open-loop frequency response.</figcaption>
+      </figure>
+
+      <div class="model-block">
+        <h3>Identified contact-mode plant model</h3>
+        <p class="model-note">Fourth-order structural plant model; the PI controller is excluded.</p>
+        <div class="eq-render" role="region" aria-label="Fourth-order structural plant transfer function (scrolls horizontally if needed)" tabindex="0">
+          <img class="eq-main" src="../assets/img/afm/afm-plant-eq-main.svg" width="321" height="58" loading="lazy" decoding="async"
+               alt="G_struct(s) = −22.826533 N_z(s) / (D_1(s) D_2(s))">
+          <picture>
+            <source media="(max-width: 600px)" srcset="../assets/img/afm/afm-plant-eq-narrow.svg" width="238" height="225">
+            <img class="eq-factors" src="../assets/img/afm/afm-plant-eq-wide.svg" width="378" height="129" loading="lazy" decoding="async"
+                 alt="N_z(s) = (s/34845.0)² + 0.120119(s/34845.0) + 1; D_1(s) = (s/30765.5)² + 0.098805(s/30765.5) + 1; D_2(s) = (s/38376.0)² + 0.095315(s/38376.0) + 1.">
+          </picture>
+        </div>
+        <p class="model-note eq-note">
+          <i>N</i><sub>z</sub>: lightly damped zero pair (5.55 kHz); <i>D</i><sub>1</sub>, <i>D</i><sub>2</sub>:
+          structural pole pairs (4.90 kHz and 6.11 kHz).
+        </p>
+        <details class="eq-source">
+          <summary>LaTeX source (copyable)</summary>
+          <pre><code>G_{\mathrm{struct}}(s)=\frac{-22.826533\,N_z(s)}{D_1(s)\,D_2(s)},
+\quad
+N_z(s)=\left(\frac{s}{34845.0}\right)^2+0.120119\left(\frac{s}{34845.0}\right)+1,
+\quad
+D_1(s)=\left(\frac{s}{30765.5}\right)^2+0.098805\left(\frac{s}{30765.5}\right)+1,
+\quad
+D_2(s)=\left(\frac{s}{38376.0}\right)^2+0.095315\left(\frac{s}{38376.0}\right)+1.</code></pre>
+        </details>
+      </div>
+
+      <div class="metrics">
+        <div><span class="metric-value">4.82 kHz</span><span class="metric-label">Dominant open-loop resonance, contact mode</span></div>
+        <div><span class="metric-value">4th order</span><span class="metric-label">Identified structural plant model</span></div>
+        <div><span class="metric-value">18.4 kHz</span><span class="metric-label">Sampling and control rate of the implemented loop</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. controller ========== -->
+  <section class="stage" id="controller">
+    <div class="wrap">
+      <h2>Controller Design and&nbsp;Implementation</h2>
+      <div class="prose">
+        <p>
+          The PI gains were selected by loop shaping against the measured contact-mode frequency response. The
+          dominant 4.82 kHz resonance was taken into account when selecting the controller gains.
+        </p>
+        <p>
+          The PI controller runs on the STM32F407 at 18.4 kHz, with each update executed in the ADC
+          conversion-complete interrupt. The integral state is limited to reduce wind-up when the drive saturates,
+          while the output is limited to keep the command within the high-voltage amplifier’s operating range.
+        </p>
+      </div>
+
+      <div class="model-block law-block">
+        <div class="eq-render law-render" role="group" aria-labelledby="pi-card-label">
+          <p class="law-label" id="pi-card-label">PI controller</p>
+          <img class="law-eq" src="../assets/img/afm/afm-pi-law.svg" width="275" height="81" loading="lazy" decoding="async"
+               alt="e[k] = r[k] − y_c[k]; I[k] = sat_I(I[k−1] + K_i T_s e[k]); u[k] = sat_u(u_bias + K_p e[k] + I[k]).">
+          <table class="sym-table">
+            <caption class="sr-only">Symbols used in the PI controller equations</caption>
+            <tbody>
+              <tr><th scope="row"><i>r</i>[<i>k</i>]</th><td>deflection setpoint</td></tr>
+              <tr><th scope="row"><i>y</i><sub>c</sub>[<i>k</i>]</th><td>measured deflection</td></tr>
+              <tr><th scope="row"><i>e</i>[<i>k</i>]</th><td>tracking error</td></tr>
+              <tr><th scope="row"><i>I</i>[<i>k</i>]</th><td>integral state</td></tr>
+              <tr><th scope="row"><i>u</i>[<i>k</i>]</th><td>DAC command to the high-voltage amplifier</td></tr>
+              <tr><th scope="row"><i>u</i><sub>bias</sub></th><td>output bias</td></tr>
+              <tr><th scope="row"><i>K</i><sub>p</sub>, <i>K</i><sub>i</sub></th><td>proportional and integral gains</td></tr>
+              <tr><th scope="row"><i>T</i><sub>s</sub></th><td>sample period, 1/(18.4 kHz) ≈ 54.3 µs</td></tr>
+              <tr><th scope="row">sat<sub><i>I</i></sub>(·)</th><td>clamps its argument to the integral-state limits</td></tr>
+              <tr><th scope="row">sat<sub><i>u</i></sub>(·)</th><td>clamps its argument to the output limits</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. experiments ========== -->
+  <section class="stage" id="experiments">
+    <div class="wrap">
+      <h2>Experiments</h2>
+      <div class="prose">
+        <p>
+          Imaging at increasing scan rates was evaluated by trace–retrace consistency. The sample was an HS-100MG
+          step-height standard with a nominal step height of 100 nm. Each 10 × 5 µm field was scanned at 2, 5, 10
+          and 20 Hz, and every line was acquired in both directions. After mean-plane levelling, the trace and
+          retrace topographies were compared using the Pearson correlation coefficient <i>r</i> and the normalised
+          root-mean-square error (NRMSE).
+        </p>
+      </div>
+      <div class="callout">
+        <h3>Scope of the metric</h3>
+        <p>
+          Trace–retrace agreement compares the two scan directions with each other. It does not independently
+          measure absolute accuracy or lateral resolution, and instrument and sample effects other than the Z-axis
+          loop can also influence it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. results ========== -->
+  <section class="stage" id="results">
+    <div class="wrap">
+      <h2>Results</h2>
+      <div class="prose">
+        <p>
+          Trace and retrace remained highly consistent up to 5 Hz (<i>r</i> ≥ 0.977, NRMSE ≤ 7.7 %). Consistency
+          decreased markedly between 5 and 10 Hz, reaching <i>r</i> = 0.856 and NRMSE 19.5 % at 20 Hz. The
+          discrepancy is concentrated at the step edges rather than distributed across the field. This pattern is
+          consistent with limited Z-axis tracking at abrupt height changes, although the metric alone does not
+          isolate the controller.
+        </p>
+      </div>
+
+      <figure class="fig fig-cap-wide">
+        <a class="zoom" href="../assets/img/afm/afm-scans-wide-1842.jpg">
+          <picture>
+            <source media="(min-width: 700px)" srcset="../assets/img/afm/afm-scans-wide-1842.jpg">
+            <img src="../assets/img/afm/afm-scans-tall-894.jpg" width="894" height="1198" loading="lazy" decoding="async"
+                 alt="Eight topography images of a 100 nm step standard: trace and retrace at 2, 5, 10 and 20 hertz. The stripes remain sharp at 2 and 5 hertz and the edges become irregular at 20 hertz.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">Measured</span>Trace and retrace topography of the <span class="nowrap">HS-100MG</span>
+          step standard at 2, 5, 10 and 20&nbsp;Hz. Scan area: 10&nbsp;×&nbsp;5&nbsp;µm.</figcaption>
+      </figure>
+
+      <figure class="fig fig-wide fig-center fig-3d fig-cap-wide">
+        <a class="zoom" href="../assets/img/afm/afm-scans-3d-v5-1859.jpg">
+          <picture>
+            <source media="(max-width: 600px)" srcset="../assets/img/afm/afm-scans-3d-v5-mobile-919.jpg" width="919" height="1168">
+            <img src="../assets/img/afm/afm-scans-3d-v5-940.jpg"
+                 srcset="../assets/img/afm/afm-scans-3d-v5-940.jpg 940w, ../assets/img/afm/afm-scans-3d-v5-1859.jpg 1859w"
+                 sizes="(min-width: 1000px) 940px, 92vw" width="940" height="925" loading="lazy" decoding="async"
+                 alt="Three-dimensional renderings of trace and retrace topography of the 100 nanometre step-height standard at 2, 5, 10 and 20 hertz, trace on the left and retrace on the right, on a common height scale from 0 to about 100 nanometres. At 2 and 5 hertz both directions show flat upper and lower terraces with clean step walls. At 10 hertz some streaks appear on the upper terraces, and at 20 hertz the step walls become broad and irregular and the two scan directions differ more visibly.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">Measured</span>3D views of the same scans. Height scaled to the nominal
+          100&nbsp;nm step.</figcaption>
+      </figure>
+
+      <div class="fig-grid fig-grid-2">
+        <figure class="fig fig-pad">
+          <a class="zoom" href="../assets/img/afm/afm-profile-2hz.svg">
+            <img src="../assets/img/afm/afm-profile-2hz.svg" width="480" height="300" loading="lazy" decoding="async"
+                 alt="Central-line height profile at 2 hertz: trace and retrace overlap closely across the steps.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Central-line trace and retrace profiles at 2 Hz: the
+            two directions nearly coincide.</figcaption>
+        </figure>
+        <figure class="fig fig-pad">
+          <a class="zoom" href="../assets/img/afm/afm-profile-20hz.svg">
+            <img src="../assets/img/afm/afm-profile-20hz.svg" width="480" height="300" loading="lazy" decoding="async"
+                 alt="Central-line height profile at 20 hertz: trace and retrace are displaced from each other at every step edge.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Central-line trace and retrace profiles at 20 Hz: the
+            two directions separate at each step edge.</figcaption>
+        </figure>
+        <figure class="fig fig-pad">
+          <a class="zoom" href="../assets/img/afm/afm-agreement-r.svg">
+            <img src="../assets/img/afm/afm-agreement-r.svg" width="420" height="300" loading="lazy" decoding="async"
+                 alt="Pearson correlation between trace and retrace: 0.986 at 2 hertz, 0.977 at 5 hertz, 0.872 at 10 hertz and 0.856 at 20 hertz.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Trace–retrace Pearson correlation (<i class="ic">r</i>) versus
+            scan frequency.</figcaption>
+        </figure>
+        <figure class="fig fig-pad">
+          <a class="zoom" href="../assets/img/afm/afm-agreement-nrmse.svg">
+            <img src="../assets/img/afm/afm-agreement-nrmse.svg" width="420" height="300" loading="lazy" decoding="async"
+                 alt="Normalised RMS error between trace and retrace: 6.1 percent at 2 hertz, 7.7 at 5, 18.1 at 10 and 19.5 at 20 hertz.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Trace–retrace NRMSE versus scan frequency.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 7. ongoing research ========== -->
+  <section class="stage" id="ongoing-research">
+    <div class="wrap">
+      <h2>Ongoing research</h2>
+      <div class="prose">
+        <p>
+          Current work extends the contact-mode AFM study toward higher scan rates by addressing the
+          4.82&nbsp;kHz structural resonance that constrains controller design. A digital notch filter has been
+          implemented in a subsequent STM32 firmware build with an approximately 103&nbsp;kHz sampling rate. Its
+          real-time operation and effects on closed-loop stability, Z-axis tracking, and image quality are being
+          evaluated. The scans presented above were acquired without notch compensation.
+        </p>
+        <p>
+          Model-predictive control is also being investigated using the identified plant model; its evaluation so
+          far has been limited to simulation. The next experimental comparison will assess the existing PI
+          controller against PI control with notch compensation under matched scanning conditions.
+          Frequency-response measurements and trace–retrace image comparisons will be used to determine whether
+          the usable scan rate improves.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== output and acknowledgements (not in contents) ========== -->
+  <section class="stage" id="output">
+    <div class="wrap">
+      <h2>Output and acknowledgements</h2>
+      <div class="split">
+        <div class="prose">
+          <p>
+            M. M. Khan, T. Abbas and K. H. Park, “Model-Based Digital Proportional-Integral Control for
+            High-Speed Contact-Mode Atomic Force Microscopy Imaging”, poster presentation,
+            <em>23rd IFAC World Congress</em>, Busan, Republic of Korea, 23–28 August 2026.
+          </p>
+          <p class="small muted">
+            Conducted in the Dynamics &amp; Control Lab under the supervision of Prof. Kyi Hwan Park and supported
+            by a GIST research project grant.
+          </p>
+        </div>
+        <figure class="fig split-media">
+          <a class="zoom" href="../assets/img/outputs/ifac-poster-presentation-1280.jpg">
+            <img src="../assets/img/outputs/ifac-poster-presentation-720.jpg"
+                 srcset="../assets/img/outputs/ifac-poster-presentation-720.jpg 720w, ../assets/img/outputs/ifac-poster-presentation-1280.jpg 1280w"
+                 sizes="(min-width: 860px) 42vw, 92vw" width="720" height="480" loading="lazy" decoding="async"
+                 alt="Muhammad Mustafa Khan beside the AFM control poster at the IFAC World Congress in Busan.">
+          </a>
+          <figcaption>Poster presentation, 23rd IFAC World Congress, Busan, August 2026.</figcaption>
+        </figure>
+      </div>
+
+      <h2 class="related-h">Related projects</h2>
+      <div class="related">
+        <a href="voice-coil-actuator.html">
+          <img src="../assets/img/vca/vca-bench-cad-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
+          <span><b>Voice-Coil Actuator Positioning</b><span>Measurement-based controller design on a purpose-built stage</span></span>
+        </a>
+        <a href="semg-rehabilitation-interface.html">
+          <img src="../assets/img/semg/semg-pipeline-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
+          <span><b>Real-Time sEMG Rehabilitation Interface</b><span>Real-time biosignal processing for control commands</span></span>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap footer-grid">
+    <div>
+      <p class="footer-name">Muhammad Mustafa Khan</p>
+      <p>Open to PhD positions and research collaboration in control, precision mechatronics and
+        learning-enabled control of physical systems.</p>
+      <ul class="footer-links">
+        <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
+        <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+        <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
+        <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
+      </ul>
+    </div>
+    <nav aria-label="Footer">
+      <ul class="footer-nav">
+        <li><a href="index.html">Work</a></li>
+        <li><a href="../index.html#research">Research</a></li>
+        <li><a href="../index.html#outputs">Outputs</a></li>
+        <li><a href="../index.html#about">About</a></li>
+        <li><a href="../cv.html">CV</a></li>
+      </ul>
+    </nav>
+  </div>
+  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+</footer>
+<script src="../script.js" defer></script>
+</body>
+</html>

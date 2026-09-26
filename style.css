@@ -274,6 +274,13 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
 .hero-profiles a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule-2); padding-block: 0.35rem 1px; }
 .hero-profiles a:hover { color: var(--accent); border-bottom-color: var(--accent); }
 .hero-note { font-size: var(--fs-caption); color: var(--muted); margin: 0; }
+.hero-dev-note { font-size: 0.875rem; font-weight: 400; line-height: 1.5; color: var(--muted); margin: 0.875rem 0 0; }
+
+/* Homepage reading size: ~18px body text on desktop, 17px on phones, 1.6 line spacing.
+   The hero lede stays a step above body text at every width. */
+.page-home { --fs-body: 1.125rem; --lh-body: 1.6; }
+.page-home .hero-lede { font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.26rem); line-height: 1.6; }
+@media (max-width: 560px) { .page-home { --fs-body: 1.0625rem; } }
 
 .hero-figure img {
   display: block; width: 100%; height: auto;
@@ -397,9 +404,11 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
 .interest-status.is-current b { color: var(--accent); }
 
 /* ---------- about ---------- */
+.about-section .section-head { margin-bottom: clamp(1.5rem, 1.1rem + 1.2vw, 2rem); }   /* heading → content: 24–32px */
 .about-grid { display: grid; gap: var(--gap); align-items: start; }
 @media (min-width: 900px) { .about-grid { grid-template-columns: 7fr 5fr; gap: clamp(2rem, 4vw, 3.5rem); } }
-.about-facts { border-top: 2px solid var(--ink); padding-top: 1rem; }
+/* Both columns open with the same rule, so their tops line up side by side and stack cleanly. */
+.about-prose, .about-facts { border-top: 2px solid var(--ink); padding-top: 1rem; }
 .fact { padding-bottom: 0.85rem; margin-bottom: 0.85rem; border-bottom: 1px solid var(--rule); }
 .fact:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
 .fact-label { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-meta); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.2rem; }
@@ -829,14 +838,23 @@ dialog.lightbox img { max-width: 94vw; max-height: 74vh; width: auto; height: au
 .site-footer { background: var(--ink-bg); color: var(--on-dark-muted); padding-block: clamp(2.5rem, 4vw, 3.5rem); }
 .footer-grid { display: grid; gap: 1.5rem 2rem; }
 @media (min-width: 760px) { .footer-grid { grid-template-columns: 1fr auto; align-items: start; } }
-.footer-name { font-family: var(--font-display); font-size: 1.25rem; color: #fff; margin: 0 0 0.35rem; }
 .site-footer p { color: var(--on-dark-muted); }
+/* Scoped under .site-footer so it outranks the paragraph colour above. */
+.site-footer .footer-name { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.3; color: var(--on-dark); margin: 0 0 0.5rem; }   /* 22px */
+.footer-statement { font-size: 1.125rem; line-height: 1.55; max-width: 58ch; margin: 0; }   /* 18px */
 .site-footer a { color: var(--on-dark); text-decoration: none; border-bottom: 1px solid rgba(241, 239, 233, 0.3); }
 .site-footer a:hover { border-bottom-color: #8fd0dc; color: #fff; }
-.footer-links, .footer-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: 0.9rem 0 0; padding: 0; list-style: none; font-size: 0.94rem; }
+.footer-links, .footer-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: 0; padding: 0; list-style: none; font-size: 0.9375rem; }   /* 15px */
+.footer-links { margin-top: 1.25rem; }
+.footer-nav { margin-top: 0.9rem; }
 .footer-links li, .footer-nav li { margin: 0; }
 .footer-links a, .footer-nav a { display: inline-block; padding-block: 0.3rem; }
-.footer-meta { font-size: 0.85rem; margin: 1.75rem 0 0; color: #8b857b; }
+.footer-meta { font-size: 0.8125rem; margin: 1.75rem 0 0; }   /* 13px */
+@media (max-width: 700px) {
+  .site-footer .footer-name { font-size: 1.25rem; }          /* 20px */
+  .footer-statement { font-size: 1rem; }                     /* 16px */
+  .footer-links, .footer-nav { font-size: 0.875rem; }        /* 14px */
+}
 
 /* ---------- motion ---------- */
 /* No scroll-reveal: content is never hidden waiting for a script to run.

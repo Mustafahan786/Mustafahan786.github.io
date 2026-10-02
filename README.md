@@ -7,13 +7,14 @@ what is in the repository is exactly what GitHub Pages serves.
 ## Layout
 
 ```
-index.html                     Home: hero, selected work, research interests, outputs, about
+index.html                     Home: about (introduction, portrait, education), selected work, outputs
 cv.html                        CV page: rendered page previews + open/download actions
 404.html                       Not-found page
 projects/index.html            Project index — four public projects with structured metadata
 projects/<project>.html        One project page each
 style.css                      All styling (design tokens at the top of the file)
-script.js                      Year, current-page nav, mobile menu, figure lightbox, CV-missing notice
+script.js                      Year, current-page nav, mobile menu, figure lightbox, CV-missing notice,
+                               smooth in-page scrolling after load
 sitemap.xml, robots.txt        Search infrastructure
 assets/img/<project>/…         Images, named <name>-<width>.jpg
 assets/img/cv/…                Rendered CV page previews
@@ -30,7 +31,7 @@ The canonical home URL is the root form, `https://mustafahan786.github.io/`, and
 `https://mustafahan786.github.io/projects/`. Every page carries a matching `<link rel="canonical">`,
 `og:url` and `sitemap.xml` entry — keep those three in step when adding a page.
 
-In-page anchors currently in use: `#work`, `#research`, `#outputs`, `#about` on the home page, and
+In-page anchors currently in use: `#work`, `#outputs`, `#about` on the home page, and
 per-project section ids on the project pages.
 
 Five legacy files in `assets/` (`afm-control.svg`, `afm-hardware.jpg`, `afm-notch.jpg`, `ai-rl.svg`,
@@ -112,8 +113,8 @@ Target roughly 650–850 words of narrative per project page.
 
 ### Concept illustrations (listing covers)
 
-`assets/img/concepts/` holds the four current generated editorial covers used on the home page and the project
-index. They are **not evidence** and carry three obligations everywhere they appear:
+`assets/img/concepts/` holds the generated editorial covers (the AFM banner below; the earlier glove, sEMG and
+voice-coil concept covers are kept but unused). They are **not evidence** and carry three obligations everywhere they appear:
 
 1. a visible `<span class="tag tag-concept">Concept illustration</span>` in the figcaption;
 2. alt text of the form `Concept illustration of …; not experimental evidence.`;
@@ -122,9 +123,65 @@ index. They are **not evidence** and carry three obligations everywhere they app
 They may be used as listing covers and introductory conceptual figures only. Inside a project page the
 authentic photographs, CAD, measured plots, simulations and videos remain primary.
 
+**AFM cover.** The AFM entry uses the labelled 4:3 banner `assets/img/concepts/afm-concept-v6-{640,1280}.jpg`
+(source: `assets/img/afm/source/concept-cover/afm-concept-v6-labelled-1448x1086.png (smaller inset; v5 earlier)`, generated with an image model
+from Mustafa's brief; labels PZT, Cantilever, Laser Diode, QPD, Standard Sample). It is shown whole at 4:3 (class
+`cover-4x3`: no `object-fit` crop) and follows the three concept rules above. On the home page (from 900px) and the
+Projects page (from 880px) its caption and the project links share a bottom grid row (CSS subgrid), centred on
+each other. The earlier `afm-concept-v5-*`, `afm-concept-v4-*`, `afm-concept-v3-*` and photo-only `afm-setup-cover-*` covers are kept
+but unused. The social card is `assets/img/og/afm-v2.jpg` (the current title beside the AFM-head photograph);
+`og/afm.jpg` carried an earlier working title and is no longer referenced.
+
+**sEMG cover.** The sEMG entry uses the team's original animated graphical abstract, not a concept
+illustration: `assets/img/semg/semg-graphical-abstract-banner.gif` (466 × 307, 51 frames at 100 ms, looping). It was
+cut from `Portfolio Source/…/Project # 1 sEMG based protocol development/Graphical Abstract.gif` (600 × 338; the
+original is unchanged) by removing the embedded title capsule and the outer white margin and outline from every
+frame, with the original palette, timing and loop kept exactly. `semg-graphical-abstract-poster.png` is the final,
+fully built frame: the reduced-motion image, the pause state and the home-page cover, where it sits whole in the same
+4:3 frame as the other secondary cards (class `cover-ga-still`: letterboxed on the artwork's own background, #faf8fa,
+with no play control because nothing moves); `semg-graphical-abstract-card-4x3.png`
+is the same frame padded to 4:3 for related-project links. Both covers share the caption "Forearm sEMG control,
+interactive rehabilitation tasks and visual feedback." The Projects card shows the GIF whole (class `cover-ga`)
+with the caption tag "Graphical abstract"; `script.js` adds a small pause button and starts paused for readers who
+prefer reduced motion. The social card is `assets/img/og/semg-v3.jpg`. The project page's protocol schematic
+(`assets/img/semg/semg-protocol-schematic-1020.png`) and gesture-mapping figure (`semg-gesture-mapping-894.png`) are
+the original artwork of Fig. 1 and Fig. 4 in the final manuscript draft (9 March 2023), extracted losslessly from the PDF
+without the printed captions; they open at full size in the lightbox (`data-zoom="natural"`). The earlier SVG system-overview banner,
+`semg-rehabilitation-loop-cover*.svg`, `semg-pipeline-card-*` and the `semg-realtime-*` images and video (the latter
+are third-party material, not from this project) are no longer referenced.
+
+**Voice-coil cover.** The voice-coil entry uses `assets/img/vca/vca-concept-figure-{640,960,1448}.jpg`, shown whole
+at 4:3 (class `cover-4x3`): a labelled concept figure of the stage (coil assembly, permanent magnets, guide rods) above a
+simplified analogue position-feedback path. It follows the three concept rules above, with the caption tag "Concept
+illustration", and the related-project cards use the 640 px file. The project page itself shows the authentic labelled
+frame from the set-point recording, `assets/img/vca/vca-stage-labelled-{640,1080}.jpg`; its provenance, and that of
+the other voice-coil media added in September 2026 (overview and experiment videos, DC-check chart, functional
+diagram), is recorded in `assets/img/vca/source/README.md`. The earlier `assets/img/concepts/vca-concept-v2-*` cover,
+the `vca-bench-cad-card-*` thumbnails and the `vca-title-figure-*` images are kept but no longer referenced.
+
+**Glove cover.** The glove entry, "sEMG-Controlled Soft Robotics Glove for Game-Based Hand Rehabilitation" (project
+dates 2023–2024; the report citation on the page keeps its own date, June 2023), uses
+`assets/img/glove/glove-prototype-card-{640,960}.jpg` (4:3, class `cover-4x3`, caption tag "Prototype"): two frames
+of the prototype video, open/rest above and close below, cropped to the same band and labelled only with the hand
+state. The armband, the game on the monitor and the glove are visible in both. The card links are "View project" and
+"Watch prototype video" (`#prototype-video`), which opens the video (`assets/video/glove-prototype-linkedin.mp4`) in
+the page's Overview section. The social card is `assets/img/og/glove-v4.jpg`. Provenance and build notes for the
+cover, the two schematics, the sEMG traces and the finite-element figures are in `assets/img/glove/source/README.md`.
+The earlier labelled overview (`glove-overview-card-*`), the social cards `og/glove-v2.jpg` and `og/glove-v3.jpg`,
+the illustrative animation `assets/video/glove-system-overview*` and the `glove-concept-v2-*` cover are kept but no
+longer referenced.
+
 `assets/img/concepts/source/` keeps the full-resolution PNGs (approximately 2 MB each) for re-export. **They are
 never served** — only the `-640.jpg` and `-1200.jpg` derivatives are referenced. If you regenerate a
 cover, re-cut both derivatives at exactly 16:10 (640 × 400 and 1200 × 750).
+
+**Related-project cards.** Project pages end with compact cards (`.related`: a 104 px thumbnail shown whole at 4:3
+with `object-fit: contain` in a white frame, then the title and a one-line note; two columns from 720px, one below).
+They use the current listing titles and these thumbnails: AFM `assets/img/concepts/afm-concept-v6-640.jpg`,
+voice-coil stage `assets/img/vca/vca-concept-figure-640.jpg`, sEMG
+`assets/img/semg/semg-graphical-abstract-card-4x3.png` and glove `assets/img/glove/glove-prototype-card-640.jpg`.
+When a listing title or banner changes, update the cards on the AFM, voice-coil, sEMG, glove and
+motor-condition-monitoring pages as well.
 
 ### Concept animations
 
@@ -213,7 +270,18 @@ CV-missing check is skipped.
 
 ## Conventions worth keeping
 
-* One accent colour (`--accent` in `style.css`); everything else is ink on warm white.
+* One accent colour (`--accent` in `style.css`); everything else is ink on warm white. Every figure-caption label
+  (`.tag`: Measured, Simulation, CAD, Concept illustration …) uses it with the same type; `tag-concept` and
+  `tag-sim` mark the figure type in the markup and do not change the colour.
+* Homepage project cards repeat their Projects-page entries word for word: title, description, *My contribution*,
+  *Key result*, category · institution · dates, the primary link *View project* plus any project-specific second link
+  (AFM *View imaging results*, sEMG *View task results*, glove *Watch prototype video*), and the cover with its
+  caption. Edit both places together. Date ranges use a closed en dash (`September 2025–present`) and sit in a
+  `.nowrap` span, so a wrapping line breaks at a separator rather than inside a date. The three secondary homepage
+  cards share row tracks from 700px (CSS subgrid), so equivalent parts line up without spacer markup.
+* Every page links the stylesheet as `style.css?v=YYYY-MM-DD`, the date of the last stylesheet change (`/style.css?v=…`
+  on `404.html`). When `style.css` changes, update the date on every page — `index.html`, `cv.html`, `404.html` and
+  `projects/*.html` — so a refresh loads the same styles everywhere.
 * Two webfonts (Newsreader, IBM Plex Sans) and the system monospace stack for technical labels.
 * Nothing that carries meaning is set below 13 px (`--fs-meta`).
 * Claims on the site are traceable to a primary source; simulations, literature thresholds and

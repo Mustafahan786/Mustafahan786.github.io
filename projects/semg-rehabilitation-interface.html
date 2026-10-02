@@ -6,24 +6,24 @@
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#fbfaf7">
 <script>document.documentElement.className += ' js';</script>
-<title>Real-Time sEMG Rehabilitation Interface — Muhammad Mustafa Khan</title>
-<meta name="description" content="Eight channels of forearm sEMG, four time-domain features per 150 ms window and a gradient-boosting model driving one-, two- and three-degree-of-freedom rehabilitation tasks, evaluated with Fitts' law metrics.">
+<title>Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation — Muhammad Mustafa Khan</title>
+<meta name="description" content="This project developed an sEMG-driven video-game protocol for interactive post-stroke hand rehabilitation. Gradient-boosting gesture recognition enabled real-time control, while Fitts’ law and task-specific performance metrics assessed user performance across repeated sessions.">
 <link rel="canonical" href="https://mustafahan786.github.io/projects/semg-rehabilitation-interface.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Real-Time sEMG Rehabilitation Interface">
-<meta property="og:description" content="Eight channels, 150 ms windows, four time-domain features and an online gradient-boosting model driving interactive rehabilitation tasks.">
+<meta property="og:title" content="Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation">
+<meta property="og:description" content="This project developed an sEMG-driven video-game protocol for interactive post-stroke hand rehabilitation. Gradient-boosting gesture recognition enabled real-time control, while Fitts’ law and task-specific performance metrics assessed user performance across repeated sessions.">
 <meta property="og:url" content="https://mustafahan786.github.io/projects/semg-rehabilitation-interface.html">
-<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/semg.jpg">
-<meta property="og:image:alt" content="Real-time sEMG rehabilitation interface — project">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/semg-v3.jpg">
+<meta property="og:image:alt" content="Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation: project title beside the graphical abstract of the sEMG control loop">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2026-10-03">
 </head>
-<body>
+<body class="semg-page">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
@@ -33,10 +33,9 @@
       <span class="bars" aria-hidden="true"><span></span></span>Menu
     </button>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Work</a>
-      <a href="../index.html#research">Research</a>
-      <a href="../index.html#outputs">Outputs</a>
       <a href="../index.html#about">About</a>
+      <a href="index.html" aria-current="page">Projects</a>
+      <a href="../index.html#outputs">Research outputs</a>
       <a class="nav-cta" href="../cv.html">CV</a>
     </nav>
   </div>
@@ -45,47 +44,33 @@
 <main id="main">
   <section class="case-hero">
     <div class="wrap">
-      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> sEMG interface</p>
-      <p class="case-meta">Research project · Human System Lab, NUST · June 2022 – August 2023</p>
-      <h1 class="case-title">Real-Time sEMG Rehabilitation Interface</h1>
-      <p class="case-sub">Eight-channel hand-state estimation for post-stroke upper-limb training.</p>
-      <ul class="case-links">
-        <li><a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">MUSED-I dataset · IEEE DataPort</a></li>
-        <li><a href="#evaluation">Experimental evidence</a></li>
-      </ul>
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> sEMG Gesture Control</p>
+      <p class="case-meta">Research project&nbsp;· Human System Lab, NUST&nbsp;· <span class="nowrap">June 2022–August 2023</span></p>
+      <h1 class="case-title">Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation</h1>
+      <p class="case-sub"><strong>Machine-learning gesture control and quantitative assessment of a <span class="nowrap">video-game</span> protocol
+        for post-stroke hand rehabilitation.</strong></p>
 
-      <figure class="fig fig-hero fig-wide fig-pad">
-        <a class="zoom" href="../assets/img/semg/semg-pipeline.svg">
-          <img src="../assets/img/semg/semg-pipeline.svg" width="720" height="450" decoding="async"
-               alt="Processing chain: an eight-channel Myo armband at 200 hertz feeds 150 millisecond sliding windows with 73 percent overlap; four time-domain features per channel are Z-score normalised and passed to a gradient-boosting model that outputs an estimated hand state for tasks at one, two or three degrees of freedom.">
-        </a>
-        <figcaption><span class="tag">Diagram</span>The processing chain as implemented, from electrodes to
-          estimated hand state.</figcaption>
-      </figure>
-
-      <div class="brief">
-        <h2 class="sr-only">Research brief</h2>
+      <div class="brief brief-3 semg-brief">
+        <h2 class="sr-only">Summary</h2>
         <dl>
           <div>
-            <dt>Objective</dt>
-            <dd>Estimate intended hand state from forearm sEMG quickly enough that a person can steer an
-              interactive rehabilitation task.</dd>
+            <dt>Research question</dt>
+            <dd>Can sEMG-controlled video games support interactive hand rehabilitation after stroke, and how can
+              task-performance metrics quantify their usability?</dd>
           </div>
           <div>
-            <dt>Approach</dt>
-            <dd>Fixed-length overlapping windows, four time-domain features per channel, normalisation, and
-              a model chosen by cross-validation and deployed online.</dd>
+            <dt>What I did</dt>
+            <dd>Developed and compared five classifiers, deployed gradient boosting for task control, and co-developed
+              the interactive tasks and evaluation protocol.</dd>
           </div>
           <div>
-            <dt>Individual contribution</dt>
-            <dd>Acquisition and feature pipeline, classifier comparison and online deployment, three task
-              interfaces including a custom three-DOF maze, and the evaluation protocol.</dd>
-          </div>
-          <div>
-            <dt>Experimental evidence</dt>
-            <dd>Online control demonstrated at 1, 2 and 3 DOF. Fitts' law regression of completion time on
-              index of difficulty gave <strong><i>R</i>² ≥ 0.98</strong> across ten able-bodied participants
-              and <i>R</i>² ≥ 0.88 for two participants with chronic stroke.</dd>
+            <dt>Key result</dt>
+            <dd>
+              <p>Real-time task control was demonstrated, and Space Shooter completion times followed task difficulty,
+                supporting graded assessment of user performance.</p>
+              <p class="semg-brief-note">Fitts’ law fit: <i>R</i><sup>2</sup>&nbsp;=&nbsp;0.99 for the able-bodied
+                group; 0.88 for one stroke participant.</p>
+            </dd>
           </div>
         </dl>
       </div>
@@ -93,192 +78,497 @@
       <nav class="contents" aria-labelledby="contents-h">
         <h2 id="contents-h">Contents</h2>
         <ol>
-          <li><a href="#budget">The time budget</a></li>
-          <li><a href="#pipeline">From skin to decision</a></li>
-          <li><a href="#tasks">The tasks</a></li>
-          <li><a href="#evaluation">Experimental evidence</a></li>
-          <li><a href="#limits">Limitations</a></li>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#signal-path">Signal processing</a></li>
+          <li><a href="#classifier">Gesture classification</a></li>
+          <li><a href="#games">Interactive tasks</a></li>
+          <li><a href="#protocol">Evaluation protocol</a></li>
+          <li><a href="#results">Results</a></li>
+          <li><a href="#output">Dataset and outputs</a></li>
         </ol>
       </nav>
     </div>
   </section>
 
-  <section class="stage" id="budget">
+  <!-- ========== 1. overview ========== -->
+  <section class="stage" id="overview">
     <div class="wrap">
-      <h2>Designing against a time budget</h2>
+      <h2>Overview</h2>
       <div class="prose">
         <p>
-          The myoelectric-control literature converges on roughly 300 ms as the outer limit for the delay
-          between intent and response before an interface stops feeling controllable. That figure is a design
-          constraint taken from the literature, not a latency measured in this project.
+          Surface electromyography (sEMG) measures muscle electrical activity using electrodes placed on the skin.
+          This project developed an sEMG-driven <span class="nowrap">video-game</span> protocol for interactive post-stroke
+          hand rehabilitation. Wrist and hand gestures recognised from forearm sEMG were translated into real-time commands for three
+          games, and participants adjusted their gestures using visual feedback from the game.
         </p>
         <p>
-          It still shapes every decision downstream. Window length, overlap, feature count and model
-          complexity all spend from the same budget, so each was chosen with the total in mind rather than
-          optimised on its own.
+          The evaluation protocol assessed user performance across repeated sessions through target acquisition and
+          maze navigation. Fitts’ law related
+          target-acquisition completion time to task difficulty, while completion rate, overshoot, task score and path
+          efficiency provided complementary measures of performance.
         </p>
       </div>
-      <div class="metrics">
-        <div><span class="metric-value">8</span><span class="metric-label">Channels of forearm sEMG at a fixed 200 Hz</span></div>
-        <div><span class="metric-value">150 ms</span><span class="metric-label">Analysis window, 73 % overlap</span></div>
-        <div><span class="metric-value">≈300 ms</span><span class="metric-label">Literature delay budget the design targets</span></div>
+
+      <figure class="fig semg-video">
+        <div class="video-frame">
+          <video controls preload="none" playsinline muted width="640" height="362"
+                 poster="../assets/video/semg-maze-game-poster.jpg"
+                 aria-label="Demonstration recording, 40 seconds, without sound: a forearm wearing the Myo armband performs wrist extension, flexion and deviation gestures in front of a laptop, and the ball in the on-screen maze moves along the corridors while its path is drawn behind it.">
+            <source src="../assets/video/semg-maze-game.mp4" type="video/mp4">
+            Your browser cannot play this video. It shows the maze task controlled by wrist gestures recognised from
+            forearm sEMG; the path of the ball is traced on screen.
+          </video>
+        </div>
+        <figcaption><span class="tag">Demonstration</span>Maze navigation under real-time sEMG control.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 2. signal processing ========== -->
+  <section class="stage" id="signal-path">
+    <div class="wrap">
+      <h2>Signal processing</h2>
+      <div class="prose">
+        <p>
+          A Myo armband, positioned approximately 5&nbsp;cm from the elbow, recorded raw forearm sEMG and
+          transmitted it over Bluetooth Low Energy to the acquisition software. The eight channels were sampled at
+          200&nbsp;Hz per channel, z-score standardised and segmented into 150&nbsp;ms windows with 73% overlap; four
+          time-domain features per channel formed a 32-element feature vector. The gesture classifier assigned each
+          feature vector to one of six classes: wrist flexion, wrist extension, radial deviation, ulnar deviation, hand
+          closing or rest.
+        </p>
+      </div>
+
+      <figure class="fig fig-center semg-fig-protocol">
+        <a class="zoom" href="../assets/img/semg/semg-protocol-schematic-1020.png" data-zoom="natural">
+          <img src="../assets/img/semg/semg-protocol-schematic-1020.png" width="1020" height="650" loading="lazy" decoding="async"
+               alt="Protocol schematic. A loop runs from the participant’s sensory feedback and neural processing of that feedback, to EMG data, data processing and the machine-learning model, gesture prediction, the prediction controlling the game, and the resulting sensory response back to the participant. Below, three panels illustrate the stages: the participant watches the Brick Breaker screen, and neural activity leads to muscle activity and EMG data recorded by the armband; raw sEMG is processed, passed to classification models and converted into a gesture prediction; the predicted gesture moves the paddle, and the ball’s movement is seen by the participant.">
+        </a>
+        <figcaption><span class="tag">Protocol schematic</span>Forearm sEMG processing, machine-learning gesture
+          recognition and task control, with visual feedback to the participant.</figcaption>
+      </figure>
+
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="time-domain-features">Time-Domain Features</h3>
+        <div class="prose">
+          <p>
+            For channel <math><mi>c</mi></math>, features were computed from
+            <math><mi>N</mi><mo>=</mo><mn>30</mn></math> standardised samples
+            <math><msub><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi></mrow></msub></math>, with
+            <math><mi>k</mi><mo>=</mo><mn>1</mn><mo separator="true">,</mo><mi mathvariant="normal">…</mi><mo separator="true">,</mo><mi>N</mi></math>.
+          </p>
+        </div>
+
+        <div class="semg-feature-grid">
+          <section class="semg-feature" aria-labelledby="feat-iemg">
+            <h4 id="feat-iemg"><span>Integrated EMG</span> <span class="semg-feature-abbr">IEMG</span></h4>
+            <div class="semg-feature-eq"><math display="block" aria-label="IEMG sub c equals the sum from k equals 1 to N of the absolute value of x sub c comma k"><mstyle displaystyle="true"><msub><mi>IEMG</mi><mi>c</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mo stretchy="false">|</mo><msub><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false">|</mo></mrow></mstyle></math></div>
+            <p>Total rectified signal activity.</p>
+          </section>
+          <section class="semg-feature" aria-labelledby="feat-mav">
+            <h4 id="feat-mav"><span>Mean Absolute Value</span> <span class="semg-feature-abbr">MAV</span></h4>
+            <div class="semg-feature-eq"><math display="block" aria-label="MAV sub c equals 1 over N times the sum from k equals 1 to N of the absolute value of x sub c comma k"><mstyle displaystyle="true"><msub><mi>MAV</mi><mi>c</mi></msub><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mo stretchy="false">|</mo><msub><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false">|</mo></mrow></mstyle></math></div>
+            <p>Mean rectified signal amplitude.</p>
+          </section>
+          <section class="semg-feature" aria-labelledby="feat-rms">
+            <h4 id="feat-rms"><span>Root Mean Square</span> <span class="semg-feature-abbr">RMS</span></h4>
+            <div class="semg-feature-eq"><math display="block" aria-label="RMS sub c equals the square root of 1 over N times the sum from k equals 1 to N of x sub c comma k squared"><mstyle displaystyle="true"><msub><mi>RMS</mi><mi>c</mi></msub><mo>=</mo><msqrt><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msubsup><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi></mrow><mn>2</mn></msubsup></msqrt></mstyle></math></div>
+            <p>Root-mean-square signal amplitude.</p>
+          </section>
+          <section class="semg-feature" aria-labelledby="feat-wl">
+            <h4 id="feat-wl"><span>Waveform Length</span> <span class="semg-feature-abbr">WL</span></h4>
+            <div class="semg-feature-eq"><math display="block" aria-label="WL sub c equals the sum from k equals 1 to N minus 1 of the absolute value of x sub c comma k plus 1 minus x sub c comma k"><mstyle displaystyle="true"><msub><mi>WL</mi><mi>c</mi></msub><mo>=</mo><munderover><mo>∑</mo><mrow><mi>k</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mo stretchy="false">|</mo><msub><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mrow><mi>c</mi><mo>,</mo><mi>k</mi></mrow></msub><mo stretchy="false">|</mo></mrow></mstyle></math></div>
+            <p>Cumulative change between consecutive samples.</p>
+          </section>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="stage" id="pipeline">
+  <!-- ========== 3. gesture classification ========== -->
+  <section class="stage" id="classifier">
     <div class="wrap">
-      <div class="split split-wide-media">
-        <div>
-          <h2>From skin to decision</h2>
-          <div class="prose">
-            <p>
-              Eight channels arrive at a fixed 200 Hz. Each 150 ms window — overlapped by 73 % so decisions
-              arrive faster than the window length alone would allow — is reduced to four time-domain
-              features per channel: integrated EMG, mean absolute value, root mean square and waveform
-              length. They are cheap to compute and describe amplitude and activity without a frequency
-              transform.
-            </p>
-            <p>
-              Features are Z-score normalised, because raw amplitude shifts with electrode placement, skin
-              condition and session. Five models were then compared under cross-validation on the same
-              features — a support vector machine, a decision tree, XGBoost, CatBoost and gradient boosting —
-              and gradient boosting was deployed for online inference.
-            </p>
-          </div>
+      <h2>Gesture classification</h2>
+
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="model-selection">Model Development and Selection</h3>
+        <div class="prose">
+          <p>
+            Five candidate classifiers—support vector machine, decision tree, XGBoost, CatBoost and gradient
+            boosting—were implemented and tuned in Python. Offline cross-validation on labelled sEMG features from
+            able-bodied participants informed model selection. <strong>Gradient boosting</strong> was selected for
+            real-time gesture recognition.
+          </p>
         </div>
-        <figure class="fig split-media fig-frame">
-          <a class="zoom" href="../assets/img/semg/semg-realtime-wide-1240.jpg">
-            <img src="../assets/img/semg/semg-realtime-wide-700.jpg"
-                 srcset="../assets/img/semg/semg-realtime-wide-700.jpg 700w, ../assets/img/semg/semg-realtime-wide-1240.jpg 1240w"
-                 sizes="(min-width: 860px) 45vw, 92vw" width="700" height="350" loading="lazy" decoding="async"
-                 alt="Live classification display showing eight sEMG channel traces beside the predicted hand motion during a recording session.">
-          </a>
-          <figcaption><span class="tag">Photograph</span>The deployed model running live: channel traces on
-            the left, current prediction on the right.</figcaption>
+      </div>
+
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="online-deployment">Online Deployment</h3>
+        <div class="prose">
+          <p>
+            At the start of each session, the selected model was trained on the participant’s calibration
+            recordings. During gameplay, the fixed model classified incoming feature vectors, and the predicted
+            gesture labels were mapped to task commands.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. interactive tasks ========== -->
+  <section class="stage" id="games">
+    <div class="wrap">
+      <h2>Interactive tasks</h2>
+      <div class="prose">
+        <p>
+          Three task interfaces, developed in Pygame to resemble therapy exercises, converted the recognised gestures
+          into game actions. Wrist flexion and extension controlled horizontal movement, radial and ulnar deviation
+          controlled vertical movement, and hand closing triggered a discrete action. Brick Breaker used horizontal
+          movement only; Space Shooter added the hand-close action; Maze combined both movement axes with the
+          hand-close action.
+        </p>
+      </div>
+
+      <figure class="fig fig-center semg-fig-mapping">
+        <a class="zoom" href="../assets/img/semg/semg-gesture-mapping-894.png" data-zoom="natural">
+          <img src="../assets/img/semg/semg-gesture-mapping-894.png" width="894" height="603" loading="lazy" decoding="async"
+               alt="Gesture mapping in three panels. (a) Space Shooter: EMG data pass through pre-processing to the machine-learning model; wrist flexion and extension move the ship in opposite horizontal directions and hand close is labelled energy recharge. (b) Brick Breaker, labelled Arkanoid: wrist flexion and extension move the paddle in opposite horizontal directions. (c) Maze: wrist flexion and extension move the ball horizontally, radial and ulnar deviation move it vertically, and hand close is labelled energy recharge. Each panel includes a small image of the task screen.">
+        </a>
+        <figcaption><span class="tag">Gesture mapping</span>Wrist and hand gestures used to control (a) Space Shooter,
+          (b) Brick Breaker and (c) Maze.</figcaption>
+      </figure>
+
+      <div class="prose">
+        <p>
+          In the figure, Brick Breaker appears under the name of the game it imitates, Arkanoid, and the hand-close
+          action is labelled “Energy Recharge”: closing the hand filled an energy bar, which fired at the enemy ships
+          in Space Shooter and broke the wooden blocks guarding the key in Maze. The horizontal mapping was mirrored
+          for left-handed participants. Because each task added an independent control channel, the project refers to
+          them as one-, two- and three-degree-of-freedom (DOF) tasks.
+        </p>
+      </div>
+
+      <div class="fig-grid fig-grid-3 semg-games">
+        <figure class="fig">
+          <img src="../assets/img/semg/semg-game-brick-600.jpg" width="600" height="600" loading="lazy" decoding="async"
+               alt="Brick Breaker evaluation screen: a starfield with a paddle at the top that serves the ball, the player’s paddle at the bottom and a red target box on the bottom edge where the ball will land.">
+          <figcaption><span class="tag">Task interface</span>Brick Breaker evaluation screen: the paddle must stop in
+            the red target box before the ball arrives.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/semg/semg-game-shooter-600.jpg" width="600" height="600" loading="lazy" decoding="async"
+               alt="Space Shooter screen: a row of enemy ships across the top, the player’s ship at the bottom left and a red target box on the bottom edge.">
+          <figcaption><span class="tag">Task interface</span>Space Shooter: the ship is moved into the red target box,
+            where closing the hand charges the shot.</figcaption>
+        </figure>
+        <figure class="fig">
+          <img src="../assets/img/semg/semg-game-maze-600.jpg" width="600" height="600" loading="lazy" decoding="async"
+               alt="Maze screen: stone-walled corridors outlined in white, a red ball near the bottom with a red trace of its path, wooden blocks guarding a key on the left and a treasure chest at the top.">
+          <figcaption><span class="tag">Task interface</span>Maze: the path of the ball is traced for path-efficiency
+            analysis; wooden blocks guard the key.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. evaluation protocol ========== -->
+  <section class="stage" id="protocol">
+    <div class="wrap">
+      <h2>Evaluation protocol</h2>
+      <div class="split semg-split">
+        <div class="prose">
+          <p>
+            Ten able-bodied male participants, two of them left-handed, and two male participants in the chronic phase
+            after haemorrhagic stroke with right-sided hemiplegia took part. Each participant completed real-time
+            sessions on five working days, with three sessions per day. Each session began with a calibration
+            recording of the six classes, five repetitions of 5&nbsp;s each, followed by model training and task
+            performance. Brick Breaker and Space Shooter presented ten targets per session.
+          </p>
+          <p>
+            Tasks were matched to hand function. Stroke participant A performed all three tasks. Stroke participant B,
+            who had more limited active wrist movement, performed Brick Breaker only, first using hand opening and
+            closing and then wrist flexion and extension.
+          </p>
+        </div>
+        <figure class="fig split-media semg-gui">
+          <img src="../assets/img/semg/semg-recording-interface-495.jpg" width="495" height="456" loading="lazy" decoding="async"
+               alt="Data-acquisition interface titled Data Acquisition Protocol, with task-selection buttons for Brick Breaker, Space Shooter and Maze, a Start button, the current prompt ‘Gesture: rest’, a counter ‘1 of 5 repetitions’, a timer ‘4/5 sec’, a Save and close button and a photograph of a hand showing the gesture to perform.">
+          <figcaption><span class="tag">Interface</span>Calibration interface for prompted gesture recording.</figcaption>
         </figure>
       </div>
 
-      <figure class="fig fig-mid">
-        <video controls preload="none" playsinline
-               poster="../assets/video/semg-realtime-classification-poster.jpg" width="1272" height="720">
-          <source src="../assets/video/semg-realtime-classification.mp4" type="video/mp4">
-          Your browser cannot play this video. It shows the online model responding to forearm movements.
-        </video>
-        <figcaption><span class="tag">Video</span>The deployed model responding to forearm movements in real
-          time. Recorded in the laboratory on the author's own arm.</figcaption>
-      </figure>
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="fitts-law">Target Acquisition and Fitts’ Law</h3>
+        <div class="prose">
+          <p>
+            To assess control within the rehabilitation games, target acquisition was evaluated at predefined levels
+            of difficulty. In Brick Breaker and Space Shooter, the avatar returned to a fixed starting position before
+            each trial, and target distance and width determined the index of difficulty.
+          </p>
+          <p>
+            A trial was completed only when the avatar remained inside the target until the trial ended. In Brick
+            Breaker, the paddle had to stay in the target until the ball arrived; in Space Shooter, the ship had to
+            stay in the target while hand closing filled the energy bar. Completion time therefore includes this hold
+            condition, not movement time alone. The analysis evaluated a linear relationship between completion time
+            and index of difficulty:
+          </p>
+        </div>
+
+        <div class="semg-eq">
+          <div class="semg-eq-row">
+            <math display="block" aria-label="I D equals log base 2 of 1 plus D over W"><mrow><mi>ID</mi><mo>=</mo><msub><mi>log</mi><mn>2</mn></msub><mo>&#x2061;</mo><mrow><mo>(</mo><mn>1</mn><mo>+</mo><mfrac><mi>D</mi><mi>W</mi></mfrac><mo>)</mo></mrow><mo>,</mo></mrow></math>
+            <math display="block" aria-label="C T equals a plus b times I D"><mrow><mi>CT</mi><mo>=</mo><mi>a</mi><mo>+</mo><mi>b</mi><mspace width="0.1667em"></mspace><mi>ID</mi><mo lspace="0em" rspace="0em">.</mo></mrow></math>
+          </div>
+          <dl class="semg-symbols" aria-label="Symbols">
+            <div><dt><math><mi>D</mi></math></dt><dd>distance from the starting position to the target</dd></div>
+            <div><dt><math><mi>W</mi></math></dt><dd>target width</dd></div>
+            <div><dt><math><mi>ID</mi></math></dt><dd>index of difficulty, in bits</dd></div>
+            <div><dt><math><mi>CT</mi></math></dt><dd>completion time, in seconds</dd></div>
+            <div><dt><math><mi>a</mi><mo separator="true">,</mo><mi>b</mi></math></dt><dd>fitted intercept and slope</dd></div>
+          </dl>
+        </div>
+      </div>
+
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="performance-measures">Performance Measures</h3>
+        <div class="table-wrap">
+          <table class="data-table data-table-stack semg-measures-table">
+            <caption class="sr-only">Performance measures, their definitions and the tasks in which each was used</caption>
+            <thead>
+              <tr><th scope="col">Measure</th><th scope="col">Definition</th><th scope="col">Applicable tasks</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Completion&nbsp;time</th><td class="semg-def" data-label="Definition">Time required to reach the target and satisfy the completion condition</td><td data-label="Applicable tasks">Space&nbsp;Shooter</td></tr>
+              <tr><th scope="row">Completion&nbsp;rate</th><td class="semg-def" data-label="Definition">Proportion of trials completed successfully in a session</td><td data-label="Applicable tasks">Brick&nbsp;Breaker, Space&nbsp;Shooter</td></tr>
+              <tr><th scope="row">Overshoot</th><td class="semg-def" data-label="Definition">Number of times the avatar entered the target but failed to remain within it, divided by the number of attempts in a session</td><td data-label="Applicable tasks">Brick&nbsp;Breaker, Space&nbsp;Shooter</td></tr>
+              <tr><th scope="row">Score</th><td class="semg-def" data-label="Definition">Percentage of balls successfully intercepted in a session</td><td data-label="Applicable tasks">Brick&nbsp;Breaker</td></tr>
+              <tr><th scope="row">Path&nbsp;efficiency</th><td class="semg-def" data-label="Definition">Distance travelled within the ideal path divided by total distance travelled</td><td data-label="Applicable tasks">Maze</td></tr>
+              <tr><th scope="row">Throughput</th><td class="semg-def" data-label="Definition">Index of difficulty divided by completion time, <math><mi>TP</mi><mo>=</mo><mi>ID</mi><mo lspace="0em" rspace="0em">/</mo><mi>CT</mi></math>, in bits per second</td><td data-label="Applicable tasks">Brick&nbsp;Breaker, Space&nbsp;Shooter</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <details class="more">
+          <summary>Target conditions for Brick Breaker and Space Shooter</summary>
+          <div class="table-wrap">
+            <table class="data-table data-table-narrow semg-targets-table">
+              <caption>Target distance <i>D</i> and index of difficulty for the ten targets in each task. Target width
+                <i>W</i> was fixed within each task: 110 screen units in Space Shooter and 243 in Brick Breaker. Brick
+                Breaker uses <i>D</i>&nbsp;=&nbsp;342 twice, giving nine distinct conditions.</caption>
+              <thead>
+                <tr><th scope="col">Target</th><th scope="col" class="num">Space Shooter <i>D</i></th><th scope="col" class="num">ID (bits)</th><th scope="col" class="num">Brick Breaker <i>D</i></th><th scope="col" class="num">ID (bits)</th></tr>
+              </thead>
+              <tbody>
+                <tr><th scope="row">1</th><td class="num">34</td><td class="num">0.39</td><td class="num">50</td><td class="num">0.27</td></tr>
+                <tr><th scope="row">2</th><td class="num">57</td><td class="num">0.60</td><td class="num">181</td><td class="num">0.80</td></tr>
+                <tr><th scope="row">3</th><td class="num">69</td><td class="num">0.70</td><td class="num">302</td><td class="num">1.17</td></tr>
+                <tr><th scope="row">4</th><td class="num">79</td><td class="num">0.78</td><td class="num">342</td><td class="num">1.27</td></tr>
+                <tr><th scope="row">5</th><td class="num">99</td><td class="num">0.93</td><td class="num">276</td><td class="num">1.09</td></tr>
+                <tr><th scope="row">6</th><td class="num">101</td><td class="num">0.94</td><td class="num">127</td><td class="num">0.61</td></tr>
+                <tr><th scope="row">7</th><td class="num">155</td><td class="num">1.27</td><td class="num">342</td><td class="num">1.27</td></tr>
+                <tr><th scope="row">8</th><td class="num">159</td><td class="num">1.29</td><td class="num">228</td><td class="num">0.95</td></tr>
+                <tr><th scope="row">9</th><td class="num">178</td><td class="num">1.39</td><td class="num">369</td><td class="num">1.33</td></tr>
+                <tr><th scope="row">10</th><td class="num">186</td><td class="num">1.43</td><td class="num">176</td><td class="num">0.79</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
-  <section class="stage" id="tasks">
+  <!-- ========== 6. results ========== -->
+  <section class="stage" id="results">
     <div class="wrap">
-      <h2>Three tasks, increasing in demand</h2>
-      <div class="prose">
-        <p>
-          A model that scores well on held-out data has not yet been shown to work as a control interface.
-          The tasks were the test: a brick-breaker for one degree of freedom, a space shooter for two, and a
-          maze for three, so the same pipeline had to hold up as the control problem grew.
-        </p>
-        <p>
-          The maze was built from scratch. It is the most demanding of the three — continuous navigation
-          rather than discrete reactions — and it is where a pipeline that is merely accurate offline starts
-          to feel laggy or unstable.
-        </p>
+      <h2>Results</h2>
+
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="completion-time">Completion Time and Index of Difficulty</h3>
+        <div class="prose">
+          <p>
+            The Fitts’ law analysis evaluated Space Shooter, the target-acquisition task that combined horizontal
+            movement with a hand-close action. Completion time was averaged for each of the ten target conditions, and a
+            straight line was fitted to these means against index of difficulty. Mean completion time increased with
+            index of difficulty: from about 0.7 to 3.3&nbsp;s for the ten able-bodied participants
+            (<i>R</i><sup>2</sup>&nbsp;=&nbsp;0.99), and from about 1.1 to 4.0&nbsp;s for stroke participant A, the one
+            stroke participant who completed this task (<i>R</i><sup>2</sup>&nbsp;=&nbsp;0.88).
+          </p>
+        </div>
+
+        <figure class="fig semg-fitts">
+          <div class="semg-fitts-pair">
+            <div class="semg-fitts-panel">
+              <p class="semg-panel-label"><b>(a) Able-bodied group, n&nbsp;=&nbsp;10</b> · <i>R</i><sup>2</sup>&nbsp;=&nbsp;0.99</p>
+              <a class="zoom" href="../assets/img/semg/semg-fitts-able-bodied-720.png" data-zoom="natural"><img src="../assets/img/semg/semg-fitts-able-bodied-720.png" width="720" height="213" loading="lazy" decoding="async"
+                   alt="Able-bodied group: mean completion time against index of difficulty for ten targets from 0.39 to 1.43 bits, with error bars of about plus or minus one second and a dashed straight-line fit. Mean completion time rises from about 0.7 seconds to about 3.3 seconds; the points lie very close to the line."></a>
+            </div>
+            <div class="semg-fitts-panel">
+              <p class="semg-panel-label"><b>(b) Stroke participant A</b> · <i>R</i><sup>2</sup>&nbsp;=&nbsp;0.88</p>
+              <a class="zoom" href="../assets/img/semg/semg-fitts-stroke-720.png" data-zoom="natural"><img src="../assets/img/semg/semg-fitts-stroke-720.png" width="720" height="213" loading="lazy" decoding="async"
+                   alt="Stroke participant A: mean completion time against index of difficulty for the same ten targets, with error bars of about plus or minus one second and a dashed straight-line fit. Mean completion time rises from about 1.1 seconds to about 4.0 seconds, with more scatter about the line than in the able-bodied group."></a>
+            </div>
+          </div>
+          <figcaption><span class="tag">Measured</span>Space Shooter completion time versus index of difficulty for the
+            able-bodied group and stroke participant&nbsp;A. Points show condition means ±1&nbsp;SD; dashed lines show
+            least-squares fits. Vertical scales differ.</figcaption>
+        </figure>
+
+        <div class="prose">
+          <p>
+            Because each fit uses condition means, <i>R</i><sup>2</sup> describes how consistently average completion
+            time followed task difficulty; the error bars show substantial variation between trials. The relationship
+            between completion time and task difficulty supports the use of graded game tasks for quantitative assessment
+            within the proposed rehabilitation protocol.
+          </p>
+        </div>
       </div>
 
-      <figure class="fig fig-mid">
-        <video controls preload="none" playsinline
-               poster="../assets/video/semg-maze-game-poster.jpg" width="1280" height="720">
-          <source src="../assets/video/semg-maze-game.mp4" type="video/mp4">
-          Your browser cannot play this video. It shows the three-degree-of-freedom maze task under sEMG control.
-        </video>
-        <figcaption><span class="tag">Video</span>The three-degree-of-freedom maze task under live sEMG
-          control.</figcaption>
-      </figure>
+      <div class="semg-sub">
+        <h3 class="semg-subhead" id="across-sessions">Task Performance Across Sessions</h3>
+        <div class="prose">
+          <p>Participant A’s performance on day 1 and day 5 was compared using three sessions from each day.</p>
+        </div>
 
-      <figure class="fig fig-mid fig-frame">
-        <a class="zoom" href="../assets/img/semg/semg-games-mapping-923.jpg">
-          <img src="../assets/img/semg/semg-games-mapping-923.jpg" width="923" height="608" loading="lazy" decoding="async"
-               alt="Figure mapping hand gestures to control actions across the three interactive tasks.">
-        </a>
-        <figcaption>Gesture-to-action mapping across the three tasks. Figure prepared by the project
-          team.</figcaption>
-      </figure>
+        <figure class="fig semg-dp-fig">
+          <div class="semg-dp">
+            <div class="semg-dp-head">
+              <p class="semg-dp-title">Participant A: Day 1 and Day 5</p>
+              <ul class="semg-dp-legend">
+                <li><span class="dp-key dp-key-d1" aria-hidden="true"></span>Day 1</li>
+                <li><span class="dp-key dp-key-d5" aria-hidden="true"></span>Day 5</li>
+                <li><span class="dp-key dp-key-sd" aria-hidden="true"></span>±1 SD</li>
+              </ul>
+            </div>
+          <div class="semg-dp-group">
+            <p class="semg-dp-task">Brick Breaker</p>
+            <div class="semg-dp-row" tabindex="0" role="group" aria-label="Brick Breaker, completion rate">
+              <div class="semg-dp-label"><span class="dp-measure">Completion rate</span><span class="dp-sig"><i>p</i>&nbsp;&lt;&nbsp;0.05</span></div>
+              <div class="semg-dp-track"><span class="dp-lane dp-d1" style="--m:33.3;--s:5.8"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">33.3%</span><span class="sr-only">Day 1: 33.3 plus or minus 5.8%</span></span><span class="dp-lane dp-d5" style="--m:73.3;--s:11.5"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">73.3%</span><span class="sr-only">Day 5: 73.3 plus or minus 11.5%</span></span></div>
+              <div class="dp-tip" aria-hidden="true"><b>33.3 ± 5.8%</b> Day&nbsp;1 · <b>73.3 ± 11.5%</b> Day&nbsp;5 · <i>t</i>(2)&nbsp;=&nbsp;−6.95, <i>p</i>&nbsp;&lt;&nbsp;0.05</div>
+            </div>
+            <div class="semg-dp-row" tabindex="0" role="group" aria-label="Brick Breaker, score">
+              <div class="semg-dp-label"><span class="dp-measure">Score</span><span class="dp-sig"><i>p</i>&nbsp;&lt;&nbsp;0.05</span></div>
+              <div class="semg-dp-track"><span class="dp-lane dp-d1" style="--m:43.3;--s:5.8"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">43.3%</span><span class="sr-only">Day 1: 43.3 plus or minus 5.8%</span></span><span class="dp-lane dp-d5 dp-label-left" style="--m:76.7;--s:15.3"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">76.7%</span><span class="sr-only">Day 5: 76.7 plus or minus 15.3%</span></span></div>
+              <div class="dp-tip" aria-hidden="true"><b>43.3 ± 5.8%</b> Day&nbsp;1 · <b>76.7 ± 15.3%</b> Day&nbsp;5 · <i>t</i>(2)&nbsp;=&nbsp;−3.78, <i>p</i>&nbsp;&lt;&nbsp;0.05</div>
+            </div>
+          </div>
+          <div class="semg-dp-group">
+            <p class="semg-dp-task">Space Shooter</p>
+            <div class="semg-dp-row" tabindex="0" role="group" aria-label="Space Shooter, completion rate">
+              <div class="semg-dp-label"><span class="dp-measure">Completion rate</span><span class="dp-sig"><i>p</i>&nbsp;&lt;&nbsp;0.05</span></div>
+              <div class="semg-dp-track"><span class="dp-lane dp-d1" style="--m:16.7;--s:15.3"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">16.7%</span><span class="sr-only">Day 1: 16.7 plus or minus 15.3%</span></span><span class="dp-lane dp-d5" style="--m:73.3;--s:5.8"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">73.3%</span><span class="sr-only">Day 5: 73.3 plus or minus 5.8%</span></span></div>
+              <div class="dp-tip" aria-hidden="true"><b>16.7 ± 15.3%</b> Day&nbsp;1 · <b>73.3 ± 5.8%</b> Day&nbsp;5 · <i>t</i>(2)&nbsp;=&nbsp;−4.71, <i>p</i>&nbsp;&lt;&nbsp;0.05</div>
+            </div>
+            <div class="semg-dp-row" tabindex="0" role="group" aria-label="Space Shooter, overshoot">
+              <div class="semg-dp-label"><span class="dp-measure">Overshoot</span><span class="dp-note">lower = fewer overshoots</span><span class="dp-sig"><i>p</i>&nbsp;&lt;&nbsp;0.05</span></div>
+              <div class="semg-dp-track"><span class="dp-lane dp-d1 dp-label-left" style="--m:83.3;--s:15.3"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">83.3%</span><span class="sr-only">Day 1: 83.3 plus or minus 15.3%</span></span><span class="dp-lane dp-d5" style="--m:26.7;--s:5.8"><span class="dp-bar"></span><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">26.7%</span><span class="sr-only">Day 5: 26.7 plus or minus 5.8%</span></span></div>
+              <div class="dp-tip" aria-hidden="true"><b>83.3 ± 15.3%</b> Day&nbsp;1 · <b>26.7 ± 5.8%</b> Day&nbsp;5 · <i>t</i>(2)&nbsp;=&nbsp;4.71, <i>p</i>&nbsp;&lt;&nbsp;0.05</div>
+            </div>
+          </div>
+          <div class="semg-dp-group">
+            <p class="semg-dp-task">Maze</p>
+            <div class="semg-dp-row" tabindex="0" role="group" aria-label="Maze, path efficiency">
+              <div class="semg-dp-label"><span class="dp-measure">Path efficiency</span><span class="dp-sig"><i>p</i>&nbsp;=&nbsp;0.096, not significant</span></div>
+              <div class="semg-dp-track"><span class="dp-lane dp-d1" style="--m:72.8;--s:0.0"><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">72.8%</span><span class="sr-only">Day 1: 72.8%</span></span><span class="dp-lane dp-d5 dp-label-left" style="--m:87.4;--s:0.0"><span class="dp-dot"></span><span class="dp-val" aria-hidden="true">87.4%</span><span class="sr-only">Day 5: 87.4%</span></span></div>
+              <div class="dp-tip" aria-hidden="true"><b>72.8%</b> Day&nbsp;1 · <b>87.4%</b> Day&nbsp;5 · <i>t</i>(2)&nbsp;=&nbsp;−1.94, <i>p</i>&nbsp;=&nbsp;0.096</div>
+            </div>
+          </div>
+            <div class="semg-dp-axis" aria-hidden="true">
+              <span class="semg-dp-axis-title">Percentage</span>
+              <div class="semg-dp-ticks"><span style="--t:0">0</span><span style="--t:25">25</span><span style="--t:50">50</span><span style="--t:75">75</span><span style="--t:100">100%</span></div>
+            </div>
+          </div>
+          <figcaption><span class="tag">Measured</span>Means of the three sessions on each day, with ±1&nbsp;SD bars where
+            reported; no SD was reported for path efficiency. Points are summary values, not individual participants or
+            sessions; <i>p</i> values are from paired <i>t</i>-tests.</figcaption>
+        </figure>
+
+        <div class="prose">
+          <p>No statistically significant change was detected in Space Shooter completion time or Maze path efficiency.
+            Participant B showed no statistically significant difference in Brick Breaker.</p>
+        </div>
+
+        <details class="more">
+          <summary>Statistical comparison</summary>
+          <div class="table-wrap">
+            <table class="data-table data-table-stack semg-stats-table">
+              <caption>Participant A, day 1 and day 5: mean ± SD over three sessions per day; paired <i>t</i>-tests with
+                2 degrees of freedom, not adjusted for multiple comparisons. Completion-time means were not reported
+                numerically (—).</caption>
+              <thead>
+                <tr><th scope="col">Measure</th><th scope="col" class="num">Day 1</th><th scope="col" class="num">Day 5</th><th scope="col" class="num"><i>t</i>(2)</th><th scope="col" class="num"><i>p</i></th><th scope="col">Result</th></tr>
+              </thead>
+            <tbody>
+              <tr class="semg-group-row"><th scope="rowgroup" colspan="6">Brick Breaker</th></tr>
+              <tr><th scope="row">Completion rate</th><td data-label="Day 1" class="num">33.3 ± 5.8%</td><td data-label="Day 5" class="num">73.3 ± 11.5%</td><td data-label="t(2)" class="num">−6.95</td><td data-label="p" class="num">&lt;&nbsp;0.05</td><td data-label="Result">Statistically significant</td></tr>
+              <tr><th scope="row">Score</th><td data-label="Day 1" class="num">43.3 ± 5.8%</td><td data-label="Day 5" class="num">76.7 ± 15.3%</td><td data-label="t(2)" class="num">−3.78</td><td data-label="p" class="num">&lt;&nbsp;0.05</td><td data-label="Result">Statistically significant</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="semg-group-row"><th scope="rowgroup" colspan="6">Space Shooter</th></tr>
+              <tr><th scope="row">Completion rate</th><td data-label="Day 1" class="num">16.7 ± 15.3%</td><td data-label="Day 5" class="num">73.3 ± 5.8%</td><td data-label="t(2)" class="num">−4.71</td><td data-label="p" class="num">&lt;&nbsp;0.05</td><td data-label="Result">Statistically significant</td></tr>
+              <tr><th scope="row">Overshoot</th><td data-label="Day 1" class="num">83.3 ± 15.3%</td><td data-label="Day 5" class="num">26.7 ± 5.8%</td><td data-label="t(2)" class="num">4.71</td><td data-label="p" class="num">&lt;&nbsp;0.05</td><td data-label="Result">Statistically significant</td></tr>
+              <tr><th scope="row">Completion time</th><td data-label="Day 1" class="num">—</td><td data-label="Day 5" class="num">—</td><td data-label="t(2)" class="num">0.21</td><td data-label="p" class="num">0.42</td><td data-label="Result">No statistically significant difference detected</td></tr>
+            </tbody>
+            <tbody>
+              <tr class="semg-group-row"><th scope="rowgroup" colspan="6">Maze</th></tr>
+              <tr><th scope="row">Path efficiency</th><td data-label="Day 1" class="num">72.8%</td><td data-label="Day 5" class="num">87.4%</td><td data-label="t(2)" class="num">−1.94</td><td data-label="p" class="num">0.096</td><td data-label="Result">No statistically significant difference detected</td></tr>
+            </tbody>
+            </table>
+          </div>
+        </details>
+      </div>
     </div>
   </section>
 
-  <section class="stage" id="evaluation">
+  <!-- ========== 7. dataset and outputs ========== -->
+  <section class="stage" id="output">
     <div class="wrap">
-      <h2>Evaluating it as an interface, not a model</h2>
-      <div class="prose">
-        <p>
-          Classification accuracy says nothing about whether a person can steer with the signal. The
-          evaluation therefore used Fitts' law, which relates movement time to target distance and width — a
-          standard way of characterising a pointing interface — alongside completion rate, overshoot, path
-          efficiency and goniometric joint-angle measurements.
-        </p>
-        <p>
-          Regressing completion time on index of difficulty produced strong participant-level model fits:
-          <i>R</i>² ≥ 0.98 for the ten able-bodied participants and <i>R</i>² ≥ 0.88 for the two participants
-          with chronic stroke.
-        </p>
-      </div>
-      <div class="callout">
-        <h3>Reading these numbers</h3>
-        <p>
-          <i>R</i>² here describes how well the linear Fitts relationship fits each participant's recorded
-          movement times under this evaluation. It is a measure of regression fit, not of skill, speed or
-          clinical status. With ten and two participants the two values cannot support inference about
-          population-level differences, and a lower <i>R</i>² is not by itself evidence of greater
-          variability. No therapeutic benefit or clinical outcome is claimed anywhere in this work.
-        </p>
-      </div>
-    </div>
-  </section>
+      <h2>Dataset and outputs</h2>
+      <div class="split semg-split semg-outputs">
+        <article class="output semg-output">
+          <div class="output-body">
+            <p class="output-type">Dataset · 2023</p>
+            <h3 class="output-title">MUSED-I: Multi-Gesture Surface Electromyography (sEMG) Dataset for Stroke Rehabilitation</h3>
+            <p class="output-authors"><strong class="self">M.&nbsp;M.&nbsp;Khan</strong>, M.&nbsp;Farhan, A.&nbsp;Shahzad,
+              H.&nbsp;S.&nbsp;Qarni, A.&nbsp;Waris and O.&nbsp;Gillani</p>
+            <p class="output-venue"><span class="venue-name">IEEE DataPort</span>&nbsp;· 5 August 2023&nbsp;·
+              DOI&nbsp;<a href="https://doi.org/10.21227/04zq-yz45" rel="noopener">10.21227/04zq-yz45</a></p>
+            <p class="semg-output-text">Eight-channel Myo recordings of six classes (wrist flexion, wrist extension,
+              hand closing, radial deviation, ulnar deviation and rest) from ten able-bodied participants and two
+              participants after stroke, recorded in three daily sessions of five 5&nbsp;s repetitions per gesture. The
+              second stroke participant recorded three of the six classes.</p>
+            <ul class="output-links">
+              <li><a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">IEEE DataPort record</a></li>
+              <li><a href="https://github.com/Mustafahan786/MUSED-1" rel="noopener">GitHub repository</a></li>
+            </ul>
+          </div>
+        </article>
 
-  <section class="stage" id="limits">
-    <div class="wrap">
-      <h2>Limitations</h2>
-      <div class="limits">
-        <h3>Not established</h3>
-        <ul class="tight">
-          <li><strong>Latency was never measured</strong> — the 300 ms figure is a design target from the
-            literature. End-to-end delay from muscle activation to on-screen response was not
-            instrumented.</li>
-          <li><strong>Small, uneven groups</strong> — ten able-bodied and two post-stroke participants. The
-            evaluation characterises the interface; it does not compare populations.</li>
-          <li><strong>No clinical claim</strong> — this is an engineering evaluation of a control interface.
-            Rehabilitation efficacy was not assessed here.</li>
-          <li><strong>Session dependence</strong> — normalisation reduces but does not remove sensitivity to
-            electrode placement and skin condition; cross-session and cross-user generalisation was not
-            characterised.</li>
-        </ul>
-      </div>
-
-      <div class="prose" style="margin-top:1.75rem">
-        <h3>Output</h3>
-        <p>
-          M. M. Khan, M. Farhan, A. Shahzad, H. S. Qarni, A. Waris and O. Gilani, “MUSED-I: Multi-Gesture
-          Surface Electromyography (sEMG) Dataset for Stroke Rehabilitation”, <em>IEEE DataPort</em>,
-          August 2023. doi:10.21227/04zq-yz45 ·
-          <a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">record</a>
-        </p>
-        <p class="small muted">
-          A laboratory project with a larger team. Colleagues extended the interface set and ran the sessions
-          with clinical participants; recordings were made under NUST Research Ethics Committee approval.
-        </p>
+        <div class="prose semg-outputs-text">
+          <p>
+            The project was carried out in the Human System Lab, School of Mechanical and Manufacturing Engineering,
+            NUST, with faculty co-authors Asim Waris and Omer Gilani. My contribution covered sEMG signal acquisition
+            and feature extraction, development and selection of the machine-learning models, and deployment of
+            gradient boosting for real-time gesture recognition; the task interfaces and evaluation protocol were
+            developed jointly with the co-authors. I am first author of the MUSED-I dataset.
+          </p>
+          <p class="small muted">
+            Supported in part by NUST research grant NUST-22-41-48. The recording protocol was approved by the NUST
+            Research Ethics Committee (M-20221206). Recordings were made under the supervision of physiotherapists and
+            doctors at Mayo Hospital, Lahore, and NUST.
+          </p>
+        </div>
       </div>
 
       <h2 class="related-h">Related projects</h2>
       <div class="related">
         <a href="soft-robotic-glove.html">
-          <img src="../assets/img/glove/glove-actuators-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
-          <span><b>REHABOTICS Soft Robotic Glove</b><span>The actuator this interface was built to drive</span></span>
+          <img src="../assets/img/glove/glove-prototype-card-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="">
+          <span><b>sEMG-Controlled Soft Robotics Glove for Game-Based Hand Rehabilitation</b><span>A soft pneumatic glove that extended this protocol to physical assistance</span></span>
         </a>
         <a href="afm-high-speed-control.html">
-          <img src="../assets/img/afm/afm-head-wide-660.jpg" width="660" height="391" loading="lazy" decoding="async" alt="">
-          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>Real-time sensing and embedded feedback at a different physical scale</span></span>
+          <img src="../assets/img/concepts/afm-concept-v6-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="">
+          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>Frequency-response identification and embedded PI control</span></span>
         </a>
       </div>
     </div>
@@ -289,7 +579,7 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-name">Muhammad Mustafa Khan</p>
-      <p class="footer-statement">Open to PhD opportunities and research collaborations in robotics, feedback control and learning-based methods for physical systems.</p>
+      <p class="footer-statement">Open to PhD opportunities and research collaborations in control, robotics and physical AI.</p>
       <ul class="footer-links">
         <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
         <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
@@ -300,15 +590,17 @@
     </div>
     <nav aria-label="Footer">
       <ul class="footer-nav">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../index.html#research">Research</a></li>
-        <li><a href="../index.html#outputs">Outputs</a></li>
         <li><a href="../index.html#about">About</a></li>
+        <li><a href="index.html">Projects</a></li>
+        <li><a href="../index.html#outputs">Research outputs</a></li>
         <li><a href="../cv.html">CV</a></li>
       </ul>
     </nav>
   </div>
-  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+  <div class="wrap footer-bottom">
+    <p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p>
+    <p class="footer-status">This portfolio is under active development; further projects and results will be added.</p>
+  </div>
 </footer>
 <script src="../script.js" defer></script>
 </body>

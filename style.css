@@ -37,7 +37,7 @@
   --fs-body: 1.09375rem;                                  /* 17.5px */
   --fs-caption: 0.9125rem;                                /* 14.6px */
   --fs-meta: 0.8125rem;                                   /* 13px  */
-  --fs-name: clamp(2.4rem, 1.7rem + 2.8vw, 4.1rem);       /* 38 → 66px */
+  --fs-name: clamp(2.3rem, 1.75rem + 2.3vw, 3.75rem);     /* 37 → 60px */
   --fs-case: clamp(1.95rem, 1.4rem + 2.1vw, 3rem);        /* 31 → 48px */
   --fs-h2: clamp(1.55rem, 1.25rem + 1.15vw, 2.15rem);     /* 25 → 34px */
   --fs-h3: clamp(1.14rem, 1.05rem + 0.35vw, 1.32rem);
@@ -75,7 +75,9 @@ html {
   scroll-padding-top: calc(var(--nav-h) + 1.5rem);
   color-scheme: light;
 }
-@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* Smooth scrolling is switched on by script.js once the page has loaded, so a page opened at a #fragment
+   (e.g. from "View imaging results") jumps straight to it; in-page links still scroll smoothly. */
+@media (prefers-reduced-motion: no-preference) { html.smooth-scroll { scroll-behavior: smooth; } }
 
 body {
   margin: 0;
@@ -96,7 +98,8 @@ body {
 .prose-wide { max-width: 78ch; }
 .section { padding-block: var(--section-y); }
 .section-line { border-top: 1px solid var(--rule); }
-.section-white { background: var(--surface); }
+/* Every section sits on the same warm page background (--bg); sections are separated by a hairline
+   (.section-line), not by alternating white and warm bands. */
 .section-dark { background: var(--ink-bg); color: var(--on-dark); }
 .section-dark h2, .section-dark h3 { color: #fff; }
 .section-dark .kicker { color: #8fd0dc; }
@@ -169,13 +172,17 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
   font-size: 0.94rem; color: var(--ink-2); text-decoration: none;
   padding: 0.45rem 0; border-bottom: 2px solid transparent; transition: color var(--t), border-color var(--t);
 }
+.nav a { white-space: nowrap; }
 .nav a:hover { color: var(--accent); border-bottom-color: var(--rule-2); }
 .nav a[aria-current] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
-.nav-cta {
-  padding: 0.5rem 0.95rem !important; border: 1px solid var(--rule-ui);
-  border-radius: 999px; font-size: 0.9rem !important; color: var(--ink) !important;
+/* CV button. Scoped as .nav a.nav-cta so it outranks .nav a, whose transparent 2px bottom border used to
+   replace the button's bottom edge; all four sides stay visible in every state. */
+.nav a.nav-cta {
+  padding: 0.45rem 0.95rem; border: 1px solid var(--rule-ui);
+  border-radius: 999px; font-size: 0.9rem; color: var(--ink);
 }
-.nav-cta:hover { border-color: var(--accent) !important; background: var(--accent-soft); }
+.nav a.nav-cta:hover { border-color: var(--accent); background: var(--accent-soft); color: var(--ink); }
+.nav a.nav-cta[aria-current] { border-color: var(--accent); }
 .nav-toggle { display: none; }
 
 @media (max-width: 700px) {
@@ -198,12 +205,12 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
   .header-inner { flex-wrap: wrap; padding-block: 0.4rem; }
   .nav { width: 100%; flex-wrap: wrap; gap: 0.15rem 1.1rem; padding-bottom: 0.5rem; }
   .nav a { font-size: 0.9rem; padding: 0.5rem 0; }
-  .nav-cta { padding: 0.45rem 0.85rem !important; }
+  .nav a.nav-cta { padding: 0.45rem 0.85rem; }
 
   /* upgraded to a disclosure menu when JavaScript runs */
   .js .nav {
     position: absolute; left: 0; right: 0; top: 100%; display: block; width: auto;
-    background: var(--surface); border-bottom: 1px solid var(--rule);
+    background: var(--bg); border-bottom: 1px solid var(--rule);
     box-shadow: 0 14px 28px -22px rgba(20, 22, 25, 0.7);
     padding: 0.35rem 0 0.85rem; margin: 0;
   }
@@ -213,7 +220,7 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
     border-bottom: 0; border-left: 3px solid transparent; font-size: 1rem;
   }
   .js .nav a[aria-current] { border-left-color: var(--accent); background: var(--accent-soft); }
-  .js .nav-cta { margin: 0.6rem 1.25rem 0; border-radius: var(--radius); justify-content: center; display: inline-flex !important; }
+  .js .nav a.nav-cta { display: inline-flex; margin: 0.6rem 1.25rem 0; border: 1px solid var(--rule-ui); border-radius: var(--radius); justify-content: center; }
 }
 
 /* narrow phones: keep brand and menu button on one row */
@@ -244,79 +251,97 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
 .link-arrow::after { content: "→"; transition: transform var(--t); }
 .link-arrow:hover::after { transform: translateX(3px); }
 
-/* ---------- hero ----------
-   DOM order is identity → portrait → body, so a screen reader meets the H1 first.
-   CSS places the portrait beside the identity at every width. */
+/* ---------- hero: the About section that opens the home page ----------
+   DOM order: identity (name, affiliation and adviser) → research overview (current research, undergraduate
+   thesis, research interests) → actions and profile links → side column (portrait, caption, Education). That is
+   also the reading order on phones, where the columns stack. From 720px the side column sits on the right,
+   aligned with the right edge of the container (and the header's CV button). */
 .hero { padding-block: clamp(1.75rem, 1.2rem + 2.4vw, 3.25rem) clamp(2.5rem, 2rem + 2vw, 4rem); }
-.hero-grid {
-  display: grid; align-items: start;
-  grid-template-columns: minmax(0, 1fr) 36%;
-  gap: 1.15rem 1.15rem;
-}
-.hero-id { grid-column: 1; grid-row: 1; }
-.hero-figure { grid-column: 2; grid-row: 1 / span 2; margin: 0; }
-.hero-body { grid-column: 1 / -1; grid-row: 3; }
+.hero-grid { display: grid; gap: 2.5rem; align-items: start; }
+/* One shared text container, as wide as the rendered name: it shrinks to the heading's text (fit-content),
+   and inline-size containment stops the longer lines from widening it, so nothing runs past the visible end
+   of "Khan". When the column is narrower than the name, the name wraps and the container fills the column. */
+.hero-main { min-width: 0; }
+.hero-affil, .hero-nav, .overview { contain: inline-size; }
 
-.hero-name { font-size: var(--fs-name); line-height: 1.03; letter-spacing: -0.028em; margin: 0 0 0.6rem; text-wrap: balance; }
-.hero-role { font-size: 1rem; line-height: 1.45; color: var(--ink-2); margin: 0; max-width: 40ch; }
-.hero-thesis {
-  grid-column: 1; grid-row: 2;
-  font-family: var(--font-display); font-size: clamp(1.2rem, 1.02rem + 0.8vw, 1.6rem);
-  line-height: 1.38; color: var(--ink); margin: 0.9rem 0 0; max-width: 34ch; text-wrap: pretty;
-}
-.hero-lede { font-size: var(--fs-lede); line-height: 1.6; color: var(--ink-2); max-width: 62ch; margin: 0 0 1.5rem; }
-.hero-actions { margin-bottom: 1.2rem; }
+.hero-name { font-size: var(--fs-name); line-height: 1.04; letter-spacing: -0.026em; margin: 0 0 0.85rem; text-wrap: balance; }
+/* Affiliation: role and institution first, then department and adviser as supporting lines. */
+.hero-affil { margin: 0; font-size: 0.9375rem; line-height: 1.5; color: var(--muted); }
+.hero-affil > span { display: block; text-wrap: pretty; }
+.hero-affil .affil-role { font-size: 1rem; font-weight: 500; color: var(--ink); margin-bottom: 0.1rem; }
+
+.hero-nav { margin-top: 1.75rem; }   /* after the research overview */
+.hero-actions { gap: 0.6rem; }
+.hero-actions .btn { min-height: 44px; padding: 0.5rem 1.15rem; }
 .hero-profiles {
-  display: flex; flex-wrap: wrap; gap: 0.2rem 1.35rem;
-  list-style: none; margin: 0 0 0.9rem; padding: 0; font-size: 0.97rem;
+  display: flex; flex-wrap: wrap; gap: 0.25rem 1.2rem;
+  list-style: none; margin: 0.9rem 0 0; padding: 0; font-size: 0.875rem;
 }
 .hero-profiles li { margin: 0; }
-.hero-profiles a { color: var(--ink-2); text-decoration: none; border-bottom: 1px solid var(--rule-2); padding-block: 0.35rem 1px; }
-.hero-profiles a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-.hero-note { font-size: var(--fs-caption); color: var(--muted); margin: 0; }
-.hero-dev-note { font-size: 0.875rem; font-weight: 400; line-height: 1.5; color: var(--muted); margin: 0.875rem 0 0; }
+.hero-profiles a {
+  color: var(--ink-2); text-decoration: underline; text-decoration-color: var(--rule-2);
+  text-decoration-thickness: 1px; text-underline-offset: 0.3em;
+}
+.hero-profiles a:hover { color: var(--accent); text-decoration-color: var(--accent); }
 
-/* Homepage reading size: ~18px body text on desktop, 17px on phones, 1.6 line spacing.
-   The hero lede stays a step above body text at every width. */
-.page-home { --fs-body: 1.125rem; --lh-body: 1.6; }
-.page-home .hero-lede { font-size: clamp(1.125rem, 1.05rem + 0.35vw, 1.26rem); line-height: 1.6; }
-@media (max-width: 560px) { .page-home { --fs-body: 1.0625rem; } }
+/* Research overview: three blocks separated by hairlines; each heading sits close to its text. */
+.overview { margin-top: 1.5rem; max-width: 48rem; }   /* 768px reading width on desktop */
+.ov-block { border-top: 1px solid var(--rule-2); padding-top: 1.1rem; }
+.ov-block + .ov-block { margin-top: 1.4rem; }
+.ov-title {
+  font-family: var(--font-sans); font-size: 1.1875rem; font-weight: 600; line-height: 1.35;
+  letter-spacing: -0.005em; color: var(--ink); margin: 0 0 0.5rem;
+}
+.ov-topic { font-weight: 500; color: var(--accent); }
+.ov-text, .ov-list { margin: 0; font-size: 1.0625rem; line-height: 1.58; color: var(--ink-2); }
+.ov-text + .ov-text, .ov-text + .ov-list, .ov-list + .ov-text { margin-top: 0.35rem; }
+.ov-list > div + div { margin-top: 0.35rem; }
+.ov-list dt { display: inline; font-weight: 600; color: var(--ink); }
+.ov-list dd { display: inline; margin: 0; text-wrap: pretty; }
+.ov-keys { font-weight: 600; color: var(--ink); }
 
+/* Side column: the portrait, its caption, then Education on the same left edge. */
+.hero-figure { margin: 0; }
 .hero-figure img {
   display: block; width: 100%; height: auto;
   border-radius: var(--radius); background: var(--surface);
 }
-.hero-caption { font-size: var(--fs-meta); line-height: 1.4; color: var(--muted); margin: 0.55rem 0 0; }
+.hero-caption { font-size: 0.875rem; line-height: 1.45; color: var(--muted); margin: 0.55rem 0 0; text-wrap: pretty; }
+.hero-facts { border-top: 2px solid var(--rule-strong); padding-top: 0.9rem; margin-top: 1.25rem; }
+.fact { padding-bottom: 0.9rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--rule); }
+.fact:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
+.fact .fact-label {
+  font-family: var(--font-sans); font-weight: var(--label-weight); font-size: var(--fs-meta); line-height: 1.5;
+  letter-spacing: var(--label-tracking); text-transform: uppercase; color: var(--muted); margin: 0 0 0.45rem;
+}
+.fact-list { list-style: none; margin: 0; padding: 0; }
+.fact-list li { font-size: 0.9375rem; line-height: 1.5; color: var(--ink-2); margin: 0; }
+.fact-list .fact-degree, .fact-list .fact-inst, .fact-list .fact-date { display: block; }
+.fact-list li + li { margin-top: 0.7rem; }
+.fact strong { color: var(--ink); font-weight: 600; }
+.fact-date { color: var(--muted); }
 
-/* Narrow phones: the name takes the full width and the portrait sits beside the
-   thesis instead, so it is never an isolated thumbnail in an empty row. */
-/* Phones: tighten the hero so the primary action reaches the first viewport. */
+/* Phones: a compact portrait with its caption beside it, after the research overview. */
+@media (max-width: 719px) {
+  .hero-side { border-top: 1px solid var(--rule-2); padding-top: 1.5rem; }
+  .hero-figure { display: grid; grid-template-columns: 9.5rem minmax(0, 1fr); gap: 1rem; align-items: end; }
+  .hero-caption { margin: 0; }
+}
 @media (max-width: 560px) {
-  .hero { padding-block: 1.25rem 2rem; }
-  .hero-grid { gap: 0.9rem 1.1rem; }
-  .hero .kicker { margin-bottom: 0.6rem; }
-  .hero-thesis { margin-top: 0.7rem; }
-  .hero-lede { line-height: 1.55; margin-bottom: 1.1rem; }
-  .hero-actions { margin-bottom: 1rem; }
+  .hero { padding-block: 1.25rem 2.25rem; }
+  .hero-name { margin-bottom: 0.7rem; }
+  .ov-title { font-size: 1.125rem; }
+  .ov-text, .ov-list { font-size: 1rem; line-height: 1.6; }
 }
-@media (max-width: 430px) {
-  .hero-id { grid-column: 1 / -1; }
-  .hero-thesis { grid-column: 1; grid-row: 2; }
-  .hero-figure { grid-column: 2; grid-row: 2; align-self: start; }
-  .hero-name { margin-bottom: 0.5rem; }
-  .hero-role { max-width: none; }
+@media (min-width: 720px) {
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 240px; gap: 0 2.5rem; }
 }
-@media (min-width: 620px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) 260px; gap: 0 2rem; }
-  .hero-figure { grid-row: 1 / span 3; }
-  .hero-body { grid-column: 1; grid-row: 3; margin-top: 1.5rem; }
-}
+/* From 900px: the portrait column is 320px and ends at the right edge of the shared .wrap container -- the
+   same edge as the header's CV button. The introduction fills the remaining track; its text is capped at
+   48rem (768px), so at 1280-1440px it reads about 770px wide with at least 64px before the portrait. */
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 0 3.5rem; }
-  .hero-figure { justify-self: end; }
-  .hero-thesis { margin-top: 1.2rem; }
+  .hero-grid { grid-template-columns: minmax(0, 1fr) 320px; gap: 0 4rem; }
 }
-@media (max-width: 400px) { .hero-caption { display: none; } }
 
 /* ---------- project cards ---------- */
 .work-featured { display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center; margin-bottom: clamp(2rem, 4vw, 3.25rem); }
@@ -369,51 +394,41 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
 .direction-item h3 { color: #fff; margin-bottom: 0.4rem; }
 .direction-item p { color: var(--on-dark-muted); font-size: 0.99rem; margin: 0; }
 
-/* ---------- outputs ---------- */
-.outputs { display: grid; gap: 1.5rem; }
-.output { display: grid; gap: 0.5rem 1.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--rule); }
-.output:last-child { border-bottom: 0; padding-bottom: 0; }
-@media (min-width: 760px) { .output { grid-template-columns: 116px minmax(0, 1fr); align-items: start; } }
-.output-thumb { margin: 0; }
-.output-thumb img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: var(--radius); }
-.output-type {
-  font-family: var(--font-sans); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.05em;
-  text-transform: uppercase; color: var(--accent); margin: 0 0 0.3rem;
+/* ---------- research outputs: a compact citation list ----------
+   Entry order: type and year, title, authors, venue and date, links. The photograph is a supporting
+   thumbnail (150px, natural proportions, top-aligned); on phones it follows the text at a modest width. */
+#outputs .section-head h2 { margin: 0; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.125rem); }   /* matches "Selected research projects" */
+.outputs { display: grid; }
+.output { display: grid; gap: 1rem 2rem; padding-block: 1.75rem; border-top: 1px solid var(--rule); align-items: start; }
+.output:first-child { border-top: 0; padding-top: 0; }
+.output:last-child { padding-bottom: 0; }
+.output-thumb { margin: 0; order: 2; max-width: 12rem; }
+.output-thumb img { display: block; width: 100%; height: auto; border-radius: var(--radius); }
+@media (min-width: 760px) {
+  .output { grid-template-columns: 150px minmax(0, 1fr); }
+  .output-thumb { order: 0; max-width: none; }
 }
-.output h3 { font-family: var(--font-display); font-weight: 500; font-size: 1.22rem; line-height: 1.3; margin: 0 0 0.4rem; letter-spacing: -0.01em; }
-.output-authors { font-size: 0.97rem; color: var(--ink); margin: 0 0 0.15rem; }
-.output-authors .self { font-weight: 600; }
-.output-venue { font-size: 0.97rem; color: var(--muted); margin: 0 0 0.6rem; }
-.output p { font-size: 0.97rem; color: var(--ink-2); margin: 0 0 0.5rem; }
-.output-links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.25rem; font-size: 0.94rem; margin: 0; padding: 0; list-style: none; }
+.output-body { display: grid; gap: 0.4rem; min-width: 0; }
+.output-body > * { margin: 0; }
+.output-type { font-family: var(--font-sans); font-size: 0.84375rem; font-weight: 600; line-height: 1.4; color: var(--accent); }   /* 13.5px, sentence case */
+.output-title {
+  font-family: var(--font-display); font-weight: 500; font-size: clamp(1.1875rem, 1.1rem + 0.35vw, 1.3125rem);   /* 19 -> 21px */
+  line-height: 1.3; letter-spacing: -0.01em; color: var(--ink); text-wrap: pretty;
+}
+.output-authors { font-size: 1rem; line-height: 1.5; color: var(--ink-2); }
+.output-authors .self { font-weight: 600; color: var(--ink); }
+.output-venue { font-size: 0.9375rem; line-height: 1.5; color: var(--muted); }
+.output-venue .venue-name { font-weight: 600; color: var(--ink); }   /* conference / repository name */
+.output-links { display: flex; flex-wrap: wrap; gap: 0.1rem 1.4rem; font-size: 0.9375rem; margin: 0.15rem 0 0 !important; padding: 0; list-style: none; }
 .output-links li { margin: 0; }
-.output-links a { display: inline-flex; align-items: center; padding-block: 0.35rem; }
+.output-links a { display: inline-flex; align-items: center; padding-block: 0.3rem; font-weight: 500; color: var(--accent); text-decoration: none; }
+.output-links a:hover { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 0.2em; }
 .output-note { font-size: var(--fs-caption); color: var(--muted); margin: 0.45rem 0 0; }
 
-/* research interests — light editorial treatment, no dark marketing band */
-.interests { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); }
-@media (min-width: 820px) { .interests { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
-.interest { border-top: 2px solid var(--ink); padding-top: 0.95rem; }
-.interest h3 { margin-bottom: 0.4rem; }
-.interest p { font-size: 0.99rem; color: var(--ink-2); margin: 0 0 0.55rem; }
-.interest-status {
-  font-size: var(--fs-caption); color: var(--muted); margin: 0;
-  padding-top: 0.6rem; border-top: 1px solid var(--rule);
-}
-.interest-status b { font-weight: 600; color: var(--ink-2); }
-.interest-status.is-current b { color: var(--accent); }
-
-/* ---------- about ---------- */
-.about-section .section-head { margin-bottom: clamp(1.5rem, 1.1rem + 1.2vw, 2rem); }   /* heading → content: 24–32px */
-.about-grid { display: grid; gap: var(--gap); align-items: start; }
-@media (min-width: 900px) { .about-grid { grid-template-columns: 7fr 5fr; gap: clamp(2rem, 4vw, 3.5rem); } }
-/* Both columns open with the same rule, so their tops line up side by side and stack cleanly. */
-.about-prose, .about-facts { border-top: 2px solid var(--ink); padding-top: 1rem; }
-.fact { padding-bottom: 0.85rem; margin-bottom: 0.85rem; border-bottom: 1px solid var(--rule); }
-.fact:last-child { border-bottom: 0; margin-bottom: 0; padding-bottom: 0; }
-.fact-label { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-meta); letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin: 0 0 0.2rem; }
-.fact p { margin: 0; font-size: 0.97rem; color: var(--ink-2); }
-.fact strong { color: var(--ink); font-weight: 600; }
+/* ---------- personal note ---------- */
+.personal-note { padding-block: clamp(2rem, 3vw, 3rem); }
+.personal-note h2 { font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem); margin-bottom: 0.65rem; }
+.personal-note p { max-width: 76ch; margin: 0; color: var(--ink-2); }
 
 /* ---------- case study ---------- */
 .case-hero { padding-block: clamp(1.75rem, 3vw, 2.75rem) 0; }
@@ -606,8 +621,9 @@ figure { margin: 0; }
 .fig-diagram { max-width: 720px; }
 figcaption { font-size: var(--fs-caption); line-height: 1.55; color: var(--muted); margin-top: 0.55rem; max-width: 72ch; }
 figcaption b, figcaption strong { color: var(--ink-2); font-weight: 600; }
+/* figure-caption label (Measured, Simulation, CAD, Concept illustration ...): one accent colour and type style for every
+   kind; .tag-sim and .tag-concept only mark the figure type in the markup */
 .tag { font-family: var(--font-sans); font-weight: 600; font-size: var(--fs-meta); letter-spacing: 0.05em; text-transform: uppercase; color: var(--accent); margin-right: 0.45rem; }
-.tag-sim { color: #8a4a12; }
 .fig-grid { display: grid; gap: var(--gap); margin: 1.5rem 0; align-items: start; }
 @media (min-width: 720px) {
   .fig-grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -652,17 +668,103 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
   display: flex; flex-wrap: wrap; gap: 0.15rem 0.5rem; align-items: baseline;
   font-size: var(--fs-meta); line-height: 1.45; color: var(--muted); margin-top: 0.5rem;
 }
-.tag-concept { color: #8a4a12; }
+/* 4:3 cover (the AFM banner): the complete image at its own proportions, no crop; caption wraps naturally */
+.cover-4x3 .cover-frame img { aspect-ratio: 4 / 3; object-fit: contain; }
+/* sEMG graphical abstract: the whole animation at its own proportions (466 x 307), no crop or letterbox */
+.cover-ga .cover-frame { position: relative; background: #faf8fa; }
+.cover-ga picture { display: block; }
+.cover-ga .cover-frame img { aspect-ratio: 466 / 307; object-fit: fill; }
+.cover-ga figcaption { display: block; font-size: 0.875rem; line-height: 1.45; margin-top: 0.55rem; }
+.cover-ga figcaption .tag { margin-right: 0.15rem; }
+/* the still poster of the graphical abstract in a 4:3 card frame (homepage): the frame takes the artwork's own
+   background, so the letterbox above and below reads as part of the image */
+.cover-ga-still .cover-frame { background: #faf8fa; }
+/* pause control for the looping graphical abstract (shown by script.js) */
+.ga-toggle {
+  display: inline-flex; align-items: center; gap: 0.35rem; margin-left: 0.35rem; padding: 0.1rem 0.2rem;
+  font: inherit; font-size: inherit; line-height: inherit; color: var(--link); vertical-align: baseline;
+  background: none; border: 0; border-radius: 2px; cursor: pointer;
+  text-decoration: underline; text-decoration-color: var(--link-rule); text-underline-offset: 0.2em;
+}
+.ga-toggle[hidden] { display: none; }
+.ga-toggle:hover, .ga-toggle:focus-visible { color: var(--link-hover); text-decoration-color: currentColor; }
+.ga-icon { flex: none; width: 8px; height: 9px; border-inline: 3px solid currentColor; box-sizing: border-box; }
+.is-paused .ga-icon { border: 0; border-left: 8px solid currentColor; border-block: 4.5px solid transparent; width: 0; height: 0; }
+.cover-4x3 figcaption { display: block; font-size: 0.875rem; line-height: 1.45; margin-top: 0.55rem; }
+.cover-4x3 figcaption .tag { margin-right: 0.15rem; }
 
-/* --- featured project on the homepage --- */
+/* --- a cover whose image stays visible to assistive technology ---
+   The image is not wrapped in the link, so its alt text is announced; a hidden overlay link keeps the
+   cover clickable for pointer users without adding a second keyboard stop. */
+.cover-frame.has-overlay { position: relative; }
+.cover-overlay { position: absolute; inset: 0; }
+.cover-frame.has-overlay:hover img { transform: scale(1.012); }
+
+/* --- homepage "Selected research projects": heading with a secondary action --- */
+.work-head { margin-bottom: 2rem; }                                                   /* 32px to the featured project */
+.work-head h2 { margin: 0; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.125rem); }   /* 26px phones -> 34px desktop */
+.section-action { font-size: 0.97rem; }
+
+/* --- featured project on the homepage ---
+   DOM order is title block -> cover -> summary, contribution, result, actions: the phone reading order.
+   Below 900px the parts stack in that order, text held to a readable measure.
+   900-1179px: the title block spans the top; cover and text sit side by side, tops aligned. (With the
+     title in the narrow right column it wraps to three lines and leaves a tall gap under the cover.)
+   From 1180px: the cover takes the left column and its top lines up with the title block. */
 .work-feature {
-  display: grid; gap: clamp(1.25rem, 3vw, 2.5rem); align-items: center;
+  display: grid; gap: 1.1rem;
   padding-bottom: clamp(2rem, 4vw, 3rem); margin-bottom: clamp(2rem, 4vw, 3rem);
   border-bottom: 1px solid var(--rule);
 }
-@media (min-width: 900px) { .work-feature { grid-template-columns: 7fr 5fr; } }
-.work-feature .pcard-title { font-size: clamp(1.5rem, 1.15rem + 1.25vw, 2rem); }
-.work-feature .pcard-lede { font-size: 1.05rem; }
+@media (max-width: 899px) { .wf-head, .wf-body { max-width: 40rem; } }
+/* From 900px: three rows -- title block, project information, and a shared bottom row in which the image
+   caption and the actions sit side by side, centred on each other. The cover and the text column are
+   subgrids spanning those rows; the image sits at the bottom of its area, directly above the caption.
+   900-1179px: the title spans both columns. From 1180px: the title sits in the text column. */
+@media (min-width: 900px) {
+  .work-feature {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); grid-template-rows: auto 1fr auto;
+    column-gap: clamp(2rem, 3.5vw, 3rem); row-gap: 0.5rem; align-items: start;
+  }
+  .wf-head { grid-column: 1 / -1; grid-row: 1; margin-bottom: 0.75rem; }
+  .work-feature > .wf-cover, .work-feature > .wf-body { grid-row: 2 / 4; display: grid; grid-template-rows: subgrid; row-gap: normal; align-self: stretch; }   /* the 8px row gap comes from the parent */
+  .wf-cover { grid-column: 1; }
+  .wf-body { grid-column: 2; }
+  .wf-cover .cover-frame { grid-row: 1 / -2; align-self: end; }
+  .wf-cover figcaption { grid-row: -2 / -1; align-self: center; margin: 0; }
+  .wf-info { grid-row: 1 / -2; padding-bottom: 1.1rem; border-bottom: 1px solid var(--rule); }
+  .wf-body .wf-actions { grid-row: -2 / -1; align-self: center; margin: 0; padding: 0; border-top: 0; }
+}
+@media (min-width: 1180px) {
+  .wf-head { grid-column: 2; }
+  .work-feature > .wf-cover { grid-row: 1 / 4; }
+}
+.wf-info { display: grid; gap: 1.15rem; }
+.wf-head { display: grid; gap: 0.45rem; }
+.work-feature .pcard-title { font-size: clamp(1.45rem, 1.1rem + 1.3vw, 2rem); line-height: 1.16; text-wrap: balance; }   /* 23 -> 32px */
+.wf-cover figcaption { display: block; font-size: 0.875rem; line-height: 1.45; }
+@media (max-width: 899px) { .wf-cover figcaption { margin-top: 0.55rem; } }   /* about 9px below the image when stacked */   /* 14px, ~7px below the image */
+.wf-body { display: grid; gap: 1.15rem; }
+.wf-summary { margin: 0; font-size: 1rem; line-height: 1.6; color: var(--ink-2); }
+.wf-facts { margin: 0; display: grid; gap: 1rem; }
+.wf-facts dt {
+  font-family: var(--font-sans); font-weight: var(--label-weight); font-size: var(--fs-meta); line-height: 1.4;
+  letter-spacing: var(--label-tracking); text-transform: uppercase; color: var(--muted); margin: 0 0 0.25rem;
+}
+.wf-facts dd { margin: 0; font-size: 1rem; line-height: 1.55; color: var(--ink-2); }
+/* the result: modest emphasis -- accent label, full-strength ink and a thin accent rule */
+.wf-result { border-left: 2px solid var(--accent); padding-left: 0.85rem; }
+.wf-result dt { color: var(--accent); }
+.wf-result dd { color: var(--ink); }
+.wf-actions {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem;
+  list-style: none; margin: 0.15rem 0 0; padding: 1.1rem 0 0; border-top: 1px solid var(--rule);
+}
+.wf-actions li { margin: 0; }
+.wf-actions .btn { min-height: 44px; padding: 0.5rem 1.1rem; font-size: 0.97rem; }
+.wf-actions .btn.link-arrow { gap: 0.45rem; }
+.work-feature:focus-within .cover-frame { border-color: var(--accent); }
+@media (min-width: 900px) { .wf-summary { font-size: 1.0625rem; } }   /* 17px on desktop, 16px below */
 
 /* --- the shared project card --- */
 .pcard { display: flex; flex-direction: column; gap: 0.75rem; }
@@ -728,9 +830,17 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
   .anim-toggle { display: none; }
 }
 
-/* --- responsive secondary-project grid --- */
+/* --- responsive secondary-project grid ---
+   Cards side by side share row tracks (subgrid) from 700px, so the cover and caption, metadata, title,
+   description, contribution, result and links of neighbouring cards start on the same lines; spare space
+   collects under the shorter block, never inside it. One column below 700px: each card simply stacks. */
 .work-grid-3 { display: grid; gap: clamp(1.75rem, 3.5vw, 2.75rem); }
-@media (min-width: 700px) { .work-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (min-width: 700px) {
+  .work-grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .work-grid-3 > .pcard { display: grid; grid-row: span 7; grid-template-rows: subgrid; row-gap: 0.75rem; align-items: start; }
+  .work-grid-3 .pcard-facts { grid-row: span 2; grid-template-rows: subgrid; row-gap: 0.3rem; align-items: start; }
+  .work-grid-3 .pcard-foot { margin-top: 0; }   /* every footer rule on the same line */
+}
 @media (min-width: 1100px) { .work-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
 /* ---------- project index: alternating editorial entries ---------- */
@@ -780,35 +890,60 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
 .index-links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; list-style: none; margin: 0; padding: 0; font-size: 0.97rem; }
 .index-links li { margin: 0; }
 .index-links a { display: inline-flex; align-items: center; padding-block: 0.3rem; }
+.link-quiet { font-weight: 400; }
+/* the AFM entry's measured result: same modest emphasis as on the homepage */
+.index-result { border-left: 2px solid var(--accent); padding-left: 0.75rem; }
+.index-result b { color: var(--accent); }
 .index-entry:focus-within .cover-frame { border-color: var(--accent); }
+/* the AFM entry: caption and links share the bottom row, centred on each other (from 880px) */
+@media (min-width: 880px) {
+  .index-entry.has-caption-row { grid-template-rows: 1fr auto; row-gap: 0.5rem; align-items: stretch; }
+  .has-caption-row .cover, .has-caption-row .index-body { grid-row: 1 / 3; display: grid; grid-template-rows: subgrid; }
+  .has-caption-row .cover .cover-frame { grid-row: 1; align-self: end; }
+  .has-caption-row .cover figcaption { grid-row: 2; align-self: center; margin: 0; }
+  .has-caption-row .index-main { grid-row: 1; align-self: end; }
+  .has-caption-row .index-main > :last-child { margin-bottom: 0.4rem; }
+  .has-caption-row .index-links { grid-row: 2; align-self: center; }
+}
 
 /* ---------- related projects ---------- */
 .related { display: grid; gap: 1.1rem; margin-top: 1.25rem; }
 @media (min-width: 720px) { .related { grid-template-columns: repeat(2, 1fr); } }
 .related a {
-  display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 0.9rem; align-items: center;
+  display: grid; grid-template-columns: 104px minmax(0, 1fr); gap: 0.9rem; align-items: center;
   text-decoration: none; color: var(--ink); background: var(--surface);
   border: 1px solid var(--rule); border-radius: var(--radius); padding: 0.75rem; transition: border-color var(--t);
 }
 .related a:hover { border-color: var(--accent); }
-.related img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 2px; }
+.related img { display: block; width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: contain; background: #fff; border: 1px solid var(--rule); border-radius: 2px; }
 .related b { display: block; font-size: 0.99rem; font-weight: 600; margin-bottom: 0.15rem; }
 .related span { display: block; font-size: 0.88rem; color: var(--muted); }
 
 /* ---------- CV page ---------- */
-.cv-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 1.5rem 0 2rem; }
-.cv-pages { display: grid; gap: clamp(1.25rem, 3vw, 2rem); max-width: 960px; }
-@media (min-width: 820px) { .cv-pages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-.cv-page { margin: 0; }
-.cv-page img {
+.cv-document .cv-actions { display: flex; flex-wrap: wrap; gap: 0.7rem; margin: 0 0 1.5rem; }
+.cv-document .cv-actions[hidden] { display: none; }
+.cv-document .cv-pdf {
+  display: block; width: 100%; height: clamp(780px, 85vh, 1100px);
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius);
+}
+.cv-document .cv-pdf-fallback { padding: 1.5rem; }
+.cv-document .cv-pages { display: none; gap: clamp(1.25rem, 3vw, 2rem); }
+.cv-document .cv-page { margin: 0; }
+.cv-document .cv-page img {
   display: block; width: 100%; height: auto; background: #fff;
   border: 1px solid var(--rule); border-radius: var(--radius);
   box-shadow: 0 12px 26px -20px rgba(20, 22, 25, 0.55);
 }
-.cv-page figcaption { font-size: var(--fs-caption); color: var(--muted); margin-top: 0.5rem; }
-@media (max-width: 720px) {
-  .cv-preview { display: none; }
-  .cv-preview-small { display: block; }
+.cv-document .cv-page figcaption { font-size: var(--fs-caption); color: var(--muted); margin-top: 0.5rem; }
+@media (max-width: 819px) {
+  .cv-document .cv-pdf { display: none; }
+  .cv-document .cv-pages { display: grid; }
+}
+@media print {
+  .cv-document .cv-actions { display: none; }
+  .cv-document .cv-pdf { display: none; }
+  .cv-document .cv-pages { display: grid; }
+  .cv-document .cv-page { break-inside: avoid; }
 }
 .panel { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 1.2rem 1.35rem; }
 
@@ -834,26 +969,34 @@ dialog.lightbox img { max-width: 94vw; max-height: 74vh; width: auto; height: au
   .lightbox-caption { max-height: 24vh; font-size: 0.88rem; }
 }
 
-/* ---------- footer ---------- */
-.site-footer { background: var(--ink-bg); color: var(--on-dark-muted); padding-block: clamp(2.5rem, 4vw, 3.5rem); }
-.footer-grid { display: grid; gap: 1.5rem 2rem; }
-@media (min-width: 760px) { .footer-grid { grid-template-columns: 1fr auto; align-items: start; } }
+/* ---------- footer ----------
+   Desktop: name (left) and footer navigation (right) share the top row; the invitation and the contact
+   links sit under the name; a hairline divider then separates the copyright and the development notice.
+   Phones: the groups stack, left-aligned. Contrast on #16191d: name 17.6:1, invitation 8.8:1, links 15.3:1,
+   copyright 7.3:1, notice 8.8:1. */
+.site-footer { background: var(--ink-bg); color: var(--on-dark-muted); padding-block: clamp(2.5rem, 4vw, 3.25rem) clamp(2rem, 3vw, 2.5rem); }
+.footer-grid { display: grid; gap: 1.25rem 3rem; }
+@media (min-width: 760px) { .footer-grid { grid-template-columns: minmax(0, 1fr) auto; align-items: start; } }
+/* Scoped under .site-footer so they outrank `.site-footer p`. */
 .site-footer p { color: var(--on-dark-muted); }
-/* Scoped under .site-footer so it outranks the paragraph colour above. */
-.site-footer .footer-name { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.3; color: var(--on-dark); margin: 0 0 0.5rem; }   /* 22px */
-.footer-statement { font-size: 1.125rem; line-height: 1.55; max-width: 58ch; margin: 0; }   /* 18px */
+.site-footer .footer-name { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.3; color: #fff; margin: 0 0 0.6rem; }   /* 22px */
+.site-footer .footer-statement { font-size: 1.125rem; line-height: 1.55; max-width: 48rem; margin: 0; text-wrap: pretty; }   /* 18px, wraps naturally */
 .site-footer a { color: var(--on-dark); text-decoration: none; border-bottom: 1px solid rgba(241, 239, 233, 0.3); }
 .site-footer a:hover { border-bottom-color: #8fd0dc; color: #fff; }
-.footer-links, .footer-nav { display: flex; flex-wrap: wrap; gap: 0.6rem 1.5rem; margin: 0; padding: 0; list-style: none; font-size: 0.9375rem; }   /* 15px */
+.footer-links, .footer-nav { display: flex; flex-wrap: wrap; gap: 0.4rem 1.5rem; margin: 0; padding: 0; list-style: none; font-size: 0.9375rem; }   /* 15px */
 .footer-links { margin-top: 1.25rem; }
-.footer-nav { margin-top: 0.9rem; }
 .footer-links li, .footer-nav li { margin: 0; }
-.footer-links a, .footer-nav a { display: inline-block; padding-block: 0.3rem; }
-.footer-meta { font-size: 0.8125rem; margin: 1.75rem 0 0; }   /* 13px */
+.footer-links a, .footer-nav a { display: inline-block; padding-block: 0.2rem; overflow-wrap: anywhere; }
+/* the nav's first line shares the name's line box, so the two read as one top row */
+@media (min-width: 760px) { .footer-nav { margin-top: 0.1rem; justify-content: flex-end; } }
+.footer-bottom { margin-top: clamp(1.75rem, 3vw, 2.25rem); padding-top: 1.1rem; border-top: 1px solid rgba(241, 239, 233, 0.14); }
+.site-footer .footer-meta { font-size: 0.8125rem; line-height: 1.5; margin: 0; color: #aca69b; text-wrap: pretty; }   /* 13px */
+.site-footer .footer-status { font-size: 0.8125rem; line-height: 1.5; margin: 0.4rem 0 0; color: #bdb7ab; }   /* 13px, last line */
+@media (max-width: 759px) {
+  .footer-grid > nav { order: 2; }
+}
 @media (max-width: 700px) {
-  .site-footer .footer-name { font-size: 1.25rem; }          /* 20px */
-  .footer-statement { font-size: 1rem; }                     /* 16px */
-  .footer-links, .footer-nav { font-size: 0.875rem; }        /* 14px */
+  .site-footer .footer-statement { font-size: 1.0625rem; }   /* 17px */
 }
 
 /* ---------- motion ---------- */
@@ -863,10 +1006,10 @@ dialog.lightbox img { max-width: 94vw; max-height: 74vh; width: auto; height: au
 /* ---------- comfortable touch targets for standalone links ---------- */
 @media (max-width: 700px) {
   .hero-profiles a, .card-more a, .output-links a, .index-links a,
-  .case-links a, .contents a, .footer-links a, .footer-nav a, .head-row .meta a {
+  .case-links a, .contents a, .footer-links a, .footer-nav a, .head-row .meta a, .section-action {
     display: inline-flex; align-items: center; min-height: 44px;
   }
-  .hero-profiles { gap: 0 1.35rem; }
+  .hero-profiles { gap: 0 1.1rem; }
   .footer-links li, .footer-nav li { margin-bottom: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -881,3 +1024,415 @@ dialog.lightbox img { max-width: 94vw; max-height: 74vh; width: auto; height: au
   .section, .stage { border: 0; padding-block: 1rem; }
   a { color: inherit; text-decoration: none; }
 }
+
+/* ==========================================================================
+   PROJECT PAGES: voice-coil, sEMG and glove additions
+   New class names only, so the AFM page and listing surfaces are unaffected.
+   ========================================================================== */
+/* prose beside a portrait (phone-recorded) video */
+@media (min-width: 860px) {
+  .split-portrait { grid-template-columns: minmax(0, 1fr) 300px; align-items: start; }
+}
+.fig-portrait { max-width: 300px; margin-inline: auto; }
+.fig-portrait figcaption { max-width: none; }
+.split-portrait .fig-portrait { margin-block: 0; }
+/* parameter and data tables */
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; -webkit-overflow-scrolling: touch; }
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.93rem; line-height: 1.5; font-variant-numeric: tabular-nums; }
+.data-table caption { caption-side: top; text-align: left; font-size: var(--fs-caption); color: var(--muted); padding-bottom: 0.55rem; }
+.data-table caption .tag { margin-right: 0.3rem; }
+.data-table th, .data-table td { padding: 0.5rem 0.9rem 0.5rem 0; text-align: left; vertical-align: top; border-bottom: 1px solid var(--rule); }
+.data-table thead th { font-weight: 600; color: var(--ink); border-bottom: 1px solid var(--rule-2); white-space: nowrap; }
+.data-table tbody th { font-weight: 600; color: var(--ink); }
+.data-table td { color: var(--ink-2); }
+.data-table .num { text-align: right; white-space: nowrap; }
+.data-table .fx { white-space: nowrap; font-family: var(--font-display); font-size: 1.02rem; color: var(--ink); }
+.data-table sub { line-height: 0; }
+/* MathML equations inside the shared equation panel */
+.eq-math math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.22rem; }
+.data-table math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.05rem; }
+.eq-math math + math { margin-top: 0.75rem; }
+.eq-math .sym-table { margin-top: 1rem; }
+/* expandable supporting detail */
+.more { margin: 1.25rem 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 0.7rem 0; }
+.more > summary { cursor: pointer; color: var(--link); font-size: 0.97rem; }
+.more[open] > summary { margin-bottom: 0.4rem; }
+.more .table-wrap { margin: 0.75rem 0 0.25rem; }
+.split .model-block { margin-top: 0; }
+.eq-math + .prose { margin-top: 1.5rem; }
+.data-table-narrow { width: auto; }
+.data-table-narrow thead th:first-child, .data-table-narrow tbody th { padding-right: 2rem; }
+.data-table-narrow .num { padding-left: 1.4rem; padding-right: 0; }
+.split .metrics-stack { margin-top: 1.5rem; }
+.prose > .case-links { margin: 0.2rem 0 1.1rem; }
+.fig-native.fig-narrow { max-width: 520px; }
+.split > .eq-math { min-width: 0; max-width: 100%; }
+/* narrow screens: wide tables become one block per row, each value labelled by its column */
+@media (max-width: 600px) {
+  .data-table-stack thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .data-table-stack, .data-table-stack tbody, .data-table-stack tr, .data-table-stack th, .data-table-stack td { display: block; width: auto; }
+  .data-table-stack caption { display: block; }
+  .data-table-stack tr { border-bottom: 1px solid var(--rule); padding: 0.55rem 0 0.6rem; }
+  .data-table-stack th, .data-table-stack td { border: 0; padding: 0.1rem 0; white-space: normal; text-align: left; }
+  .data-table-stack td::before { content: attr(data-label) ": "; font-family: var(--font-sans); font-size: 0.93rem; font-weight: 600; color: var(--muted); }
+  .data-table-narrow .num { padding-left: 0.75rem; }
+  .data-table-narrow thead th:first-child, .data-table-narrow tbody th { padding-right: 0.75rem; }
+}
+
+/* ==========================================================================
+   VOICE-COIL PAGE additions (new class names only; other pages unaffected)
+   ========================================================================== */
+.vca-subhead { margin-top: clamp(2rem, 4vw, 2.75rem); }
+.fig picture { display: block; }
+/* functional diagram: wide drawing from 720px, a stacked drawing below (kept at a readable size) */
+@media (max-width: 719px) { .fig-architecture, .fig-networks { max-width: 420px; } }
+/* two portrait recordings side by side from 720px; each keeps its native proportions */
+.video-pair { max-width: 700px; margin-inline: auto; }
+.video-pair .fig-portrait { margin-inline: auto; }
+.more .video-pair { margin-top: 0.9rem; }
+/* plant response: a landscape photograph and a portrait recording set to one height, captions aligned */
+.vca-media-pair { --pair-h: clamp(19rem, 33vw, 30rem); display: grid; gap: var(--gap); margin: 1.75rem 0; }
+.vca-media-pair .fig { margin: 0; }
+@media (min-width: 860px) {
+  .vca-media-pair { display: flex; align-items: flex-start; justify-content: center; gap: clamp(1.5rem, 3vw, 2.25rem); }
+  .vca-media-pair .vca-media { flex: 0 0 auto; min-width: 0; }
+  .vca-media-pair .vca-media img { height: var(--pair-h); width: auto; max-width: 100%; }
+  /* the video sits inside a 1px frame, so it is 2px shorter to keep both captions on one line */
+  .vca-media-pair .vca-media video { height: calc(var(--pair-h) - 2px); width: auto; max-width: 100%; }
+  .vca-media-pair figcaption { max-width: 32ch; }
+  /* the analyser photograph keeps its caption on the full width of the image */
+  .vca-media-pair .vca-media-wide { max-width: calc(var(--pair-h) * 1.34); }
+  .vca-media-pair .vca-media-wide figcaption { max-width: none; }
+  /* the frame shrinks to the portrait video, so no background shows beside it */
+  .vca-media-pair .vca-media .video-frame { width: max-content; max-width: 100%; }
+}
+@media (max-width: 859px) {
+  .vca-media-pair .vca-media .video-frame { max-width: 300px; margin-inline: auto; }
+}
+/* narrow screens: the stacked circuit table may wrap its formulas; the DC table keeps its six columns */
+@media (max-width: 600px) { .vca-circuit-table .fx { white-space: normal; } }
+@media (max-width: 420px) {
+  .vca-dc-table { font-size: 0.875rem; }
+  .vca-dc-table .num { padding-left: 0.45rem; }
+  .vca-dc-table thead th:first-child, .vca-dc-table tbody th { padding-right: 0.4rem; }
+}
+
+/* sEMG case study: AFM-style full-width prose and one spacing scale.
+   A section is a sequence of blocks, and each subsection (.semg-sub) groups an h3 with the text, equations,
+   figures and tables that belong to it. The space inside a subsection and the larger break between
+   subsections are therefore each set once, here, rather than by overrides for individual elements. */
+.semg-page .case-sub { max-width: 64ch; margin-bottom: 0; }
+/* research brief: aligned columns, hairlines running the full row height, a slightly wider key-result column */
+@media (min-width: 900px) {
+  .semg-brief dl { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 1.2fr); }
+}
+.semg-brief dd p { margin: 0; }
+.semg-brief .semg-brief-note { margin-top: 0.55rem; font-size: 0.9rem; line-height: 1.5; color: var(--muted); }
+.semg-page sup { line-height: 0; }   /* superscripts (R²) do not open up the line spacing */
+.semg-page .stage .wrap > *, .semg-sub > * { margin-block: 0; }
+.semg-page .stage .wrap > * + *, .semg-sub > * + * { margin-top: 1.5rem; }   /* text, figures, tables, equations */
+.semg-page .stage .wrap > h2 + * { margin-top: 0.75rem; }                      /* section heading -> its text */
+.semg-sub > h3 + * { margin-top: 0.6rem; }                                    /* subsection heading -> its text */
+.semg-page .stage .wrap > .semg-sub { margin-top: 2.5rem; }                    /* break between subsections */
+.semg-page .stage .wrap > h2 + .semg-sub { margin-top: 1rem; }                 /* first subsection under a section heading */
+.semg-page .stage .wrap > .related-h { margin-top: 3.25rem; }
+.semg-page .stage .prose p { margin: 0; }
+.semg-page .stage .prose p + p { margin-top: 1em; }                             /* about one line between paragraphs */
+.semg-page figcaption { max-width: none; }                                      /* captions span their figure */
+.semg-video { max-width: 640px; margin-inline: auto; }
+/* the three task screenshots share one square frame */
+.semg-games .fig img { aspect-ratio: 1 / 1; object-fit: cover; background: #000; border: 1px solid var(--rule-2); }
+/* participants beside the calibration interface, stacked below 860px */
+.semg-split { align-items: start; }
+.semg-split > * { margin: 0; min-width: 0; }
+.semg-gui { max-width: 440px; }
+.semg-gui img { border: 1px solid var(--rule); }
+/* Fitts' law: the two principal equations on the page background, their symbols defined directly beneath */
+.semg-eq-row { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 0.6rem 3.5rem; }
+.semg-eq-row math { margin: 0; font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.3rem; }
+.semg-symbols {
+  display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 0.2rem 1.1rem;
+  width: fit-content; max-width: 100%; margin: 1.1rem auto 0; padding-top: 0.8rem; border-top: 1px solid var(--rule);
+  font-size: 0.95rem; line-height: 1.55;
+}
+.semg-symbols > div { display: contents; }
+.semg-symbols dt { color: var(--ink); }
+.semg-symbols dt math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.1rem; }
+.semg-symbols dd { margin: 0; color: var(--ink-2); }
+/* performance measures: the full article width, most of it given to the definitions */
+.semg-measures-table thead th:nth-child(1) { width: 16%; }
+.semg-measures-table thead th:nth-child(2) { width: 58%; }
+.semg-measures-table thead th:nth-child(3) { width: 26%; }
+/* results: the two Fitts plots share one width and one frame, stacked so their ID axes align */
+.semg-fitts { max-width: 760px; margin-inline: auto; }
+.semg-fitts-pair { display: grid; gap: 0.9rem; }
+.semg-fitts-panel { background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 0.7rem 0.85rem 0.4rem; }
+.semg-panel-label { margin: 0 0 0.3rem; font-size: 0.93rem; line-height: 1.45; color: var(--ink-2); }
+.semg-panel-label b { color: var(--ink); font-weight: 600; }
+.semg-fitts-panel img { border-radius: 0; }
+/* dataset record beside the authorship notes */
+.output.semg-output {
+  display: block; padding: 1.3rem 1.45rem;
+  background: var(--surface); border: 1px solid var(--rule); border-left: 3px solid var(--accent); border-radius: var(--radius);
+}
+.semg-output .output-body { gap: 0.45rem; }
+.semg-output-text { font-size: 0.97rem; line-height: 1.6; color: var(--ink-2); margin-top: 0.3rem !important; }
+@media (max-width: 859px) {
+  .semg-gui { margin-inline: auto; }
+}
+@media (max-width: 600px) {
+  .semg-page .data-table-stack .num { text-align: left; }
+  .semg-measures-table td.semg-def::before { content: none; }   /* each stacked definition reads without a label */
+  .semg-targets-table thead th, .semg-targets-table thead .num { white-space: normal; vertical-align: bottom; }   /* five columns fit */
+  .semg-targets-table .num { padding-left: 0.6rem; }
+  .semg-fitts-panel { padding: 0.55rem 0.5rem 0.3rem; }
+}
+/* sEMG paper figures: shown whole at their own proportions; the enlargement opens at full resolution */
+.semg-fig-protocol { max-width: 940px; }
+.semg-fig-mapping { max-width: 894px; }
+.semg-fig-mapping img { border: 1px solid var(--rule); }
+/* inline mathematics in running text uses the same mathematics face as the equations */
+.semg-page .prose math { font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.06em; }
+/* lightbox: figures marked data-zoom="natural" open at their full pixel size and can be panned on small screens */
+dialog.lightbox.is-natural .lightbox-scroll { max-width: 94vw; max-height: 78vh; overflow: auto; -webkit-overflow-scrolling: touch; border-radius: var(--radius); }
+dialog.lightbox.is-natural img { max-width: none; max-height: none; }
+
+/* time-domain features: two-by-two panels, each with name, definition and one sentence */
+.semg-feature-grid { display: grid; gap: 1rem; }
+@media (min-width: 760px) { .semg-feature-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.1rem 1.25rem; } }
+.semg-feature {
+  display: flex; flex-direction: column; min-width: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 0.95rem 1.2rem 1rem;
+}
+.semg-feature h4 {
+  display: flex; justify-content: space-between; align-items: baseline; gap: 0.75rem; margin: 0;
+  font-family: var(--font-sans); font-size: 1rem; font-weight: 600; line-height: 1.4; letter-spacing: 0; color: var(--ink);
+}
+.semg-feature-abbr { font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.06em; color: var(--accent); }
+.semg-feature-eq {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 5.75rem; padding: 0.85rem 0; overflow-x: auto;
+}
+.semg-feature-eq math { margin: 0; font-family: "Cambria Math", "STIX Two Math", "Latin Modern Math", math; font-size: 1.32rem; }
+.semg-feature p { margin: 0; padding-top: 0.65rem; border-top: 1px solid var(--rule); font-size: 0.95rem; line-height: 1.5; color: var(--ink-2); }
+
+/* participant A, day 1 and day 5: summary dot plot on a common 0-100 % scale */
+.semg-dp-fig { max-width: 880px; margin-inline: auto; }
+.semg-dp {
+  --dp-d1: #8f8574; --dp-d5: var(--accent); --dp-label: 11rem;
+  background: var(--surface); border: 1px solid var(--rule); border-radius: var(--radius); padding: 1.05rem 1.4rem 0.85rem;
+}
+.semg-dp-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.4rem 1.5rem; }
+.semg-dp-title { margin: 0; font-family: var(--font-sans); font-size: 1rem; font-weight: 600; color: var(--ink); }
+.semg-dp-legend { display: flex; flex-wrap: wrap; gap: 0.25rem 1.1rem; margin: 0; padding: 0; list-style: none; font-size: 0.87rem; color: var(--ink-2); }
+.semg-dp-legend li { display: inline-flex; align-items: center; gap: 0.4rem; margin: 0; }
+.dp-key { display: inline-block; flex: none; box-sizing: border-box; }
+.dp-key-d1 { width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--dp-d1); background: var(--surface); }
+.dp-key-d5 { width: 10px; height: 10px; border-radius: 50%; background: var(--dp-d5); }
+.dp-key-sd { width: 18px; height: 8px; border-inline: 2px solid var(--muted); background: linear-gradient(var(--muted), var(--muted)) center / 100% 2px no-repeat; }
+.semg-dp-group { margin-top: 0.6rem; padding-top: 0.55rem; border-top: 1px solid var(--rule); }
+.semg-dp-task {
+  margin: 0 0 0.1rem; font-family: var(--font-sans); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--muted);
+}
+.semg-dp-row {
+  position: relative; display: grid; grid-template-columns: var(--dp-label) minmax(0, 1fr); column-gap: 1.25rem; align-items: center;
+  margin-inline: -0.45rem; padding: 0.3rem 0.45rem; border-radius: var(--radius);
+}
+.semg-dp-row:hover, .semg-dp-row:focus { background: #f7f5f0; }
+.semg-dp-row:focus { outline: none; }
+.semg-dp-row:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.semg-dp-label { display: flex; flex-direction: column; line-height: 1.35; }
+.dp-measure { font-size: 0.95rem; color: var(--ink); }
+.dp-note { font-size: 0.8rem; font-style: italic; color: var(--muted); }
+.dp-sig { font-size: 0.8rem; color: var(--muted); }
+.semg-dp-track {
+  position: relative; height: 46px; margin-right: 1rem;
+  background: linear-gradient(to right, var(--rule) 1px, transparent 1px) 0 0 / 25% 100% repeat-x;
+  border-right: 1px solid var(--rule);
+}
+.dp-lane { position: absolute; left: 0; right: 0; height: 18px; }
+.dp-d1 { top: 4px; color: var(--dp-d1); }
+.dp-d5 { top: 24px; color: var(--dp-d5); }
+.dp-bar { position: absolute; top: 8px; height: 2px; left: calc((var(--m) - var(--s)) * 1%); width: calc(var(--s) * 2%); background: currentColor; }
+.dp-bar::before, .dp-bar::after { content: ""; position: absolute; top: -3px; width: 2px; height: 8px; background: currentColor; }
+.dp-bar::before { left: 0; }
+.dp-bar::after { right: 0; }
+.dp-dot {
+  position: absolute; top: 9px; left: calc(var(--m) * 1%); width: 10px; height: 10px; margin: -5px 0 0 -5px;
+  border-radius: 50%; box-sizing: border-box; box-shadow: 0 0 0 2px var(--surface);
+}
+.dp-d1 .dp-dot { background: var(--surface); border: 2px solid currentColor; }
+.dp-d5 .dp-dot { background: currentColor; }
+.dp-val {
+  position: absolute; top: 9px; transform: translateY(-50%); left: calc((var(--m) + var(--s)) * 1% + 10px);
+  font-size: 0.8rem; line-height: 1; white-space: nowrap; color: var(--ink-2); font-variant-numeric: tabular-nums;
+}
+.dp-label-left .dp-val { left: auto; right: calc((100 - var(--m) + var(--s)) * 1% + 10px); }
+.dp-tip {
+  position: absolute; right: 0.45rem; bottom: calc(100% - 0.25rem); z-index: 2; max-width: min(28rem, 92%);
+  padding: 0.4rem 0.6rem; font-size: 0.8rem; line-height: 1.45; color: #e7e3da; background: var(--ink-bg); border-radius: var(--radius);
+  opacity: 0; visibility: hidden; transition: opacity var(--t); pointer-events: none;
+}
+.dp-tip b { font-weight: 600; color: #fff; font-variant-numeric: tabular-nums; }
+.semg-dp-row:hover .dp-tip, .semg-dp-row:focus .dp-tip { opacity: 1; visibility: visible; }
+.semg-dp-axis {
+  display: grid; grid-template-columns: var(--dp-label) minmax(0, 1fr); column-gap: 1.25rem;
+  margin-top: 0.35rem; font-size: 0.78rem; line-height: 1; color: var(--muted); font-variant-numeric: tabular-nums;
+}
+.semg-dp-axis-title { text-align: right; }
+.semg-dp-ticks { position: relative; height: 0.9rem; margin-right: 1rem; }
+.semg-dp-ticks span { position: absolute; left: calc(var(--t) * 1%); transform: translateX(-50%); }
+@media (max-width: 600px) {
+  .semg-dp { padding: 0.9rem 0.85rem 0.8rem; }
+  .semg-dp-row, .semg-dp-axis { grid-template-columns: minmax(0, 1fr); row-gap: 0.25rem; }
+  .semg-dp-label { flex-direction: row; flex-wrap: wrap; align-items: baseline; column-gap: 0.6rem; }
+  .semg-dp-axis-title { display: none; }
+  .semg-dp-track, .semg-dp-ticks { margin-right: 0.9rem; }
+}
+
+/* statistical comparison: rows grouped by task, numbers aligned */
+.semg-stats-table .num { white-space: nowrap; }
+.semg-stats-table .semg-group-row th {
+  padding-top: 1rem; font-family: var(--font-sans); font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.05em;
+  text-transform: uppercase; color: var(--accent); border-bottom: 1px solid var(--rule-2);
+}
+.semg-stats-table tbody:first-of-type .semg-group-row th { padding-top: 0.6rem; }
+.semg-stats-table tbody tr:not(.semg-group-row) th { font-weight: 400; }
+@media (max-width: 600px) {
+  .semg-stats-table .semg-group-row { padding-bottom: 0.3rem; }
+  .semg-stats-table .semg-group-row th { border-bottom: 0; padding-top: 0.6rem; }
+}
+
+/* touch screens have no hover, so the enlarge badge on sEMG figures stays visible */
+@media (hover: none) { .semg-page .zoom::after { opacity: 1; } }
+
+/* sEMG-controlled soft robotics glove case study (glove-page). AFM-style full-width prose with one spacing scale:
+   each section is a sequence of blocks spaced once here; subsections use .glove-subhead. */
+.glove-page .case-sub { max-width: 72ch; text-wrap: pretty; }
+/* contents: six short labels on one line where they fit; a tidy 3 x 2 grid on tablets, 2 x 3 on phones */
+@media (min-width: 560px) and (max-width: 879px) {
+  .glove-toc ol { display: grid; grid-template-columns: repeat(3, max-content); }
+}
+.glove-page .stage .wrap > * { margin-block: 0; }
+.glove-page .stage .wrap > * + * { margin-top: 1.5rem; }                       /* text, figures, tables, equations */
+.glove-page .stage .wrap > h2 + * { margin-top: 0.75rem; }                     /* section heading -> its text */
+.glove-page .stage .wrap > .glove-subhead { margin-top: 2.25rem; }
+.glove-page .stage .wrap > h2 + .glove-subhead { margin-top: 1rem; }
+.glove-page .stage .wrap > .glove-subhead + * { margin-top: 0.6rem; }
+.glove-page .stage .wrap > .related-h { margin-top: 3.25rem; }
+.glove-page .stage .prose p { margin: 0; }
+.glove-page .stage .prose p + p { margin-top: 1em; }                            /* about one line between paragraphs */
+.glove-page figcaption { max-width: none; }                                     /* captions span their figure */
+.glove-page .fig-grid { max-width: 940px; margin-inline: auto; }                /* the AFM figure width, centred */
+.glove-page .fig-grid .fig { margin: 0; }
+@media (hover: none) { .glove-page .zoom::after { opacity: 1; } }
+/* schematics at their drawn size; the stacked drawings below 760px, where the wide ones would shrink their text */
+.glove-schematic { max-width: 900px; }
+.glove-diagram { max-width: 780px; }
+@media (max-width: 759px) { .glove-schematic, .glove-diagram { max-width: 420px; } }
+/* final actuator, glove assembly and actuator dimensions: equal-height white frames, the table beside them */
+.glove-final { display: grid; gap: 1.25rem 1.5rem; max-width: 940px; margin-inline: auto; align-items: start; }
+.glove-final .fig { margin: 0; }
+.glove-final .table-wrap { margin: 0; }
+@media (max-width: 639px) { .glove-final .fig img { height: 240px; object-fit: contain; background: #fff; } }
+@media (min-width: 640px) {
+  .glove-final { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+  .glove-final .fig img { height: clamp(180px, 26vw, 250px); object-fit: contain; background: #fff; }
+  .glove-final .table-wrap { grid-column: 1 / -1; width: 100%; max-width: 360px; }
+}
+@media (min-width: 1000px) {
+  .glove-final { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 0.8fr); }
+  .glove-final .table-wrap { grid-column: auto; max-width: none; }
+}
+.glove-dims thead th { white-space: normal; }
+.glove-dims th[scope="row"] { font-weight: 400; color: var(--ink-2); }
+.glove-dims .num { text-align: right; padding-right: 0; }
+/* earlier concepts inside the Design iterations disclosure: equal-height frames */
+.glove-page .more .glove-iter { max-width: 640px; margin: 0.9rem auto 0.4rem; }
+@media (min-width: 640px) { .glove-iter .fig img { height: 200px; object-fit: contain; background: #fff; } }
+/* equations: the Yeoh model and, in a disclosure, the four feature definitions (two per row from 600px) */
+.glove-eq { max-width: 620px; }
+.glove-eq .eq-render { margin-bottom: 0.6rem; }
+.glove-eq .eq-render math + math { margin-top: 0.5rem; font-size: 1.08rem; }
+.glove-page .more .glove-feat { margin: 0.9rem auto 0.4rem; }
+.glove-feat .eq-render { display: grid; gap: 0.9rem 3rem; justify-content: center; }
+.glove-feat .eq-render math + math { margin-top: 0; font-size: inherit; }
+@media (min-width: 600px) { .glove-feat .eq-render { grid-template-columns: auto auto; } }
+/* fabrication: four steps in two rows; column widths follow each image's proportions so a row shares one height */
+.glove-steps { max-width: 720px; margin-inline: auto; display: grid; gap: 1.5rem; }
+.glove-steps-row { display: grid; gap: 1.5rem 1rem; align-items: start; }
+.glove-steps .fig { margin: 0; }
+@media (min-width: 600px) {
+  .glove-steps-r1 { grid-template-columns: minmax(0, 1.609fr) minmax(0, 1.635fr); }
+  .glove-steps-r2 { grid-template-columns: minmax(0, 1.348fr) minmax(0, 1.239fr); }
+}
+/* sEMG at rest and during hand close: two report plots at their native size */
+.glove-page .glove-semg { max-width: 860px; }
+/* the two contour plots share one frame height so their captions align */
+.glove-fea .fig img { aspect-ratio: 463 / 400; object-fit: contain; background: #fff; }
+/* hardware table: the role column reads as a note */
+.glove-hw thead th:nth-child(1) { width: 18%; }
+.glove-hw thead th:nth-child(2) { width: 50%; }
+/* interactive task: a compact command mapping on the left edge of the figure column, then screenshot and station
+   photograph in one frame size */
+.glove-map-wrap { max-width: 940px; margin-inline: auto; }
+.glove-map { max-width: 460px; }
+.glove-pair .zoom img { aspect-ratio: 696 / 600; object-fit: cover; }
+/* project information: label and value rows, two columns on wide screens */
+.glove-facts { display: grid; margin: 0; column-gap: 2.5rem; border-top: 1px solid var(--rule); }
+.glove-facts > div { display: grid; grid-template-columns: 7.5rem minmax(0, 1fr); gap: 1rem; padding-block: 0.55rem; border-bottom: 1px solid var(--rule); }
+.glove-facts dt { font-size: var(--fs-meta); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); padding-top: 0.2rem; }
+.glove-facts dd { margin: 0; color: var(--ink-2); }
+@media (min-width: 900px) {
+  .glove-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .glove-facts .glove-facts-wide { grid-column: 1 / -1; }
+}
+.glove-cite { font-size: var(--fs-caption); line-height: 1.55; color: var(--muted); max-width: 95ch; }
+
+/* hero: the title runs on one line once there is room for it (the AFM title fills a similar measure) */
+@media (min-width: 1180px) { .vca-page .case-title { max-width: none; } }
+/* contents: full section names, one desktop line where they fit, wrapping cleanly below that */
+.vca-contents ol { gap: 0.45rem 1.6rem; }
+@media (max-width: 559px) { .vca-contents ol { display: flex; } }
+/* paired stage figures: one frame size, so the images and their captions line up */
+.vca-figpair .zoom { background: var(--surface); }
+.vca-figpair .zoom img { aspect-ratio: 16 / 10; object-fit: contain; }
+/* DC measurement: the plot and its table read as one presentation */
+.vca-dc-pair { display: grid; gap: clamp(1.25rem, 3vw, 2.25rem); margin: 1.75rem 0; justify-content: center; }
+.vca-dc-pair .fig, .vca-dc-pair .table-wrap { margin: 0; }
+.vca-dc-pair .vca-dc-plot img { width: 100%; height: auto; }
+@media (min-width: 900px) {
+  .vca-dc-pair { grid-template-columns: minmax(0, 470px) minmax(0, 480px); align-items: center; }
+}
+.vca-dc-wrap .data-table { margin-inline: auto; }
+/* a short note in the text column */
+.vca-note {
+  max-width: 64ch; margin: 0; font-size: 0.95rem; line-height: 1.6; color: var(--ink-2);
+}
+.vca-note { margin-top: 1.75rem; }
+.vca-note b { color: var(--ink); font-weight: 600; }
+/* Related projects as its own closing section: no extra leading rule above the heading */
+.related-h-top { margin-top: 0; }
+/* voice-coil page: inline mathematics in prose, captions and tables sits at the text size */
+/* inline mathematics in running text keeps the surrounding sans face, so it does not read as a
+   pasted formula; the display equations keep the math face set above */
+.vca-page figcaption math, .vca-page caption math, .vca-page .data-table math, .vca-page .prose math {
+  font-family: inherit; font-size: 1em; color: inherit;
+}
+.vca-page .vca-circuit-table .fx { white-space: normal; font-family: inherit; }
+.vca-page .vca-circuit-table math { font-size: 1.02em; }
+.fx-or { padding-inline: 0.35em; color: var(--muted); }
+/* the measured-response panel keeps the same rhythm as the other disclosures */
+.vca-responses > summary { font-weight: 600; }
+.vca-responses .fig-grid { margin-bottom: 0; }
+/* consistent vertical rhythm between figures, tables, disclosures and the next heading */
+.vca-page .fig-grid, .vca-page .table-wrap { margin-block: 1.75rem; }
+.vca-page .more { margin-block: 1.75rem; }
+.vca-page .vca-subhead { margin-top: clamp(2.25rem, 4vw, 3rem); }
+.vca-page .prose + .fig, .vca-page .prose + .fig-grid, .vca-page .prose + .table-wrap,
+.vca-page .prose + .vca-dc-pair, .vca-page .prose + .vca-media-pair { margin-top: 1.5rem; }
+.vca-page .fig + .prose, .vca-page .fig-grid + .prose, .vca-page .table-wrap + .prose,
+.vca-page .vca-dc-pair + .prose, .vca-page .more + .prose { margin-top: 1.75rem; }
+/* consecutive prose blocks read as separate paragraphs */
+.vca-page .prose + .prose { margin-top: 1em; }

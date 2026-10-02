@@ -22,7 +22,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css?v=2026-10-03-personal">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -44,7 +44,7 @@
 }
 </script>
 </head>
-<body class="page-home">
+<body>
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
@@ -54,10 +54,9 @@
       <span class="bars" aria-hidden="true"><span></span></span>Menu
     </button>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="projects/index.html">Work</a>
-      <a href="#research">Research</a>
-      <a href="#outputs">Outputs</a>
       <a href="#about">About</a>
+      <a href="projects/index.html">Projects</a>
+      <a href="#outputs">Research outputs</a>
       <a class="nav-cta" href="cv.html">CV</a>
     </nav>
   </div>
@@ -65,98 +64,139 @@
 
 <main id="main">
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
+  <!-- ================= ABOUT (opening section) ================= -->
+  <section class="hero" id="about" aria-label="About">
     <div class="wrap hero-grid">
 
-      <div class="hero-id">
-        <p class="kicker">Robotics · Feedback control · Mechatronics</p>
-        <h1 class="hero-name">Muhammad Mustafa Khan</h1>
-        <p class="hero-role">
-          M.S. Student and Graduate Researcher in Mechanical and Robotics Engineering
-          at the Gwangju Institute of Science and Technology (GIST)
-        </p>
-      </div>
-
-      <figure class="hero-figure">
-        <img src="assets/img/about/portrait-336.jpg"
-             width="336" height="448" decoding="async"
-             alt="Muhammad Mustafa Khan standing beside his research poster at the IFAC World Congress in Busan.">
-        <figcaption class="hero-caption">23rd IFAC World Congress, Busan, August 2026</figcaption>
-      </figure>
-
-      <p class="hero-thesis">
-        I develop feedback-controlled mechatronic systems that sense, process information and act in
-        real time.
-      </p>
-
-      <div class="hero-body">
-        <p class="hero-lede">
-          My current research at GIST focuses on system identification and embedded feedback control for
-          contact-mode atomic force microscopy, with the aim of improving imaging speed and tracking
-          performance. My broader interests include robotics and learning-based control of physical systems.
-        </p>
-        <div class="actions hero-actions">
-          <a class="btn btn-primary" href="#work">Selected work</a>
-          <a class="btn" href="cv.html">Curriculum vitae</a>
+      <div class="hero-main">
+        <div class="hero-id">
+          <h1 class="hero-name">Muhammad Mustafa Khan</h1>
+          <p class="hero-affil">
+            <span class="affil-role">Graduate researcher &middot; <span class="nowrap">Dynamics &amp; Control Lab, GIST</span></span>
+            <span class="affil-line">Adviser: Prof. Kyi Hwan Park</span>
+          </p>
         </div>
-        <ul class="hero-profiles">
-          <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">Email</a></li>
-          <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
-          <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
-          <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
-          <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
-        </ul>
-        <p class="hero-note">Dynamics &amp; Control Lab, advised by Prof. Kyi Hwan Park</p>
-        <p class="hero-dev-note">This portfolio is under development. Further project details and research updates will be added.</p>
+
+        <!-- Research overview: three short blocks. Fuller accounts are on the project pages. -->
+        <div class="overview" role="region" aria-labelledby="overview-title">
+          <h2 class="sr-only" id="overview-title">Research overview</h2>
+
+          <section class="ov-block" aria-labelledby="ov-current">
+            <h3 class="ov-title" id="ov-current">Current research&nbsp;<span class="ov-topic">&middot;&nbsp;AFM control</span></h3>
+            <dl class="ov-list">
+              <div><dt>Aim:</dt> <dd>Improve the imaging speed and tracking performance of a contact-mode atomic force microscopy (AFM) system.</dd></div>
+              <div><dt>Work:</dt> <dd>Experimental system identification, controller design and embedded implementation, and validation on the AFM system.</dd></div>
+              <div><dt>Ongoing:</dt> <dd>Development of STM32 based Model Predictive Controller for AFM system.</dd></div>
+            </dl>
+          </section>
+
+          <section class="ov-block" aria-labelledby="ov-thesis">
+            <h3 class="ov-title" id="ov-thesis">Undergraduate thesis&nbsp;<span class="ov-topic">&middot;&nbsp;Rehabilitation robotics</span></h3>
+            <p class="ov-text">My undergraduate thesis combined artificial intelligence and soft robotics to develop a post-stroke
+              rehabilitation device. I implemented real-time gesture recognition using surface electromyography (sEMG) and
+              designed and fabricated fibre-reinforced pneumatic actuators.</p>
+          </section>
+
+          <section class="ov-block" aria-labelledby="ov-interests">
+            <h3 class="ov-title" id="ov-interests">Research interests</h3>
+            <p class="ov-text"><strong class="ov-keys">Control &middot; Robotics &middot; Physical AI</strong></p>
+            <p class="ov-text">Learning-based methods for real-time sensing and feedback control.</p>
+          </section>
+        </div>
+
+        <div class="hero-nav">
+          <div class="actions hero-actions">
+            <a class="btn btn-primary" href="#work">Research projects</a>
+            <a class="btn" href="cv.html">CV</a>
+          </div>
+          <ul class="hero-profiles" aria-label="Contact and academic profiles">
+            <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">Email</a></li>
+            <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
+            <li><a href="https://orcid.org/0009-0001-7310-5765" rel="noopener">ORCID</a></li>
+            <li><a href="https://github.com/Mustafahan786" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/mustafa-khan-marwat/" rel="noopener">LinkedIn</a></li>
+          </ul>
+        </div>
       </div>
+
+      <div class="hero-side">
+        <figure class="hero-figure">
+          <img src="assets/img/about/portrait-336.jpg"
+               width="336" height="448" decoding="async"
+               alt="Muhammad Mustafa Khan standing beside his research poster at the IFAC World Congress in Busan.">
+          <figcaption class="hero-caption">23rd IFAC World Congress, Busan, August 2026</figcaption>
+        </figure>
+
+        <div class="hero-facts">
+          <div class="fact">
+            <h2 class="fact-label">Education</h2>
+            <ul class="fact-list">
+              <li><strong class="fact-degree">M.S., Mechanical and Robotics Engineering</strong>
+                <span class="fact-inst">Gwangju Institute of Science and Technology (GIST)</span>
+                <span class="fact-date">2025–2027 (expected)</span></li>
+              <li><strong class="fact-degree">B.E., Mechanical Engineering</strong>
+                <span class="fact-inst">National University of Sciences and Technology (NUST)</span>
+                <span class="fact-date">2019–2023</span></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 
   <!-- ================= SELECTED WORK ================= -->
-  <section class="section section-white section-line" id="work">
+  <section class="section section-line" id="work" aria-labelledby="work-title">
     <div class="wrap">
-      <div class="section-head head-row">
-        <div>
-          <p class="kicker">Selected work</p>
-          <h2>Control, sensing and mechatronic systems</h2>
-        </div>
-        <p class="meta"><a href="projects/index.html">All four projects &rarr;</a></p>
+      <div class="section-head head-row work-head">
+        <h2 id="work-title">Selected research projects</h2>
+        <a class="link-arrow section-action" href="projects/index.html">View all projects</a>
       </div>
 
-      <!-- ---------- featured ---------- -->
-      <article class="work-feature">
-        <figure class="cover">
-          <a class="cover-frame" href="projects/afm-high-speed-control.html" tabindex="-1" aria-hidden="true">
-            <img src="assets/img/concepts/afm-concept-v3-1200.jpg"
-                 srcset="assets/img/concepts/afm-concept-v3-640.jpg 640w, assets/img/concepts/afm-concept-v3-1200.jpg 1200w"
-                 sizes="(min-width: 1280px) 690px, (min-width: 900px) 54vw, 92vw" width="1200" height="750" decoding="async"
-                 alt="Concept illustration based on the actual setup: the complete EM4SYS AFM, a contact-mode optical lever over an HS-100MG-type step standard, S4349 QPD, digital PI controller, PA88 PZT amplifier and paired PC4QM and PC4WL Z actuators; not experimental evidence.">
-          </a>
-          <figcaption><span class="tag tag-concept">Concept illustration</span>The complete AFM, optical-lever readout
-            and embedded Z-axis feedback path. <a href="projects/afm-high-speed-control.html#results">See the trace&ndash;retrace scans &rarr;</a></figcaption>
+      <!-- ---------- featured ----------
+           DOM order = reading order on phones: title block, cover and caption, summary, contribution, result, actions.
+           From 900px the caption and the actions share the bottom grid row (subgrid), centred on each other. -->
+      <article class="work-feature" aria-labelledby="afm-feature-title">
+        <div class="wf-head">
+          <p class="pcard-meta">Current research&nbsp;&middot; GIST&nbsp;&middot; <span class="nowrap">September 2025&ndash;present</span></p>
+          <h3 class="pcard-title" id="afm-feature-title"><a href="projects/afm-high-speed-control.html">Model-Based Digital PI Control for High-Speed Contact-Mode AFM</a></h3>
+        </div>
+
+        <figure class="cover cover-4x3 wf-cover">
+          <div class="cover-frame has-overlay">
+            <img src="assets/img/concepts/afm-concept-v6-1280.jpg"
+                 srcset="assets/img/concepts/afm-concept-v6-640.jpg 640w, assets/img/concepts/afm-concept-v6-1280.jpg 1280w"
+                 sizes="(min-width: 1280px) 640px, (min-width: 900px) 50vw, 92vw" width="1280" height="960" decoding="async"
+                 alt="AFM instrument with a circular enlarged illustration identifying the PZT actuator, laser diode, quadrant photodiode, cantilever and standard sample.">
+            <a class="cover-overlay" href="projects/afm-high-speed-control.html" tabindex="-1" aria-hidden="true"></a>
+          </div>
+          <figcaption><span class="tag tag-concept">Concept illustration</span> AFM setup with an enlarged view of the probe and optical-lever sensing.</figcaption>
         </figure>
 
-        <div class="pcard">
-          <p class="pcard-meta">Current research &middot; GIST &middot; 2025&ndash;present</p>
-          <h3 class="pcard-title"><a href="projects/afm-high-speed-control.html">Model-Based Digital PI Control for High-Speed Contact-Mode AFM</a></h3>
-          <p class="pcard-lede">
-            Up to what scan frequency do the forward and backward topographies of a contact-mode AFM remain
-            consistent under digital PI control of the Z-axis?
+        <div class="wf-body">
+          <div class="wf-info">
+          <p class="wf-summary">
+            This project investigates Z-axis tracking in contact-mode AFM using an identified plant model and a
+            digital PI controller. Imaging consistency is evaluated by comparing trace and retrace topographies at
+            increasing scan frequencies.
           </p>
-          <div class="pcard-facts">
-            <p><b>Contribution</b>System identification, controller design, STM32 implementation, analog
-              front-end revision and imaging experiments within the laboratory project.</p>
-            <p><b>Evidence</b>Trace&ndash;retrace <i>r</i> &ge; 0.977 through 5 Hz; agreement degrades at
-              higher scan rates.</p>
+          <dl class="wf-facts">
+            <div>
+              <dt>My contribution</dt>
+              <dd>Experimental system identification, PI controller design and STM32 implementation, analogue
+                signal-conditioning revisions, and imaging experiments.</dd>
+            </div>
+            <div class="wf-result">
+              <dt>Key result</dt>
+              <dd>At 2 and 5&nbsp;Hz, trace&ndash;retrace agreement was high (<i>r</i>&nbsp;&ge;&nbsp;0.977;
+                NRMSE&nbsp;&le;&nbsp;7.7%). Agreement decreased at 10 and 20&nbsp;Hz.</dd>
+            </div>
+          </dl>
           </div>
-          <div class="pcard-foot">
-            <ul class="pcard-methods"><li>System identification</li><li>Embedded control</li></ul>
-            <ul class="pcard-links">
-              <li><a class="link-arrow" href="projects/afm-high-speed-control.html">Read the project</a></li>
-              <li><a href="#outputs">IFAC World Congress 2026 poster</a></li>
-            </ul>
-          </div>
+          <ul class="wf-actions">
+            <li><a class="btn btn-primary link-arrow" href="projects/afm-high-speed-control.html">View project</a></li>
+            <li><a class="link-arrow" href="projects/afm-high-speed-control.html#results">View imaging results</a></li>
+          </ul>
         </div>
       </article>
 
@@ -164,157 +204,122 @@
       <div class="work-grid-3">
 
         <article class="pcard">
-          <figure class="cover">
-            <a class="cover-frame" href="projects/voice-coil-actuator.html" tabindex="-1" aria-hidden="true">
-              <img src="assets/img/concepts/vca-concept-v2-640.jpg"
-                   srcset="assets/img/concepts/vca-concept-v2-640.jpg 640w, assets/img/concepts/vca-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 590px, (min-width: 700px) 45vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the built voice-coil bench: a long aluminium base, twin guide rods and central circular plates linked to current drive and closed-loop compensation; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>The built stage, current drive and analog feedback loop.</figcaption>
+          <figure class="cover cover-4x3">
+            <div class="cover-frame has-overlay">
+              <img src="assets/img/vca/vca-concept-figure-640.jpg"
+                   srcset="assets/img/vca/vca-concept-figure-640.jpg 640w, assets/img/vca/vca-concept-figure-960.jpg 960w, assets/img/vca/vca-concept-figure-1448.jpg 1448w"
+                   sizes="(min-width: 1310px) 380px, (min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" width="640" height="480" loading="lazy" decoding="async"
+                   alt="Concept illustration of the voice-coil positioning stage; not experimental evidence. Labels identify the coil assembly, two permanent-magnet locations and the guide rods. Below, a simplified analogue feedback path runs from the set-point through the analogue compensator, the PA51 current drive and the voice-coil stage to the laser position sensor, whose position feedback returns to the compensator.">
+              <a class="cover-overlay" href="projects/voice-coil-actuator.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag tag-concept">Concept illustration</span> Voice-coil positioning stage and analogue position-feedback loop</figcaption>
           </figure>
-          <p class="pcard-meta">Research project &middot; GIST &middot; Winter 2025&ndash;26</p>
-          <h3 class="pcard-title"><a href="projects/voice-coil-actuator.html">Voice-Coil Actuator Positioning</a></h3>
+          <p class="pcard-meta">Course project&nbsp;&middot; GIST&nbsp;&middot; <span class="nowrap">Winter 2025&ndash;26</span></p>
+          <h3 class="pcard-title"><a href="projects/voice-coil-actuator.html">Voice-Coil Stage Design and Feedback&nbsp;Control</a></h3>
           <p class="pcard-lede">
-            A single-axis voice-coil stage has no restoring spring, so the plant integrates twice and
-            supplies no phase lead of its own.
+            I designed and built a single-axis voice-coil positioning stage to investigate feedback control. The
+            work combined PA51 current-drive characterisation, laser-based position sensing, measured frequency
+            responses and evaluation of analogue compensators.
           </p>
           <div class="pcard-facts">
-            <p><b>My role</b>Bench designed in SolidWorks and built, current drive, identification and six
-              analog compensators.</p>
-            <p><b>Evidence</b>Six compensators built and tested; lead compensation retained after bench
-              evaluation.</p>
+            <p><b>My contribution</b>Designed and assembled the stage, configured the PA51 current drive and laser position
+              feedback, measured frequency responses, and evaluated analogue compensation.</p>
+            <p class="index-result"><b>Key result</b>In the bench tests, the PI-controlled response drifted and did not settle at the commanded set-point. PD and lead compensation produced more stable tracking under the tested conditions.</p>
           </div>
           <div class="pcard-foot">
-            <ul class="pcard-methods"><li>Frequency response</li><li>Analog control</li></ul>
+            <ul class="pcard-methods"><li>Frequency response</li><li>Analogue control</li></ul>
             <ul class="pcard-links">
-              <li><a class="link-arrow" href="projects/voice-coil-actuator.html">Read the project</a></li>
+              <li><a class="link-arrow" href="projects/voice-coil-actuator.html">View project</a></li>
             </ul>
           </div>
         </article>
 
         <article class="pcard">
-          <figure class="cover">
-            <a class="cover-frame" href="projects/semg-rehabilitation-interface.html" tabindex="-1" aria-hidden="true">
-              <img src="assets/img/concepts/semg-concept-v2-640.jpg"
-                   srcset="assets/img/concepts/semg-concept-v2-640.jpg 640w, assets/img/concepts/semg-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 590px, (min-width: 700px) 45vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the demonstrated interface: a black segmented wireless armband on a forearm feeding live sEMG traces and a maze-control task; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>Muscle activity becomes a real-time interactive command.</figcaption>
+          <figure class="cover cover-4x3 cover-ga-still">
+            <div class="cover-frame has-overlay">
+              <img src="assets/img/semg/semg-graphical-abstract-poster.png" width="466" height="307" loading="lazy" decoding="async"
+                   alt="Graphical abstract of the control loop: the participant watches a Brick Breaker game and makes a hand gesture; forearm sEMG is processed, an ensemble of decision trees predicts the gesture, and the prediction moves the paddle.">
+              <a class="cover-overlay" href="projects/semg-rehabilitation-interface.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag">Graphical abstract</span> Forearm sEMG control, interactive rehabilitation tasks and visual feedback.</figcaption>
           </figure>
-          <p class="pcard-meta">Research project &middot; NUST &middot; 2022&ndash;2023</p>
-          <h3 class="pcard-title"><a href="projects/semg-rehabilitation-interface.html">Real-Time sEMG Rehabilitation Interface</a></h3>
+          <p class="pcard-meta">Research project&nbsp;&middot; NUST&nbsp;&middot; <span class="nowrap">June 2022&ndash;August 2023</span></p>
+          <h3 class="pcard-title"><a href="projects/semg-rehabilitation-interface.html">Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation</a></h3>
           <p class="pcard-lede">
-            Eight channels of forearm sEMG have to become an estimate of intended hand state fast enough for
-            a person to steer an interactive task.
+            This project developed an sEMG-driven <span class="nowrap">video-game</span> protocol for interactive
+            post-stroke hand rehabilitation. Gradient-boosting gesture recognition enabled real-time control, while
+            Fitts&rsquo; law and task-specific performance metrics assessed user performance across repeated&nbsp;sessions.
           </p>
           <div class="pcard-facts">
-            <p><b>My role</b>Acquisition and feature pipeline, classifier comparison and deployment, three
-              task interfaces, and the evaluation protocol.</p>
-            <p><b>Evidence</b>150 ms classification window, online interfaces at one to three degrees of
-              freedom, and the MUSED-I dataset.</p>
+            <p><b>My contribution</b>Developed the sEMG processing pipeline and candidate classifiers, selected and deployed
+              gradient boosting, and co-developed the task interfaces and evaluation protocol.</p>
+            <p class="index-result"><b>Key result</b>Gradient boosting enabled real-time task control. Space Shooter completion
+              times followed task difficulty, supporting performance assessment using Fitts&rsquo; law.</p>
           </div>
           <div class="pcard-foot">
             <ul class="pcard-methods"><li>Biosignal processing</li><li>Real-time inference</li></ul>
             <ul class="pcard-links">
-              <li><a class="link-arrow" href="projects/semg-rehabilitation-interface.html">Read the project</a></li>
-              <li><a href="#outputs">MUSED-I dataset</a></li>
+              <li><a class="link-arrow" href="projects/semg-rehabilitation-interface.html">View project</a></li>
+              <li><a class="link-arrow link-quiet" href="projects/semg-rehabilitation-interface.html#results">View task results</a></li>
             </ul>
           </div>
         </article>
 
         <article class="pcard">
-          <figure class="cover">
-            <a class="cover-frame" href="projects/soft-robotic-glove.html" tabindex="-1" aria-hidden="true">
-              <img src="assets/img/concepts/glove-concept-v2-640.jpg"
-                   srcset="assets/img/concepts/glove-concept-v2-640.jpg 640w, assets/img/concepts/glove-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 590px, (min-width: 700px) 45vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the prototype: a black glove with opaque white ribbed pneumatic actuators, blue tubing and a compact manifold, paired with its armband control cue; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>The wearable prototype, pneumatic drive and intended control link.</figcaption>
+          <figure class="cover cover-4x3">
+            <div class="cover-frame has-overlay">
+              <img src="assets/img/glove/glove-prototype-card-640.jpg"
+                   srcset="assets/img/glove/glove-prototype-card-640.jpg 640w, assets/img/glove/glove-prototype-card-960.jpg 960w"
+                   sizes="(min-width: 1310px) 380px, (min-width: 1100px) 30vw, (min-width: 700px) 46vw, 92vw" width="640" height="480" loading="lazy" decoding="async"
+                   alt="Two frames from the prototype recording, stacked. Above, labelled Open / rest: a forearm wearing the Myo armband is raised with the hand open, a game runs on the monitor, and the white soft glove mounted on the hardware enclosure at the right is relaxed. Below, labelled Close: the same forearm makes a fist and the glove's actuators are curled.">
+              <a class="cover-overlay" href="projects/soft-robotic-glove.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag">Prototype</span> Forearm sEMG commands drive an interactive rehabilitation task and a pneumatic glove for assisted hand movement.</figcaption>
           </figure>
-          <p class="pcard-meta">Team project &middot; NUST &middot; 2022&ndash;2023</p>
-          <h3 class="pcard-title"><a href="projects/soft-robotic-glove.html">REHABOTICS Pneumatic Soft Robotic Glove</a></h3>
+          <p class="pcard-meta">Final-year project&nbsp;&middot; REHABOTICS&nbsp;&middot; NUST&nbsp;&middot; <span class="nowrap">2023&ndash;2024</span></p>
+          <h3 class="pcard-title"><a href="projects/soft-robotic-glove.html">sEMG-Controlled Soft Robotics Glove for <span class="nowrap">Game-Based</span> Hand Rehabilitation</a></h3>
           <p class="pcard-lede">
-            A wearable rehabilitation glove needs actuators that bend where a finger bends, built from
-            material and constraint rather than joints.
+            Integrated machine-learning-based sEMG gesture recognition with a soft pneumatic glove and a
+            one-degree-of-freedom rehabilitation game, combining visual feedback with assisted hand movement.
           </p>
           <div class="pcard-facts">
-            <p><b>My role</b>Three actuator geometries, ANSYS analysis, soft-lithography fabrication and the
-              pneumatic drive.</p>
-            <p><b>Evidence</b>Bench-measured 120&ndash;180&deg; flexion per actuator segment at 100 kPa.
-              Functional hand performance was not assessed.</p>
+            <p><b>My contribution</b>Soft actuator design, ANSYS simulation and fabrication, with contributions to machine-learning
+              gesture recognition and integrated glove&ndash;game control.</p>
+            <p class="index-result"><b>Key result</b>Achieved approximately 120&ndash;180&deg; of actuator bending at
+              100&nbsp;kPa and integrated gesture-controlled glove assistance with an interactive rehabilitation game.</p>
           </div>
           <div class="pcard-foot">
             <ul class="pcard-methods"><li>Soft actuators</li><li>Pneumatic control</li></ul>
             <ul class="pcard-links">
-              <li><a class="link-arrow" href="projects/soft-robotic-glove.html">Read the project</a></li>
+              <li><a class="link-arrow" href="projects/soft-robotic-glove.html">View project</a></li>
+              <li><a class="link-arrow link-quiet" href="projects/soft-robotic-glove.html#prototype-video">Watch prototype video</a></li>
             </ul>
           </div>
         </article>
 
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= RESEARCH INTERESTS ================= -->
-  <section class="section" id="research">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="kicker">Research interests</p>
-        <h2>Three directions, at different stages</h2>
-      </div>
-      <div class="interests">
-        <article class="interest">
-          <h3>Precision mechatronics and feedback control</h3>
-          <p>
-            Identifying a physical plant from measurement, shaping a loop against its real resonances, and
-            implementing that loop where saturation, quantisation and finite sample rates apply.
-          </p>
-          <p class="interest-status is-current"><b>Current focus</b> — AFM Z-axis, voice-coil stage</p>
-        </article>
-        <article class="interest">
-          <h3>Human–machine sensing and rehabilitation interfaces</h3>
-          <p>
-            Acquisition, feature extraction and online inference on biosignals, evaluated as interfaces a
-            person actually steers rather than as offline classification scores.
-          </p>
-          <p class="interest-status"><b>Established through prior research</b> — sEMG interfaces, soft glove</p>
-        </article>
-        <article class="interest">
-          <h3>Learning-enabled monitoring and embodied systems</h3>
-          <p>
-            Unsupervised models built on measured machine and human signals, and where that leads: control
-            that improves from physical interaction rather than from a model alone.
-          </p>
-          <p class="interest-status"><b>Developing direction</b> — not yet a research contribution</p>
-        </article>
       </div>
     </div>
   </section>
 
   <!-- ================= RESEARCH OUTPUTS ================= -->
-  <section class="section section-white section-line" id="outputs">
+  <!-- Each entry: type and year, title, authors, venue and date, links. Newest first. -->
+  <section class="section section-line" id="outputs" aria-labelledby="outputs-title">
     <div class="wrap">
       <div class="section-head">
-        <p class="kicker">Research outputs</p>
-        <h2>Posters, datasets and open artifacts</h2>
+        <h2 id="outputs-title">Research outputs</h2>
       </div>
 
       <div class="outputs">
         <article class="output">
           <figure class="output-thumb">
-            <img src="assets/img/outputs/ifac-poster-presentation-720.jpg"
-                 srcset="assets/img/outputs/ifac-poster-presentation-720.jpg 720w, assets/img/outputs/ifac-poster-presentation-1280.jpg 1280w"
-                 sizes="(min-width: 760px) 200px, 92vw" width="720" height="480" loading="lazy" decoding="async"
+            <img src="assets/img/outputs/ifac-poster-presentation-720.jpg" width="720" height="480" loading="lazy" decoding="async"
                  alt="Muhammad Mustafa Khan beside the AFM control poster at the IFAC World Congress in Busan.">
           </figure>
-          <div>
-            <p class="output-type">Poster presentation · 2026</p>
-            <h3>Model-Based Digital Proportional-Integral Control for High-Speed Contact-Mode Atomic Force Microscopy Imaging</h3>
-            <p class="output-authors"><span class="self">M. M. Khan</span>, T. Abbas and K. H. Park</p>
-            <p class="output-venue">23rd IFAC World Congress, Busan, Republic of Korea, 23–28 August 2026. Presented by M. M. Khan.</p>
+          <div class="output-body">
+            <p class="output-type">Poster presentation &middot; 2026</p>
+            <h3 class="output-title">Model-Based Digital Proportional-Integral Control for High-Speed Contact-Mode Atomic Force Microscopy Imaging</h3>
+            <p class="output-authors"><strong class="self">M.&nbsp;M.&nbsp;Khan</strong>, T.&nbsp;Abbas and K.&nbsp;H.&nbsp;Park</p>
+            <p class="output-venue"><span class="venue-name">23rd IFAC World Congress</span>&nbsp;&middot; Busan, Republic of Korea&nbsp;&middot; <span class="nowrap">23&ndash;28 August 2026</span></p>
             <ul class="output-links">
               <li><a class="link-arrow" href="projects/afm-high-speed-control.html">Project details</a></li>
             </ul>
@@ -323,17 +328,17 @@
 
         <article class="output">
           <figure class="output-thumb">
-            <img src="assets/img/semg/semg-realtime-card-480.jpg" width="480" height="360" loading="lazy" decoding="async"
-                 alt="Live sEMG gesture classification running on a laptop during a recording session.">
+            <img src="assets/img/semg/semg-graphical-abstract-poster.png" width="466" height="307" loading="lazy" decoding="async"
+                 alt="Graphical abstract of the sEMG gesture-control project that produced the dataset.">
           </figure>
-          <div>
-            <p class="output-type">Dataset · 2023</p>
-            <h3>MUSED-I: Multi-Gesture Surface Electromyography (sEMG) Dataset for Stroke Rehabilitation</h3>
-            <p class="output-authors"><span class="self">M. M. Khan</span>, M. Farhan, A. Shahzad, H. S. Qarni, A. Waris and O. Gilani</p>
-            <p class="output-venue">IEEE DataPort, August 2023 · doi:10.21227/04zq-yz45</p>
+          <div class="output-body">
+            <p class="output-type">Dataset &middot; 2023</p>
+            <h3 class="output-title">MUSED-I: Multi-Gesture Surface Electromyography (sEMG) Dataset for Stroke Rehabilitation</h3>
+            <p class="output-authors"><strong class="self">M.&nbsp;M.&nbsp;Khan</strong>, M.&nbsp;Farhan, A.&nbsp;Shahzad, H.&nbsp;S.&nbsp;Qarni, A.&nbsp;Waris and O.&nbsp;Gillani</p>
+            <p class="output-venue"><span class="venue-name">IEEE DataPort</span>&nbsp;&middot; August 2023</p>
             <ul class="output-links">
               <li><a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">IEEE DataPort record</a></li>
-              <li><a href="https://github.com/Mustafahan786/MUSED-1" rel="noopener">Repository</a></li>
+              <li><a href="https://github.com/Mustafahan786/MUSED-1" rel="noopener">GitHub repository</a></li>
               <li><a class="link-arrow" href="projects/semg-rehabilitation-interface.html">Project details</a></li>
             </ul>
           </div>
@@ -341,43 +346,11 @@
       </div>
     </div>
   </section>
-
-  <!-- ================= ABOUT ================= -->
-  <section class="section about-section" id="about">
+  <section class="personal-note section-line" id="beyond-research" aria-labelledby="beyond-research-title">
     <div class="wrap">
-      <div class="section-head">
-        <p class="kicker">About</p>
-        <h2>Background</h2>
-      </div>
-
-      <div class="about-grid">
-        <div class="prose about-prose">
-          <p>
-            Before joining GIST, I studied mechanical engineering at NUST, where my research included
-            real-time surface electromyography (sEMG) interfaces and fibre-reinforced pneumatic actuators for
-            rehabilitation. I now conduct research in the Dynamics &amp; Control Lab under Prof. Kyi Hwan Park.
-          </p>
-          <p>
-            My research approach combines experimental system identification, controller design and embedded
-            implementation. I evaluate models and controllers through hardware experiments, with particular
-            attention to sensing, signal conditioning and real-time operation.
-          </p>
-          <p><a class="link-arrow" href="cv.html">Full record in the CV</a></p>
-        </div>
-
-        <div class="about-facts">
-          <div class="fact">
-            <p class="fact-label">Education</p>
-            <p><strong>M.S., Mechanical and Robotics Engineering</strong> — GIST, 2025–2027 (expected)<br>
-              <strong>B.E., Mechanical Engineering</strong> — NUST, 2019–2023</p>
-          </div>
-          <div class="fact">
-            <p class="fact-label">Methods</p>
-            <p>System identification and loop shaping · real-time embedded control · instrumentation and
-              analog signal conditioning · feature extraction and applied machine learning</p>
-          </div>
-        </div>
-      </div>
+      <h2 id="beyond-research-title">Beyond research</h2>
+      <p>Away from the lab, I enjoy hiking, cricket and reading. I have also volunteered in career counselling
+        for school students through &ldquo;Make The Diamonds Shine.&rdquo;</p>
     </div>
   </section>
 </main>
@@ -386,7 +359,7 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-name">Muhammad Mustafa Khan</p>
-      <p class="footer-statement">Open to PhD opportunities and research collaborations in robotics, feedback control and learning-based methods for physical systems.</p>
+      <p class="footer-statement">Open to PhD opportunities and research collaborations in control, robotics and physical AI.</p>
       <ul class="footer-links">
         <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
         <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
@@ -397,16 +370,18 @@
     </div>
     <nav aria-label="Footer">
       <ul class="footer-nav">
-        <li><a href="projects/index.html">Work</a></li>
-        <li><a href="#research">Research</a></li>
-        <li><a href="#outputs">Outputs</a></li>
         <li><a href="#about">About</a></li>
+        <li><a href="projects/index.html">Projects</a></li>
+        <li><a href="#outputs">Research outputs</a></li>
         <li><a href="cv.html">CV</a></li>
       </ul>
     </nav>
   </div>
-  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+  <div class="wrap footer-bottom">
+    <p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p>
+    <p class="footer-status">This portfolio is under active development; further projects and results will be added.</p>
+  </div>
 </footer>
-<script src="script.js" defer></script>
+<script src="script.js?v=2026-10-03-nav" defer></script>
 </body>
 </html>

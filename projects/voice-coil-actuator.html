@@ -6,22 +6,24 @@
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#fbfaf7">
 <script>document.documentElement.className += ' js';</script>
-<title>Voice-Coil Actuator Positioning System — Muhammad Mustafa Khan</title>
-<meta name="description" content="A voice-coil positioning stage designed in SolidWorks and built, driven by a PA51 transconductance stage, identified as a mass–damper plant with no restoring spring, and closed with analog compensators measured on the hardware.">
+<title>Voice-Coil Stage Design and Feedback Control — Muhammad Mustafa Khan</title>
+<meta name="description" content="A single-axis voice-coil positioning stage designed and built to investigate feedback control, combining PA51 current-drive characterisation, laser-based position sensing, measured frequency responses and evaluation of analogue compensators.">
 <link rel="canonical" href="https://mustafahan786.github.io/projects/voice-coil-actuator.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Voice-Coil Actuator Positioning System">
-<meta property="og:description" content="A stage built from CAD, a transconductance current drive, a mass–damper plant with no restoring spring, and six analog compensators measured on hardware.">
+<meta property="og:title" content="Voice-Coil Stage Design and Feedback Control">
+<meta property="og:description" content="A single-axis voice-coil positioning stage designed and built to investigate feedback control, combining current-drive characterisation, laser position sensing, measured frequency responses and analogue compensators.">
 <meta property="og:url" content="https://mustafahan786.github.io/projects/voice-coil-actuator.html">
-<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/vca.jpg">
-<meta property="og:image:alt" content="Voice-coil actuator positioning system — project">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/vca-v2.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Voice-Coil Stage Design and Feedback Control: video frame of the coil assembly on its two guide rods, beside the project title.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2026-10-03">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,271 +35,590 @@
       <span class="bars" aria-hidden="true"><span></span></span>Menu
     </button>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Work</a>
-      <a href="../index.html#research">Research</a>
-      <a href="../index.html#outputs">Outputs</a>
       <a href="../index.html#about">About</a>
+      <a href="index.html" aria-current="page">Projects</a>
+      <a href="../index.html#outputs">Research outputs</a>
       <a class="nav-cta" href="../cv.html">CV</a>
     </nav>
   </div>
 </header>
 
-<main id="main">
+<main id="main" class="vca-page">
   <section class="case-hero">
     <div class="wrap">
-      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> Voice-coil actuator</p>
-      <p class="case-meta">Research project · Individual · GIST · Winter 2025–26</p>
-      <h1 class="case-title">Voice-Coil Actuator Positioning System</h1>
-      <p class="case-sub">Identification and analog feedback control of a stage with no restoring spring.</p>
-
-      <figure class="fig fig-hero fig-wide fig-pad">
-        <a class="zoom" href="../assets/img/vca/vca-bench-cad-card-900.jpg">
-          <img src="../assets/img/vca/vca-bench-cad-card-900.jpg" width="900" height="675" decoding="async"
-               alt="SolidWorks assembly of the voice-coil stage with an inset photograph of the same stage built on the laboratory bench.">
-        </a>
-        <figcaption><span class="tag">CAD</span> and <span class="tag">Photograph</span>The stage as drawn
-          and as built. Inset: the assembled bench with the laser displacement sensor in place.</figcaption>
-      </figure>
-
-      <div class="brief">
-        <h2 class="sr-only">Research brief</h2>
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> Voice-Coil Stage</p>
+      <p class="case-meta">Course project · GIST · Winter 2025–26</p>
+      <h1 class="case-title">Voice-Coil Stage Design and Feedback Control</h1>
+      <div class="brief brief-3">
+        <h2 class="sr-only">Summary</h2>
         <dl>
           <div>
-            <dt>Objective</dt>
-            <dd>Position a voice-coil stage whose plant integrates twice and supplies no phase lead of its
-              own, using compensation designed on a measured model.</dd>
+            <dt>Research question</dt>
+            <dd>How can analogue feedback stabilise and position a voice-coil stage without a mechanical restoring
+              spring?</dd>
           </div>
           <div>
-            <dt>Approach</dt>
-            <dd>Design and build the stage, drive the coil from a current source, measure the open-loop
-              frequency response, then build and measure each candidate compensator.</dd>
+            <dt>What I did</dt>
+            <dd>Designed and assembled the stage, configured the PA51 current drive and laser position feedback,
+              measured frequency responses, and evaluated analogue compensation.</dd>
           </div>
           <div>
-            <dt>Individual contribution</dt>
-            <dd>Everything: CAD and fabrication, the transconductance drive stage, instrumentation,
-              identification, and all six analog compensators.</dd>
-          </div>
-          <div>
-            <dt>Experimental evidence</dt>
-            <dd>Six compensators built and measured. Measured responses followed the predicted Bode trends
-              over the observed range; <strong>lead compensation was retained</strong> and its closed-loop
-              response verified on the bench.</dd>
+            <dt>Key result</dt>
+            <dd>In the bench tests, the PI-controlled response drifted and did not settle at the commanded set-point.
+              PD and lead compensation produced more stable tracking under the tested conditions.</dd>
           </div>
         </dl>
       </div>
+
+      <nav class="contents vca-contents" aria-labelledby="contents-h">
+        <h2 id="contents-h">Contents</h2>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#stage">Stage and control loop</a></li>
+          <li><a href="#current-drive">Current amplification and sensing</a></li>
+          <li><a href="#model">Plant response</a></li>
+          <li><a href="#compensators">Compensator design</a></li>
+          <li><a href="#closed-loop">Experiments and results</a></li>
+        </ol>
+      </nav>
     </div>
   </section>
 
-  <section class="stage">
+  <!-- ========== 1. overview ========== -->
+  <section class="stage" id="overview">
     <div class="wrap">
-      <h2>A plant with nothing pulling it back</h2>
-      <div class="split split-wide-media">
-        <div class="prose">
-          <p>
-            The moving assembly has mass and some damping from the guide, but no spring returning it to a
-            rest position. Force to position is therefore a double integrator with damping — a mass–damper
-            plant — and the measured open-loop response carries the accompanying phase.
-          </p>
-          <p>
-            That is the design constraint in one sentence: the plant supplies no phase lead of its own, so
-            the compensator has to.
-          </p>
-          <p>
-            Before any of that could be measured, the stage had to be worth measuring. It constrains the
-            moving mass to one axis, holds the coil concentric in the magnet assembly, and gives the laser
-            sensor a flat, square target — otherwise the measurement records the fixture rather than the
-            actuator.
-          </p>
+      <h2>Overview</h2>
+      <div class="prose">
+        <p>
+          A voice-coil actuator carries current through a coil suspended in the field of a permanent magnet. The
+          Lorentz force on the conductor is proportional to that current, so while the coil remains in the useful
+          part of the field the force follows the commanded current. Drive is direct: no gearing or leadscrew stands
+          between the coil and the moving part, which removes backlash, keeps friction low and lets the actuator
+          respond quickly to small commands. Those properties suit optical focus and scanning mechanisms, disk-drive
+          head positioners, and precision positioning and active vibration-isolation stages.
+        </p>
+        <p>
+          The stage built here applies that principle on one axis: the coil and permanent-magnet assembly are
+          mounted on two parallel guide rods, a PA51 power amplifier drives the coil as a current source, and a
+          Keyence laser triangulation sensor measures the carriage position. Because the assembly runs on rods rather than
+          on a spring or flexure, the plant was modelled as a mass with viscous damping and no restoring term: it has
+          no rest position of its own, so the stiffness that holds a commanded position has to come from the analogue
+          feedback loop. Measuring that loop and its compensators is the subject of this study.
+        </p>
+      </div>
+
+      <figure class="fig fig-wide fig-overview-video">
+        <div class="video-frame">
+          <video controls preload="none" playsinline muted width="960" height="640"
+                 poster="../assets/video/vca-bench-overview-poster.jpg"
+                 aria-label="Bench footage of the voice-coil stage: the open-loop frequency-response measurement, the function generator set to the 2 hertz sinusoidal reference and the stage under lead compensation, and the set-point experiment. Each excerpt is labelled on screen.">
+            <source src="../assets/video/vca-bench-overview-960.mp4" type="video/mp4">
+            Your browser cannot play this video. It shows bench footage of the open-loop frequency-response
+            measurement, the lead-compensated test, and the set-point experiment.
+          </video>
         </div>
+        <figcaption><span class="tag">Bench footage</span>Open-loop frequency-response measurement,
+          lead-compensated test, and set-point experiment.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 2. stage and signal chain ========== -->
+  <section class="stage" id="stage">
+    <div class="wrap">
+      <h2>Stage and control loop</h2>
+      <div class="prose">
+        <p>
+          I designed the stage in SolidWorks and assembled it. T- and L-type end brackets hold two parallel guide
+          rods above a 160&nbsp;×&nbsp;70&nbsp;×&nbsp;5&nbsp;mm base plate; the coil holder, the magnet holder and a
+          coupling sit between them, with linear bearings confining travel to a single axis. The laser sensor
+          measures displacement along that axis.
+        </p>
+      </div>
+
+      <div class="fig-grid fig-grid-2 vca-figpair">
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-stage-labelled-1080.jpg">
+            <img src="../assets/img/vca/vca-stage-labelled-640.jpg"
+                 srcset="../assets/img/vca/vca-stage-labelled-640.jpg 640w, ../assets/img/vca/vca-stage-labelled-1080.jpg 1080w"
+                 sizes="(min-width: 1040px) 470px, (min-width: 720px) 46vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
+                 alt="Labelled frame from the set-point recording: a copper coil wound on a white former, with a disc-shaped holder beside it, carried on linear bearings over two parallel steel guide rods mounted on an aluminium base plate. Labels mark the coil assembly and the guide rods.">
+          </a>
+          <figcaption>Assembled stage on an optical table, showing the coil wound on its white former and the
+            two parallel guide rods that carry it.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-cad-iso-561.jpg">
+            <img src="../assets/img/vca/vca-cad-iso-561.jpg" width="561" height="393" loading="lazy" decoding="async"
+                 alt="SolidWorks isometric view of the voice-coil stage: a rectangular base with rod holders at each end, two parallel guide rods and a disc-shaped coil holder at the centre, dimensioned 160 by 70 millimetres.">
+          </a>
+          <figcaption><span class="tag">CAD</span>The same assembly in SolidWorks, with the base-plate dimensions
+            in millimetres.</figcaption>
+        </figure>
+      </div>
+
+      <div class="prose">
+        <p>
+          The loop around that mechanism is entirely analogue. An OP27G subtractor takes the difference between the
+          reference and sensor voltages, an op-amp network shapes the resulting error, and the PA51 stage converts
+          that signal into coil current. The laser sensor closes the loop by returning the carriage position as a
+          voltage.
+        </p>
+      </div>
+
+      <figure class="fig fig-wide fig-center fig-architecture">
+        <a class="zoom" href="../assets/img/vca/vca-loop-blocks.svg">
+          <picture>
+            <source media="(max-width: 719px)" srcset="../assets/img/vca/vca-loop-blocks-narrow.svg" width="360" height="552">
+            <img src="../assets/img/vca/vca-loop-blocks.svg" width="860" height="300" loading="lazy" decoding="async"
+                 alt="Block diagram of the position loop. The reference voltage is compared with the sensor voltage at a summing junction; the error drives an analogue controller, then a PA51 current amplifier of 0.1 amperes per volt, which is inverting, and then the voice-coil stage. A Keyence IL-065 laser displacement sensor measures the stage position at 0.1 volts per millimetre and returns that voltage to the summing junction.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">Schematic</span>Analogue position-feedback loop for the voice-coil
+          stage.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 3. current drive and position sensing ========== -->
+  <section class="stage" id="current-drive">
+    <div class="wrap">
+      <h2>Current amplification and position sensing</h2>
+      <div class="prose">
+        <p>
+          The PA51 circuit converts a command voltage into coil current, and therefore into electromagnetic force on
+          the carriage. It is a transconductance stage: an input resistor
+          <i>R</i><sub>1</sub>&nbsp;=&nbsp;15&nbsp;kΩ and a feedback resistor
+          <i>R</i><sub>f</sub>&nbsp;=&nbsp;7.5&nbsp;kΩ set the gain, and a 5&nbsp;Ω sense resistor
+          <i>R</i><sub>s</sub> in series with the 40&nbsp;Ω coil returns the current as a voltage. The stage is
+          inverting, giving <i>i</i><sub>L</sub>&nbsp;≈&nbsp;−0.1&nbsp;<i>V</i><sub>in</sub>: a transconductance of
+          0.1&nbsp;A/V in magnitude.
+        </p>
+      </div>
+
+      <div class="split">
         <figure class="fig split-media fig-frame">
+          <a class="zoom" href="../assets/img/vca/vca-current-amp-1024.jpg">
+            <img src="../assets/img/vca/vca-current-amp-1024.jpg" width="1024" height="800" loading="lazy" decoding="async"
+                 alt="Circuit schematic of the current drive: input through R1 of 15 kilohms to the inverting input of a PA51 power amplifier with grounded non-inverting input, two 0.47 ohm current-limit resistors, the coil in series with a 5 ohm sense resistor Rs to ground, and a 7.5 kilohm feedback resistor Rf from the sense node to the inverting input.">
+          </a>
+          <figcaption><span class="tag">Schematic</span>PA51 transconductance stage, with the 5&nbsp;Ω sense resistor in series with the coil.</figcaption>
+        </figure>
+        <div class="model-block eq-math">
+          <div class="eq-render" role="region" aria-label="Current-drive gain (scrolls horizontally if needed)" tabindex="0">
+            <math display="block" aria-label="i L equals minus R f plus R s over R 1 times R s, times V in">
+              <msub><mi>i</mi><mi>L</mi></msub><mo>=</mo><mo>−</mo>
+              <mfrac><mrow><msub><mi>R</mi><mi>f</mi></msub><mo>+</mo><msub><mi>R</mi><mi>s</mi></msub></mrow><mrow><msub><mi>R</mi><mn>1</mn></msub><msub><mi>R</mi><mi>s</mi></msub></mrow></mfrac>
+              <msub><mi>V</mi><mi>in</mi></msub>
+            </math>
+            <math display="block" aria-label="equals minus 7500 plus 5 over 15000 times 5, times V in, approximately minus 0.1 V in">
+              <mo>=</mo><mo>−</mo>
+              <mfrac><mrow><mn>7500</mn><mo>+</mo><mn>5</mn></mrow><mrow><mn>15000</mn><mo>×</mo><mn>5</mn></mrow></mfrac>
+              <msub><mi>V</mi><mi>in</mi></msub><mo>≈</mo><mo>−</mo><mn>0.1</mn><msub><mi>V</mi><mi>in</mi></msub>
+            </math>
+          </div>
+          <p class="model-note eq-note">Resistances in ohms; <i>i</i><sub>L</sub> in amperes for
+            <i>V</i><sub>in</sub> in volts.</p>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>
+          Five DC operating points were measured across the command range, and a 5&nbsp;Hz sinusoidal command was
+          checked on the oscilloscope as a continuous case. Dividing each sense voltage by the sense resistor gives
+          the coil current, and the transconductance holds at 0.1&nbsp;A/V over every point measured. The largest
+          current tested was 0.5&nbsp;A, which bounds the measured range rather than the capability of the amplifier.
+        </p>
+      </div>
+
+      <div class="vca-dc-pair">
+        <figure class="fig vca-dc-plot">
+          <a class="zoom" href="../assets/img/vca/vca-current-drive-dc-check.svg">
+            <img src="../assets/img/vca/vca-current-drive-dc-check.svg" width="480" height="300" loading="lazy" decoding="async"
+                 alt="Coil current against command voltage: five measured points rising linearly from 0.1 amperes at 1 volt to 0.5 amperes at 5 volts. No line is fitted.">
+          </a>
+          <figcaption><span class="tag">Measured</span>Coil current against command voltage at the five DC
+            operating points.</figcaption>
+        </figure>
+
+        <div class="table-wrap vca-dc-wrap">
+        <table class="data-table data-table-narrow vca-dc-table">
+          <caption><span class="tag">Measured</span>DC operating points for the PA51 current amplifier. Current
+            magnitude is calculated from the 5&nbsp;Ω sense resistor as <math aria-label="the magnitude of i equals the magnitude of V sense divided by 5 ohms"><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><mi>i</mi><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow><mo>=</mo><mrow><mo stretchy="false" lspace="0" rspace="0">|</mo><msub><mi>V</mi><mi>sense</mi></msub><mo stretchy="false" lspace="0" rspace="0">|</mo></mrow><mo lspace="0.1em" rspace="0.1em">/</mo><mrow><mo stretchy="false" lspace="0" rspace="0">(</mo><mn>5</mn><mspace width="0.17em"></mspace><mi mathvariant="normal">Ω</mi><mo stretchy="false" lspace="0" rspace="0">)</mo></mrow></math>.</caption>
+          <thead>
+            <tr><th scope="col">Input <i>V</i><sub>in</sub> (V)</th><th scope="col" class="num">1</th><th scope="col" class="num">2</th><th scope="col" class="num">3</th><th scope="col" class="num">4</th><th scope="col" class="num">5</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Sense voltage <i>V</i><sub>sense</sub> (V)</th><td class="num">−0.5</td><td class="num">−1.0</td><td class="num">−1.5</td><td class="num">−2.0</td><td class="num">−2.5</td></tr>
+            <tr><th scope="row">Current magnitude |<i>i</i>| (A)</th><td class="num">0.1</td><td class="num">0.2</td><td class="num">0.3</td><td class="num">0.4</td><td class="num">0.5</td></tr>
+          </tbody>
+        </table>
+        </div>
+      </div>
+
+      <h3 class="vca-subhead">Position sensing</h3>
+      <div class="prose">
+        <p>
+          Carriage position is measured by a Keyence IL-065 laser triangulation sensor, calibrated at
+          0.1&nbsp;V/mm: every millimetre of travel changes the sensor output by 0.1&nbsp;V, so a displacement in
+          millimetres is the sensor voltage divided by that sensitivity. The sensor works about a 65&nbsp;mm
+          reference distance over a 55–105&nbsp;mm measuring window; that window is the span over which the sensor
+          reads, and is wider than the travel of this stage.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========== 4. plant model and frequency response ========== -->
+  <section class="stage" id="model">
+    <div class="wrap">
+      <h2>Plant response</h2>
+      <div class="prose">
+        <p>
+          With the coil force <i>F</i>&nbsp;=&nbsp;<i>K</i><sub>t</sub><i>i</i> acting on a moving mass with viscous
+          damping and no restoring spring, the stage was modelled as a mass–damper, with position in metres.
+        </p>
+      </div>
+
+      <div class="model-block eq-math">
+        <h3>Mass–damper model</h3>
+        <p class="model-note">Model structure used for design; the parameters were not identified numerically.</p>
+        <div class="eq-render" role="region" aria-label="Mass–damper plant model (scrolls horizontally if needed)" tabindex="0">
+          <math display="block" aria-label="m x double dot plus c x dot equals K t times i">
+            <mi>m</mi><mover><mi>x</mi><mo>¨</mo></mover><mo>+</mo><mi>c</mi><mover><mi>x</mi><mo>˙</mo></mover><mo>=</mo><msub><mi>K</mi><mi>t</mi></msub><mi>i</mi>
+          </math>
+          <math display="block" aria-label="G x i of s equals X of s over I of s equals K t over m s squared plus c s, in metres per ampere">
+            <msub><mi>G</mi><mrow><mi>x</mi><mi>i</mi></mrow></msub><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>X</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow><mrow><mi>I</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo></mrow></mfrac><mo>=</mo><mfrac><msub><mi>K</mi><mi>t</mi></msub><mrow><mi>m</mi><msup><mi>s</mi><mn>2</mn></msup><mo>+</mo><mi>c</mi><mi>s</mi></mrow></mfrac><mspace width="0.6em"></mspace><mtext>(m/A)</mtext>
+          </math>
+          <table class="sym-table">
+            <caption class="sr-only">Symbols used in the plant model</caption>
+            <tbody>
+              <tr><th scope="row"><i>x</i></th><td>stage position (m)</td></tr>
+              <tr><th scope="row"><i>i</i></th><td>coil current (A)</td></tr>
+              <tr><th scope="row"><i>m</i></th><td>moving mass (kg)</td></tr>
+              <tr><th scope="row"><i>c</i></th><td>viscous damping coefficient (N·s/m)</td></tr>
+              <tr><th scope="row"><i>K</i><sub>t</sub></th><td>coil force constant (N/A)</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <details class="eq-source">
+          <summary>LaTeX source (copyable)</summary>
+          <pre><code>m\ddot{x}+c\dot{x}=K_t\,i,\qquad
+G_{xi}(s)=\frac{X(s)}{I(s)}=\frac{K_t}{m s^2+c s}\ \ \mathrm{(m/A)}</code></pre>
+        </details>
+      </div>
+
+      <div class="prose">
+        <p>
+          Under a constant force with positive damping, the model’s velocity settles at <i>F</i>/<i>c</i> while its
+          position keeps changing, so the positioning stiffness has to come from feedback. The model describes the
+          assumed structure only; it does not exclude friction, end stops, cable forces or field non-uniformity in the
+          physical stage.
+        </p>
+      </div>
+
+      <div class="prose">
+        <p>
+          The open-loop response was measured on an NF FRA5097 analyser over a 1–200&nbsp;Hz sweep, from the drive
+          input voltage to the laser-sensor voltage. Between about 1 and 50&nbsp;Hz the magnitude falls with
+          frequency, consistent with an inertia-dominated response. Narrow dips near 6–11&nbsp;Hz and about
+          70&nbsp;Hz, and the flattening above about 50&nbsp;Hz, were observed but not investigated. The analyser
+          displays phase within ±180°, so the phase trace wraps near 20&nbsp;Hz.
+        </p>
+      </div>
+
+      <div class="fig-grid vca-media-pair">
+        <figure class="fig fig-frame vca-media vca-media-wide">
           <a class="zoom" href="../assets/img/vca/vca-fra-openloop-1500.jpg">
             <img src="../assets/img/vca/vca-fra-openloop-750.jpg"
                  srcset="../assets/img/vca/vca-fra-openloop-750.jpg 750w, ../assets/img/vca/vca-fra-openloop-1500.jpg 1500w"
-                 sizes="(min-width: 860px) 52vw, 92vw" width="750" height="562" loading="lazy" decoding="async"
-                 alt="Measured open-loop frequency response of the actuator: magnitude falling with frequency and the corresponding phase.">
+                 sizes="(min-width: 860px) 640px, 92vw" width="750" height="562" loading="lazy" decoding="async"
+                 alt="Photograph of the FRA5097 analyser screen for the open-loop response from 1 to 200 hertz: the red gain trace falls from about minus 12 decibels at 1 hertz, with narrow dips between about 6 and 11 hertz and near 70 hertz, and flattens above about 50 hertz; the blue phase trace falls with frequency and wraps from minus 180 to plus 180 degrees near 20 hertz.">
           </a>
-          <figcaption><span class="tag">Measured</span>Open-loop frequency response of the actuator and
-            drive, measured on the bench.</figcaption>
+          <figcaption><span class="tag">Measured response</span>Open-loop response from drive-input voltage
+            to laser-sensor voltage, 1–200&nbsp;Hz; magnitude in red and phase in blue.</figcaption>
         </figure>
-      </div>
-      <figure class="fig fig-mid">
-        <video controls preload="none" playsinline
-               poster="../assets/video/vca-fra-measurement-poster.jpg" width="1280" height="720">
-          <source src="../assets/video/vca-fra-measurement.mp4" type="video/mp4">
-          Your browser cannot play this video. It shows the frequency-response measurement running on the bench.
-        </video>
-        <figcaption><span class="tag">Video</span>The frequency-response measurement in progress.</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <section class="stage">
-    <div class="wrap">
-      <h2>Driving the coil with current, not voltage</h2>
-      <div class="split split-wide-media">
-        <div class="prose">
-          <p>
-            A voice coil produces force in proportion to the current through it. Drive it from a voltage
-            source and the coil's resistance, inductance and motional back-EMF sit between the command and
-            the force, so the position loop inherits electrical dynamics as well as mechanical ones.
-          </p>
-          <p>
-            A voltage drive is workable if those dynamics are modelled. I chose a transconductance stage
-            instead — a PA51 power operational amplifier configured to deliver current in proportion to its
-            input — so that the plant presented to the compensator stays close to force-per-volt and the
-            design problem stays mechanical. Position is measured by laser triangulation.
-          </p>
-        </div>
-        <figure class="fig split-media fig-pad">
-          <a class="zoom" href="../assets/img/vca/vca-control-loop.svg">
-            <img src="../assets/img/vca/vca-control-loop.svg" width="700" height="360" loading="lazy" decoding="async"
-                 alt="Block diagram: reference, summing junction, lead compensator, PA51 transconductance stage, coil and moving mass, with laser displacement feedback.">
-          </a>
-          <figcaption><span class="tag">Diagram</span>The closed loop as built.</figcaption>
-        </figure>
-      </div>
-      <div class="fig-grid fig-grid-2">
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-current-amp-1024.jpg">
-            <img src="../assets/img/vca/vca-current-amp-1024.jpg" width="1024" height="800" loading="lazy" decoding="async"
-                 alt="The current-amplifier stage built on the bench with the power amplifier, heatsink and sense resistor.">
-          </a>
-          <figcaption><span class="tag">Schematic</span>The transconductance stage: a PA51 driving the coil
-            through a sense resistor, with the current set by the input and feedback network.</figcaption>
-        </figure>
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-current-amp-scope-800.jpg">
-            <img src="../assets/img/vca/vca-current-amp-scope-800.jpg" width="800" height="503" loading="lazy" decoding="async"
-                 alt="Oscilloscope capture of the current-amplifier input and output during bench verification.">
-          </a>
-          <figcaption><span class="tag">Measured</span>Verifying the stage on the oscilloscope before
-            closing the position loop.</figcaption>
+        <figure class="fig vca-media">
+          <div class="video-frame">
+            <video controls preload="none" playsinline muted width="394" height="848"
+                   poster="../assets/video/vca-fra-measurement-poster.jpg"
+                   aria-label="Bench recording during the open-loop frequency-response measurement: the NF FRA5097 analyser, a Keysight oscilloscope showing the sinusoidal excitation, the DC supply, the voice-coil stage with its copper coil on guide rods, and the Keyence laser sensor amplifier display.">
+              <source src="../assets/video/vca-fra-measurement.mp4" type="video/mp4">
+              Your browser cannot play this video. It shows the bench during the open-loop frequency-response
+              measurement: analyser, oscilloscope, supply, voice-coil stage and laser sensor amplifier.
+            </video>
+          </div>
+          <figcaption><span class="tag">Bench recording</span>The measurement setup: analyser, oscilloscope,
+            supply, stage and sensor amplifier.</figcaption>
         </figure>
       </div>
     </div>
   </section>
 
-  <section class="stage">
+  <!-- ========== 5. compensators ========== -->
+  <section class="stage" id="compensators">
     <div class="wrap">
-      <h2>Six compensators, all built and all measured</h2>
+      <h2>Compensator design</h2>
       <div class="prose">
         <p>
-          Rather than settling on one controller, I built proportional, derivative, PD, PI, lead and lag
-          compensators as op-amp circuits and measured each on the same stage. Every candidate was designed
-          on the identified model first, so the measured response could be compared against a prediction
-          rather than judged on feel.
-        </p>
-        <p>
-          The PI compensator behaved as its structure predicts: the integrator's phase lag near crossover
-          cost more margin than the improved low-frequency tracking was worth on this plant. The lead
-          compensator supplies phase exactly where the double integrator has none, and it was the one
-          retained.
+          To shape the response of the stage I designed two families of analogue compensator. Single-op-amp PD, lead
+          and lag networks were built and their frequency responses measured; modular P, D and I stages summed by an
+          inverting amplifier were designed and are documented as circuits, but no individual measurements of them
+          were recorded. All of these networks invert:
         </p>
       </div>
+
+      <div class="model-block eq-math">
+        <div class="eq-render" role="region" aria-label="Compensator transfer functions (scrolls horizontally if needed)" tabindex="0">
+          <math display="block" aria-label="C P D of s equals minus R 2 over R 1, times 1 plus R 1 C 1 s">
+            <msub><mi>C</mi><mi>PD</mi></msub><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><msub><mi>R</mi><mn>2</mn></msub><msub><mi>R</mi><mn>1</mn></msub></mfrac><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mi>s</mi><mo stretchy="false">)</mo>
+          </math>
+          <math display="block" aria-label="C of s equals minus R 2 over R 1, times 1 plus R 1 C 1 s over 1 plus R 2 C 2 s">
+            <mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><msub><mi>R</mi><mn>2</mn></msub><msub><mi>R</mi><mn>1</mn></msub></mfrac><mspace width="0.3em"></mspace><mfrac><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mi>s</mi></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub><msub><mi>C</mi><mn>2</mn></msub><mi>s</mi></mrow></mfrac>
+          </math>
+        </div>
+        <p class="model-note eq-note">Lead when <i>R</i><sub>1</sub><i>C</i><sub>1</sub>&nbsp;&gt;&nbsp;<i>R</i><sub>2</sub><i>C</i><sub>2</sub>;
+          lag when <i>R</i><sub>1</sub><i>C</i><sub>1</sub>&nbsp;&lt;&nbsp;<i>R</i><sub>2</sub><i>C</i><sub>2</sub>.</p>
+      </div>
+
+      <figure class="fig fig-wide fig-center fig-diagram fig-networks">
+        <a class="zoom" href="../assets/img/vca/vca-compensator-networks.svg">
+          <picture>
+            <source media="(max-width: 719px)" srcset="../assets/img/vca/vca-compensator-networks-narrow.svg" width="380" height="520">
+          <img src="../assets/img/vca/vca-compensator-networks.svg" width="760" height="262" loading="lazy" decoding="async"
+               alt="Two inverting op-amp circuits. PD network: error e through R1 in parallel with C1 to the inverting input, with R2 as feedback. Lead or lag network: the same input branch with R2 in parallel with C2 as feedback. R1 and R2 are 0 to 10 kilohm potentiometers; the non-inverting inputs are grounded.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">Schematic</span>Single-op-amp PD network and the lead/lag network, in
+          which the ratio of the two time constants sets lead or lag.</figcaption>
+      </figure>
+
+      <div class="table-wrap">
+        <table class="data-table data-table-stack">
+          <caption>Compensator networks, their intended effect on the loop, and the supporting evidence.</caption>
+          <thead>
+            <tr><th scope="col">Controller</th><th scope="col">Intended effect</th><th scope="col">Evidence</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">PD network</th><td data-label="Intended effect">Phase lead rising towards 90° with frequency, adding damping to the mass-dominated plant</td><td data-label="Evidence">Measured frequency response; stable loop after tuning</td></tr>
+            <tr><th scope="row">Lead network</th><td data-label="Intended effect">Phase advance over a limited band, with bounded high-frequency gain</td><td data-label="Evidence">Measured frequency response; 2&nbsp;Hz sine-reference test</td></tr>
+            <tr><th scope="row">Lag network</th><td data-label="Intended effect">More gain at low than at high frequency, at the cost of phase lag; finite DC gain, so not an ideal PI controller</td><td data-label="Evidence">Measured frequency response</td></tr>
+            <tr><th scope="row">Modular P, D and I stages</th><td data-label="Intended effect">Separately adjustable actions; the I stage is a leaky integrator</td><td data-label="Evidence">Circuit design; no individual measurements recorded</td></tr>
+            <tr><th scope="row">PI (bench trial)</th><td data-label="Intended effect">Integral action to reduce steady-state error</td><td data-label="Evidence">Bench observation of drift and no settling, attributed to the added lag; the circuit used was not recorded</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <details class="more">
+        <summary>Circuit details</summary>
+        <div class="table-wrap">
+          <table class="data-table data-table-stack vca-circuit-table">
+            <caption>Component values for the compensator stages. Final capacitor values and potentiometer settings for
+              the single-op-amp networks were not recorded.</caption>
+            <thead>
+              <tr><th scope="col">Stage</th><th scope="col">Transfer function</th><th scope="col">Components</th><th scope="col">Notes</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">P stage</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="V p equals minus R pot p over R ip, times e"><msub><mi>V</mi><mi>p</mi></msub><mo>=</mo><mo>−</mo><mfrac><msub><mi>R</mi><mi>pot,p</mi></msub><msub><mi>R</mi><mi>ip</mi></msub></mfrac><mi>e</mi></math></td>
+                <td data-label="Components"><i>R</i><sub>ip</sub> = 4.5&nbsp;kΩ; <i>R</i><sub>pot,p</sub> 0–10&nbsp;kΩ</td>
+                <td data-label="Notes"><i>K</i><sub>p</sub> ≈ 0–2.22</td>
+              </tr>
+              <tr>
+                <th scope="row">D stage</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="V d equals minus K d s over tau s plus 1, times e"><msub><mi>V</mi><mi>d</mi></msub><mo>=</mo><mo>−</mo><mfrac><mrow><msub><mi>K</mi><mi>d</mi></msub><mi>s</mi></mrow><mrow><mi>τ</mi><mi>s</mi><mo>+</mo><mn>1</mn></mrow></mfrac><mi>e</mi></math></td>
+                <td data-label="Components"><i>C</i><sub>d</sub> = 22&nbsp;µF; <i>R</i><sub>id</sub> = 100&nbsp;Ω; <i>R</i><sub>pot,d</sub> 0–50&nbsp;kΩ</td>
+                <td data-label="Notes"><math aria-label="K d equals R pot d C d"><msub><mi>K</mi><mi>d</mi></msub><mo>=</mo><msub><mi>R</mi><mi>pot,d</mi></msub><msub><mi>C</mi><mi>d</mi></msub></math>, up to 1.1&nbsp;s;
+                  <math aria-label="tau equals R id C d equals 2.2 milliseconds"><mi>τ</mi><mo>=</mo><msub><mi>R</mi><mi>id</mi></msub><msub><mi>C</mi><mi>d</mi></msub><mo>=</mo><mn>2.2</mn><mspace width="0.17em"></mspace><mi mathvariant="normal">ms</mi></math> (corner ≈&nbsp;72.3&nbsp;Hz); high-frequency gain
+                  <math aria-label="K d divided by tau"><msub><mi>K</mi><mi>d</mi></msub><mo>/</mo><mi>τ</mi></math>, e.g. ≈&nbsp;454.5 (53.2&nbsp;dB) for <i>K</i><sub>d</sub>&nbsp;=&nbsp;1&nbsp;s</td>
+              </tr>
+              <tr>
+                <th scope="row">I stage</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="V i equals minus K i over s plus omega i, times e"><msub><mi>V</mi><mi>i</mi></msub><mo>=</mo><mo>−</mo><mfrac><msub><mi>K</mi><mi>i</mi></msub><mrow><mi>s</mi><mo>+</mo><msub><mi>ω</mi><mi>i</mi></msub></mrow></mfrac><mi>e</mi></math></td>
+                <td data-label="Components"><i>C</i><sub>i</sub> = 22&nbsp;µF; leak resistor <i>R</i><sub>drift</sub> = 1&nbsp;MΩ; <i>R</i><sub>pot,i</sub> 0–50&nbsp;kΩ</td>
+                <td data-label="Notes"><math aria-label="K i equals 1 over R pot i C i"><msub><mi>K</mi><mi>i</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><msub><mi>R</mi><mi>pot,i</mi></msub><msub><mi>C</mi><mi>i</mi></msub></mrow></mfrac></math> ≈&nbsp;0.91&nbsp;s⁻¹ at 50&nbsp;kΩ;
+                  <math aria-label="omega i equals 1 over R drift C i"><msub><mi>ω</mi><mi>i</mi></msub><mo>=</mo><mfrac><mn>1</mn><mrow><msub><mi>R</mi><mi>drift</mi></msub><msub><mi>C</mi><mi>i</mi></msub></mrow></mfrac></math> ≈&nbsp;0.045&nbsp;rad/s;
+                  zero input resistance is not a valid operating point</td>
+              </tr>
+              <tr>
+                <th scope="row">Summing stage</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="V in equals minus open bracket V p plus V d close bracket"><msub><mi>V</mi><mi>in</mi></msub><mo>=</mo><mo>−</mo><mo stretchy="false">(</mo><msub><mi>V</mi><mi>p</mi></msub><mo>+</mo><msub><mi>V</mi><mi>d</mi></msub><mo stretchy="false">)</mo></math><span class="fx-or"> or </span><math aria-label="minus open bracket V p plus V i close bracket"><mo>−</mo><mo stretchy="false">(</mo><msub><mi>V</mi><mi>p</mi></msub><mo>+</mo><msub><mi>V</mi><mi>i</mi></msub><mo stretchy="false">)</mo></math></td>
+                <td data-label="Components">10&nbsp;kΩ input resistors</td>
+                <td data-label="Notes">Forms modular PD or PI</td>
+              </tr>
+              <tr>
+                <th scope="row">PD network</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="C PD of s equals minus R 2 over R 1, times 1 plus R 1 C 1 s"><msub><mi>C</mi><mi>PD</mi></msub><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><msub><mi>R</mi><mn>2</mn></msub><msub><mi>R</mi><mn>1</mn></msub></mfrac><mo stretchy="false">(</mo><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mi>s</mi><mo stretchy="false">)</mo></math></td>
+                <td data-label="Components"><i>R</i><sub>1</sub>, <i>R</i><sub>2</sub> 0–10&nbsp;kΩ</td>
+                <td data-label="Notes"><i>C</i><sub>1</sub> not recorded</td>
+              </tr>
+              <tr>
+                <th scope="row">Lead/lag network</th>
+                <td data-label="Transfer function" class="fx"><math aria-label="C of s equals minus R 2 over R 1, times 1 plus R 1 C 1 s over 1 plus R 2 C 2 s"><mi>C</mi><mo stretchy="false">(</mo><mi>s</mi><mo stretchy="false">)</mo><mo>=</mo><mo>−</mo><mfrac><msub><mi>R</mi><mn>2</mn></msub><msub><mi>R</mi><mn>1</mn></msub></mfrac><mspace width="0.2em"></mspace><mfrac><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>1</mn></msub><msub><mi>C</mi><mn>1</mn></msub><mi>s</mi></mrow><mrow><mn>1</mn><mo>+</mo><msub><mi>R</mi><mn>2</mn></msub><msub><mi>C</mi><mn>2</mn></msub><mi>s</mi></mrow></mfrac></math></td>
+                <td data-label="Components"><i>R</i><sub>1</sub>, <i>R</i><sub>2</sub> 0–10&nbsp;kΩ</td>
+                <td data-label="Notes">Lead: <i>R</i><sub>1</sub><i>C</i><sub>1</sub> &gt; <i>R</i><sub>2</sub><i>C</i><sub>2</sub>; lag: <i>R</i><sub>1</sub><i>C</i><sub>1</sub> &lt; <i>R</i><sub>2</sub><i>C</i><sub>2</sub>; <i>C</i><sub>1</sub>, <i>C</i><sub>2</sub> not recorded</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <details class="more vca-responses">
+        <summary>Measured compensator responses</summary>
+      <div class="prose">
+        <p>
+          Each single-op-amp network was swept on the analyser. Because the networks invert, −180° corresponds to zero
+          phase shift of the underlying compensator, and the instrument wraps phase to ±180°. The values in the
+          captions are read from screen photographs and are approximate.
+        </p>
+      </div>
+
+      <figure class="fig fig-mid fig-center fig-frame">
+        <a class="zoom" href="../assets/img/vca/vca-lead-fra-1100.jpg">
+          <img src="../assets/img/vca/vca-lead-fra-1100.jpg" width="1100" height="783" loading="lazy" decoding="async"
+               alt="Analyser screen for the lead network from 0.1 to 100 hertz: the gain rises from about 21 to 44 decibels, and the phase rises from near minus 175 degrees to a peak near minus 115 degrees at about 3 hertz before returning towards minus 180 degrees.">
+        </a>
+        <figcaption><span class="tag">Measured</span>Lead network, 0.1–100&nbsp;Hz. Gain rises from about 21 to
+          44&nbsp;dB, with roughly 65° of phase advance near 3&nbsp;Hz — the compensator’s own phase lead, not a loop
+          phase margin.</figcaption>
+      </figure>
 
       <div class="fig-grid fig-grid-2">
         <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-lead-bode-1280.jpg">
-            <img src="../assets/img/vca/vca-lead-bode-640.jpg"
-                 srcset="../assets/img/vca/vca-lead-bode-640.jpg 640w, ../assets/img/vca/vca-lead-bode-1280.jpg 1280w"
-                 sizes="(min-width: 720px) 45vw, 92vw" width="640" height="515" loading="lazy" decoding="async"
-                 alt="Bode plot for the lead compensator: measured magnitude and phase overlaid on the predicted response.">
+          <a class="zoom" href="../assets/img/vca/vca-pd-fra-640.jpg">
+            <img src="../assets/img/vca/vca-pd-fra-640.jpg" width="640" height="456" loading="lazy" decoding="async"
+                 alt="Analyser screen for the PD network from 1 hertz to 1 kilohertz: the gain trace rises steadily with frequency and the phase trace rises from about minus 130 degrees towards minus 90 degrees.">
           </a>
-          <figcaption><span class="tag">Measured</span>Lead compensator — measurement against prediction.</figcaption>
+          <figcaption><span class="tag">Measured</span>PD network, 1&nbsp;Hz–1&nbsp;kHz. Gain rises steadily with
+            frequency, with phase lead approaching 90° relative to the inverted baseline.</figcaption>
         </figure>
         <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-lag-bode-1184.jpg">
-            <img src="../assets/img/vca/vca-lag-bode-592.jpg"
-                 srcset="../assets/img/vca/vca-lag-bode-592.jpg 592w, ../assets/img/vca/vca-lag-bode-1184.jpg 1184w"
-                 sizes="(min-width: 720px) 45vw, 92vw" width="592" height="453" loading="lazy" decoding="async"
-                 alt="Bode plot for the lag compensator: measured magnitude and phase overlaid on the predicted response.">
+          <a class="zoom" href="../assets/img/vca/vca-lag-fra-1000.jpg">
+            <img src="../assets/img/vca/vca-lag-fra-1000.jpg" width="1000" height="711" loading="lazy" decoding="async"
+                 alt="Analyser screen for the lag network from about 0.5 hertz to 1 kilohertz: the gain trace falls by roughly 45 decibels and levels off, and the phase trace, displayed near plus 180 degrees, dips to about plus 100 degrees near 15 to 20 hertz before recovering.">
           </a>
-          <figcaption><span class="tag">Measured</span>Lag compensator — measurement against prediction.</figcaption>
-        </figure>
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-lead-circuit-800.jpg">
-            <img src="../assets/img/vca/vca-lead-circuit-800.jpg" width="800" height="440" loading="lazy" decoding="async"
-                 alt="Op-amp lead compensator circuit with its resistor and capacitor network.">
-          </a>
-          <figcaption><span class="tag">Schematic</span>The lead network as built.</figcaption>
-        </figure>
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/vca/vca-lag-circuit-800.jpg">
-            <img src="../assets/img/vca/vca-lag-circuit-800.jpg" width="800" height="480" loading="lazy" decoding="async"
-                 alt="Op-amp lag compensator circuit with its resistor and capacitor network.">
-          </a>
-          <figcaption><span class="tag">Schematic</span>The lag network as built.</figcaption>
+          <figcaption><span class="tag">Measured</span>Lag network, about 0.5&nbsp;Hz–1&nbsp;kHz. Gain falls by
+            roughly 45&nbsp;dB and levels off; the phase trace dips near 15–20&nbsp;Hz, a lag relative to the inverted
+            baseline.</figcaption>
         </figure>
       </div>
-
-      <figure class="fig fig-mid">
-        <video controls preload="none" playsinline
-               poster="../assets/video/vca-lead-sine-poster.jpg" width="1280" height="720">
-          <source src="../assets/video/vca-lead-sine.mp4" type="video/mp4">
-          Your browser cannot play this video. It shows the stage tracking a sinusoidal reference under lead compensation.
-        </video>
-        <figcaption><span class="tag">Video</span>The stage following a sinusoidal reference with the lead
-          compensator in the loop.</figcaption>
-      </figure>
+      </details>
     </div>
   </section>
 
-  <section class="stage">
+  <!-- ========== 6. experiments and results ========== -->
+  <section class="stage" id="closed-loop">
     <div class="wrap">
-      <div class="split">
-        <div>
-          <h2>Moving the loop into software</h2>
-          <div class="prose">
-            <p>
-              After the analog work I implemented the same loop digitally on an Arduino R4 Minima: a 1 kHz
-              control rate, a 12-bit DAC driving the same transconductance stage, integral clamping to
-              prevent wind-up, and a Keyence IL-065 laser sensor for feedback.
-            </p>
-            <p>
-              This is implementation experience rather than a second set of results. The digital loop was
-              built and run, but no measured comparison between the analog and digital closed loops was
-              recorded, so no claim of equivalence is made.
-            </p>
-          </div>
-        </div>
-        <div class="split-media">
-          <div class="metrics metrics-stack">
-            <div><span class="metric-value">1 kHz</span><span class="metric-label">Digital control rate</span></div>
-            <div><span class="metric-value">12-bit</span><span class="metric-label">DAC resolution to the drive stage</span></div>
-            <div><span class="metric-value">6</span><span class="metric-label">Analog compensators built and measured</span></div>
-          </div>
-        </div>
+      <h2>Experiments and results</h2>
+      <div class="prose">
+        <p>
+          Each compensator was placed in the loop and tuned on the bench against the laser feedback. PD compensation
+          was tuned first and gave a stable closed loop, its derivative action supplying the damping the springless
+          plant does not provide. A PI trial followed, but the integral action added enough phase lag that the
+          response drifted and never settled at the commanded set-point, and that configuration was set aside. Lead
+          compensation was then adopted for the closed-loop tests, since it contributes phase over the frequencies
+          of interest while keeping its high-frequency gain bounded.
+        </p>
+        <p>
+          The lead network was designed to add phase across roughly 1–15&nbsp;Hz; its measured response reaches a
+          maximum advance of about 65° near 3&nbsp;Hz. With that compensator in the loop the stage tracked a
+          2&nbsp;Hz sinusoidal reference from the function generator, and in the set-point demonstration it moved to
+          and held successive commanded positions. Reference and position were not logged together, so these are
+          bench observations rather than quantitative tracking measurements: the 2&nbsp;Hz figure is the test
+          condition, not a measured bandwidth, and no settling time, tracking error or stability margin is claimed.
+        </p>
       </div>
+
+      <div class="table-wrap">
+        <table class="data-table data-table-stack vca-results-table">
+          <caption>Closed-loop behaviour observed on the assembled stage.</caption>
+          <thead>
+            <tr><th scope="col">Compensator</th><th scope="col">Closed-loop behaviour</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">PD</th><td data-label="Closed-loop behaviour">Stable closed loop after tuning</td></tr>
+            <tr><th scope="row">PI</th><td data-label="Closed-loop behaviour">Response drifted; no settling at the commanded set-point</td></tr>
+            <tr><th scope="row">Lead</th><td data-label="Closed-loop behaviour">Tracked a 2&nbsp;Hz sinusoidal reference; held successive set-points</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fig-grid fig-grid-2 video-pair">
+        <figure class="fig fig-portrait">
+          <div class="video-frame">
+            <video controls preload="none" playsinline muted width="394" height="848"
+                   poster="../assets/video/vca-lead-sine-stage-poster.jpg"
+                   aria-label="Bench recording with the lead compensator in the loop: the function generator set to a 2 hertz sine, the oscilloscope, the supply showing the drive current, and the voice-coil stage moving on its guide rods.">
+              <source src="../assets/video/vca-lead-sine.mp4" type="video/mp4">
+              Your browser cannot play this video. It shows the stage with the lead compensator in the loop and a
+              2 Hz sinusoidal reference from a function generator.
+            </video>
+          </div>
+          <figcaption><span class="tag">Bench recording</span>Lead compensation tracking a 2&nbsp;Hz sinusoidal
+            reference.</figcaption>
+        </figure>
+        <figure class="fig fig-portrait">
+          <div class="video-frame">
+            <video controls preload="none" playsinline muted width="500" height="1074"
+                   poster="../assets/video/vca-setpoint-experiment-poster.jpg"
+                   aria-label="Portrait bench recording showing the voice-coil stage, current-drive electronics and laser-sensor amplifier during the set-point experiment documented in the course presentation.">
+              <source src="../assets/video/vca-setpoint-experiment-500.mp4" type="video/mp4">
+              Your browser cannot play this video. It shows the voice-coil stage, current-drive electronics and
+              laser-sensor amplifier during the set-point experiment.
+            </video>
+          </div>
+          <figcaption><span class="tag">Bench recording</span>Set-point demonstration; the stage holds
+            successive positions. The controller used was not recorded.</figcaption>
+        </figure>
+      </div>
+
+      <details class="more">
+        <summary>Additional bench recordings: PD tuning and PI trial</summary>
+        <div class="fig-grid fig-grid-2 video-pair">
+          <figure class="fig fig-portrait">
+            <div class="video-frame">
+              <video controls preload="none" playsinline muted width="394" height="848"
+                     poster="../assets/video/vca-pd-tuning-poster.jpg"
+                     aria-label="Bench recording of PD compensator tuning: the supply showing voltage and current, the voice-coil stage on its guide rods, the laser sensor amplifier and the oscilloscope.">
+                <source src="../assets/video/vca-pd-tuning.mp4" type="video/mp4">
+                Your browser cannot play this video. It shows the bench during PD compensator tuning.
+              </video>
+            </div>
+            <figcaption><span class="tag">Bench recording</span>PD tuning, which gave a stable closed
+              loop.</figcaption>
+          </figure>
+          <figure class="fig fig-portrait">
+            <div class="video-frame">
+              <video controls preload="none" playsinline muted width="394" height="848"
+                     poster="../assets/video/vca-pi-trial-poster.jpg"
+                     aria-label="Bench recording of the PI trial: the supply display and the voice-coil stage moving on its guide rods.">
+                <source src="../assets/video/vca-pi-trial.mp4" type="video/mp4">
+                Your browser cannot play this video. It shows the voice-coil stage during the PI trial.
+              </video>
+            </div>
+            <figcaption><span class="tag">Bench recording</span>PI trial, in which the added lag prevented a
+              settled response.</figcaption>
+          </figure>
+        </div>
+      </details>
+
     </div>
   </section>
 
-  <section class="stage">
+  <!-- ========== 7. related projects ========== -->
+  <section class="stage" id="related">
     <div class="wrap">
-      <h2>Limitations</h2>
-      <div class="limits">
-        <h3>Not established</h3>
-        <ul class="tight">
-          <li><strong>Band of validity</strong> — the model was identified and checked over the frequency
-            range that was measured. Where measurement and prediction diverge at the edges of that range, the
-            cause was not isolated: sensor bandwidth, drive-stage limits, fixture compliance and excitation
-            level were not separated by dedicated experiments.</li>
-          <li><strong>Time-domain performance</strong> — settling time, overshoot and steady-state error were
-            not characterised as a formal benchmark set, so no positioning-accuracy figure is claimed.</li>
-          <li><strong>Digital comparison</strong> — the discrete implementation was not measured against the
-            analog one.</li>
-          <li><strong>Scope</strong> — a single-axis teaching-scale stage with one actuator and one sensor.</li>
-        </ul>
-      </div>
-
-      <h2 class="related-h">Related projects</h2>
+      <h2 class="related-h related-h-top">Related projects</h2>
       <div class="related">
         <a href="afm-high-speed-control.html">
-          <img src="../assets/img/afm/afm-head-wide-660.jpg" width="660" height="391" loading="lazy" decoding="async" alt="">
-          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>The same method applied to a precision instrument</span></span>
+          <img src="../assets/img/concepts/afm-concept-v6-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="">
+          <span><b>Model-Based Digital PI Control for High-Speed Contact-Mode AFM</b><span>Frequency-response identification and embedded PI control</span></span>
         </a>
         <a href="soft-robotic-glove.html">
-          <img src="../assets/img/glove/glove-actuators-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
-          <span><b>REHABOTICS Soft Robotic Glove</b><span>Actuator design and control in a compliant wearable system</span></span>
+          <img src="../assets/img/glove/glove-prototype-card-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="">
+          <span><b>sEMG-Controlled Soft Robotics Glove for Game-Based Hand Rehabilitation</b><span>Soft pneumatic actuators controlled by sEMG gesture recognition</span></span>
         </a>
       </div>
     </div>
@@ -308,7 +629,7 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-name">Muhammad Mustafa Khan</p>
-      <p class="footer-statement">Open to PhD opportunities and research collaborations in robotics, feedback control and learning-based methods for physical systems.</p>
+      <p class="footer-statement">Open to PhD opportunities and research collaborations in control, robotics and physical AI.</p>
       <ul class="footer-links">
         <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
         <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
@@ -319,15 +640,17 @@
     </div>
     <nav aria-label="Footer">
       <ul class="footer-nav">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../index.html#research">Research</a></li>
-        <li><a href="../index.html#outputs">Outputs</a></li>
         <li><a href="../index.html#about">About</a></li>
+        <li><a href="index.html">Projects</a></li>
+        <li><a href="../index.html#outputs">Research outputs</a></li>
         <li><a href="../cv.html">CV</a></li>
       </ul>
     </nav>
   </div>
-  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+  <div class="wrap footer-bottom">
+    <p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p>
+    <p class="footer-status">This portfolio is under active development; further projects and results will be added.</p>
+  </div>
 </footer>
 <script src="../script.js" defer></script>
 </body>

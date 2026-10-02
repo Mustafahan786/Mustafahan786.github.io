@@ -21,7 +21,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2026-10-03">
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -33,10 +33,9 @@
       <span class="bars" aria-hidden="true"><span></span></span>Menu
     </button>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Work</a>
-      <a href="../index.html#research">Research</a>
-      <a href="../index.html#outputs">Outputs</a>
       <a href="../index.html#about">About</a>
+      <a href="index.html" aria-current="page">Projects</a>
+      <a href="../index.html#outputs">Research outputs</a>
       <a class="nav-cta" href="../cv.html">CV</a>
     </nav>
   </div>
@@ -46,10 +45,6 @@
   <section class="page-head">
     <div class="wrap">
       <h1>Projects</h1>
-      <p class="lede">
-        Research and engineering projects spanning system identification, feedback control, biosignal
-        sensing, embedded implementation and soft robotics.
-      </p>
     </div>
   </section>
 
@@ -58,132 +53,142 @@
       <div class="index-list">
 
         <!-- ===== AFM ===== -->
-        <article class="index-entry">
-          <figure class="cover">
-            <a class="cover-frame" href="afm-high-speed-control.html" tabindex="-1" aria-hidden="true">
-              <img src="../assets/img/concepts/afm-concept-v3-640.jpg"
-                   srcset="../assets/img/concepts/afm-concept-v3-640.jpg 640w, ../assets/img/concepts/afm-concept-v3-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="400" decoding="async"
-                   alt="Concept illustration based on the actual setup: the complete EM4SYS AFM, a contact-mode optical lever over an HS-100MG-type step standard, S4349 QPD, digital PI controller, PA88 PZT amplifier and paired PC4QM and PC4WL Z actuators; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>The complete AFM, optical-lever readout
-              and embedded Z-axis feedback path. <a href="afm-high-speed-control.html#results">Trace&ndash;retrace scans &rarr;</a></figcaption>
+        <article class="index-entry has-caption-row">
+          <figure class="cover cover-4x3">
+            <div class="cover-frame has-overlay">
+              <img src="../assets/img/concepts/afm-concept-v6-640.jpg"
+                   srcset="../assets/img/concepts/afm-concept-v6-640.jpg 640w, ../assets/img/concepts/afm-concept-v6-1280.jpg 1280w"
+                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="480" decoding="async"
+                   alt="AFM instrument with a circular enlarged illustration identifying the PZT actuator, laser diode, quadrant photodiode, cantilever and standard sample.">
+              <a class="cover-overlay" href="afm-high-speed-control.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag tag-concept">Concept illustration</span> AFM setup with an enlarged view of the probe and optical-lever sensing.</figcaption>
           </figure>
           <div class="index-body">
+            <div class="index-main">
             <p class="index-cat">
               <span class="cat">Current research</span>
-              <span class="where">GIST &middot; September 2025 &ndash; present</span>
+              <span class="where">GIST&nbsp;&middot; <span class="nowrap">September 2025&ndash;present</span></span>
             </p>
             <h2><a href="afm-high-speed-control.html">Model-Based Digital PI Control for High-Speed Contact-Mode AFM</a></h2>
-            <p class="index-sub">Frequency-response identification, embedded implementation and trace&ndash;retrace evaluation of the Z-axis feedback loop.</p>
+            <p class="index-sub">This project investigates Z-axis tracking in contact-mode AFM using an identified plant model and a
+              digital PI controller. Imaging consistency is evaluated by comparing trace and retrace topographies at
+              increasing scan frequencies.</p>
             <div class="index-facts">
-              <p><b>Challenge</b>Maintain Z-axis tracking in contact-mode AFM as the scan frequency increases.</p>
-              <p><b>Contribution</b>System identification, controller design, STM32 implementation, analog
-                front-end revision and imaging experiments within the laboratory project.</p>
-              <p><b>Evidence</b>Trace&ndash;retrace <i>r</i> &ge; 0.977 through 5 Hz; agreement degrades at
-                higher scan rates.</p>
+              <p><b>My contribution</b>Experimental system identification, PI controller design and STM32 implementation, analogue
+                signal-conditioning revisions, and imaging experiments.</p>
+              <p class="index-result"><b>Key result</b>At 2 and 5&nbsp;Hz, trace&ndash;retrace agreement was high (<i>r</i>&nbsp;&ge;&nbsp;0.977;
+                NRMSE&nbsp;&le;&nbsp;7.7%). Agreement decreased at 10 and 20&nbsp;Hz.</p>
+            </div>
             </div>
             <ul class="index-links">
-              <li><a class="link-arrow" href="afm-high-speed-control.html">Project details</a></li>
-              <li><a href="../index.html#outputs">IFAC World Congress 2026 poster</a></li>
+              <li><a class="link-arrow" href="afm-high-speed-control.html">View project</a></li>
+              <li><a class="link-arrow link-quiet" href="afm-high-speed-control.html#results">View imaging results</a></li>
             </ul>
           </div>
         </article>
 
         <!-- ===== Voice coil ===== -->
-        <article class="index-entry is-flipped">
-          <figure class="cover">
-            <a class="cover-frame" href="voice-coil-actuator.html" tabindex="-1" aria-hidden="true">
-              <img src="../assets/img/concepts/vca-concept-v2-640.jpg"
-                   srcset="../assets/img/concepts/vca-concept-v2-640.jpg 640w, ../assets/img/concepts/vca-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the built voice-coil bench: a long aluminium base, twin guide rods and central circular plates linked to current drive and closed-loop compensation; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>The built stage, current drive and
-              analog feedback loop.</figcaption>
+        <article class="index-entry is-flipped has-caption-row">
+          <figure class="cover cover-4x3">
+            <div class="cover-frame has-overlay">
+              <img src="../assets/img/vca/vca-concept-figure-640.jpg"
+                   srcset="../assets/img/vca/vca-concept-figure-640.jpg 640w, ../assets/img/vca/vca-concept-figure-960.jpg 960w, ../assets/img/vca/vca-concept-figure-1448.jpg 1448w"
+                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="480" loading="lazy" decoding="async"
+                   alt="Concept illustration of the voice-coil positioning stage; not experimental evidence. Labels identify the coil assembly, two permanent-magnet locations and the guide rods. Below, a simplified analogue feedback path runs from the set-point through the analogue compensator, the PA51 current drive and the voice-coil stage to the laser position sensor, whose position feedback returns to the compensator.">
+              <a class="cover-overlay" href="voice-coil-actuator.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag tag-concept">Concept illustration</span> Voice-coil positioning stage and analogue position-feedback loop</figcaption>
           </figure>
           <div class="index-body">
+            <div class="index-main">
             <p class="index-cat">
-              <span class="cat">Research project</span>
-              <span class="where">GIST &middot; Winter 2025&ndash;26</span>
+              <span class="cat">Course project</span>
+              <span class="where">GIST&nbsp;&middot; <span class="nowrap">Winter 2025&ndash;26</span></span>
             </p>
-            <h2><a href="voice-coil-actuator.html">Voice-Coil Actuator Positioning System</a></h2>
-            <p class="index-sub">Identification and analog feedback control of a stage with no restoring spring.</p>
+            <h2><a href="voice-coil-actuator.html">Voice-Coil Stage Design and Feedback Control</a></h2>
+            <p class="index-sub">I designed and built a single-axis voice-coil positioning stage to investigate feedback control. The
+              work combined PA51 current-drive characterisation, laser-based position sensing, measured frequency responses
+              and evaluation of analogue compensators.</p>
             <div class="index-facts">
-              <p><b>Challenge</b>Control a single-axis voice-coil stage whose plant has no restoring spring.</p>
-              <p><b>Contribution</b>Mechanical bench, current drive, identification and six analog
-                compensators &mdash; an individual project throughout.</p>
-              <p><b>Evidence</b>Six compensators built and tested; lead compensation retained following
-                bench evaluation.</p>
+              <p><b>My contribution</b>Designed and assembled the stage, configured the PA51 current drive and laser position
+                feedback, measured frequency responses, and evaluated analogue compensation.</p>
+              <p class="index-result"><b>Key result</b>In the bench tests, the PI-controlled response drifted and did not settle at
+                the commanded set-point. PD and lead compensation produced more stable tracking under the tested conditions.</p>
+            </div>
             </div>
             <ul class="index-links">
-              <li><a class="link-arrow" href="voice-coil-actuator.html">Project details</a></li>
+              <li><a class="link-arrow" href="voice-coil-actuator.html">View project</a></li>
             </ul>
           </div>
         </article>
 
         <!-- ===== sEMG ===== -->
-        <article class="index-entry">
-          <figure class="cover">
-            <a class="cover-frame" href="semg-rehabilitation-interface.html" tabindex="-1" aria-hidden="true">
-              <img src="../assets/img/concepts/semg-concept-v2-640.jpg"
-                   srcset="../assets/img/concepts/semg-concept-v2-640.jpg 640w, ../assets/img/concepts/semg-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the demonstrated interface: a black segmented wireless armband on a forearm feeding live sEMG traces and a maze-control task; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>Muscle activity becomes a
-              real-time interactive command.</figcaption>
+        <article class="index-entry has-caption-row" id="semg-project">
+          <figure class="cover cover-ga">
+            <div class="cover-frame has-overlay" data-gif="../assets/img/semg/semg-graphical-abstract-banner.gif" data-poster="../assets/img/semg/semg-graphical-abstract-poster.png">
+              <picture>
+                <source media="(prefers-reduced-motion: reduce)" srcset="../assets/img/semg/semg-graphical-abstract-poster.png" width="466" height="307">
+                <img src="../assets/img/semg/semg-graphical-abstract-banner.gif" width="466" height="307" decoding="async"
+                     alt="Animated graphical abstract of the control loop: the participant watches a Brick Breaker game and makes a hand gesture; forearm sEMG is processed and an ensemble of decision trees predicts the gesture, which moves the paddle, and the result on screen guides the next gesture.">
+              </picture>
+              <a class="cover-overlay" href="semg-rehabilitation-interface.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag">Graphical abstract</span> Forearm sEMG control, interactive rehabilitation tasks and visual feedback. <button class="ga-toggle" type="button" data-gif-toggle hidden><span class="ga-icon" aria-hidden="true"></span><span class="ga-label">Pause animation</span></button></figcaption>
           </figure>
           <div class="index-body">
+            <div class="index-main">
             <p class="index-cat">
               <span class="cat">Research project</span>
-              <span class="where">NUST &middot; June 2022 &ndash; August 2023</span>
+              <span class="where">NUST&nbsp;&middot; <span class="nowrap">June 2022&ndash;August 2023</span></span>
             </p>
-            <h2><a href="semg-rehabilitation-interface.html">Real-Time sEMG Rehabilitation Interface</a></h2>
-            <p class="index-sub">Eight-channel hand-state estimation for post-stroke upper-limb training.</p>
+            <h2><a href="semg-rehabilitation-interface.html">Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation</a></h2>
+            <p class="index-sub">This project developed an sEMG-driven <span class="nowrap">video-game</span> protocol for
+              interactive post-stroke hand rehabilitation. Gradient-boosting gesture recognition enabled real-time control,
+              while Fitts&rsquo; law and task-specific performance metrics assessed user performance across repeated&nbsp;sessions.</p>
             <div class="index-facts">
-              <p><b>Challenge</b>Estimate intended hand states online from eight channels of forearm sEMG.</p>
-              <p><b>Contribution</b>Acquisition and feature pipeline, classifier comparison, deployment,
-                three task interfaces and the evaluation protocol.</p>
-              <p><b>Evidence</b>150 ms classification window, online 1&ndash;3 DOF interfaces, and the
-                MUSED-I dataset. No clinical outcome was assessed.</p>
+              <p><b>My contribution</b>Developed the sEMG processing pipeline and candidate classifiers, selected and deployed gradient boosting, and co-developed the task interfaces and evaluation protocol.</p>
+              <p class="index-result"><b>Key result</b>Gradient boosting enabled real-time task control. Space Shooter completion times followed task difficulty, supporting performance assessment using Fitts&rsquo; law.</p>
+            </div>
             </div>
             <ul class="index-links">
-              <li><a class="link-arrow" href="semg-rehabilitation-interface.html">Project details</a></li>
-              <li><a href="https://ieee-dataport.org/documents/mused-i-multi-gesture-surface-electromyography-semg-dataset-stroke-rehabilitation" rel="noopener">MUSED-I dataset</a></li>
+              <li><a class="link-arrow" href="semg-rehabilitation-interface.html">View project</a></li>
+              <li><a class="link-arrow link-quiet" href="semg-rehabilitation-interface.html#results">View task results</a></li>
             </ul>
           </div>
         </article>
 
         <!-- ===== Glove ===== -->
-        <article class="index-entry is-flipped">
-          <figure class="cover">
-            <a class="cover-frame" href="soft-robotic-glove.html" tabindex="-1" aria-hidden="true">
-              <img src="../assets/img/concepts/glove-concept-v2-640.jpg"
-                   srcset="../assets/img/concepts/glove-concept-v2-640.jpg 640w, ../assets/img/concepts/glove-concept-v2-1200.jpg 1200w"
-                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="400" loading="lazy" decoding="async"
-                   alt="Concept illustration based on the prototype: a black glove with opaque white ribbed pneumatic actuators, blue tubing and a compact manifold, paired with its armband control cue; not experimental evidence.">
-            </a>
-            <figcaption><span class="tag tag-concept">Concept illustration</span>The wearable prototype,
-              pneumatic drive and intended control link.</figcaption>
+        <article class="index-entry is-flipped has-caption-row" id="glove-project">
+          <figure class="cover cover-4x3">
+            <div class="cover-frame has-overlay">
+              <img src="../assets/img/glove/glove-prototype-card-640.jpg"
+                   srcset="../assets/img/glove/glove-prototype-card-640.jpg 640w, ../assets/img/glove/glove-prototype-card-960.jpg 960w"
+                   sizes="(min-width: 1280px) 490px, (min-width: 880px) 38vw, 92vw" width="640" height="480" loading="lazy" decoding="async"
+                   alt="Two frames from the prototype recording, stacked. Above, labelled Open / rest: a forearm wearing the Myo armband is raised with the hand open, a game runs on the monitor, and the white soft glove mounted on the hardware enclosure at the right is relaxed. Below, labelled Close: the same forearm makes a fist and the glove's actuators are curled.">
+              <a class="cover-overlay" href="soft-robotic-glove.html" tabindex="-1" aria-hidden="true"></a>
+            </div>
+            <figcaption><span class="tag">Prototype</span> Forearm sEMG commands drive an interactive rehabilitation task and a pneumatic glove for assisted hand movement.</figcaption>
           </figure>
           <div class="index-body">
+            <div class="index-main">
             <p class="index-cat">
-              <span class="cat">Team project &middot; Final year</span>
-              <span class="where">NUST &middot; 2022 &ndash; 2023</span>
+              <span class="cat">Final-year project</span>
+              <span class="where">REHABOTICS&nbsp;&middot; NUST&nbsp;&middot; <span class="nowrap">2023&ndash;2024</span></span>
             </p>
-            <h2><a href="soft-robotic-glove.html">REHABOTICS Pneumatic Soft Robotic Glove</a></h2>
-            <p class="index-sub">Fibre-reinforced silicone bending actuators for hand rehabilitation.</p>
+            <h2><a href="soft-robotic-glove.html">sEMG-Controlled Soft Robotics Glove for <span class="nowrap">Game-Based</span> Hand Rehabilitation</a></h2>
+            <p class="index-sub">Integrated machine-learning-based sEMG gesture recognition with a soft pneumatic glove and a
+              one-degree-of-freedom rehabilitation game, combining visual feedback with assisted hand movement.</p>
             <div class="index-facts">
-              <p><b>Challenge</b>Develop fibre-reinforced pneumatic actuators for a wearable rehabilitation
-                glove.</p>
-              <p><b>Contribution</b>Three actuator geometries, ANSYS analysis, fabrication and the pneumatic
-                drive, in a team of four.</p>
-              <p><b>Evidence</b>Bench-measured 120&ndash;180&deg; actuator-segment flexion at 100 kPa.
-                Functional hand performance was not assessed.</p>
+              <p><b>My contribution</b>Soft actuator design, ANSYS simulation and fabrication, with contributions to
+                machine-learning gesture recognition and integrated glove&ndash;game control.</p>
+              <p class="index-result"><b>Key result</b>Achieved approximately 120&ndash;180&deg; of actuator bending at 100&nbsp;kPa
+                and integrated gesture-controlled glove assistance with an interactive rehabilitation game.</p>
+            </div>
             </div>
             <ul class="index-links">
-              <li><a class="link-arrow" href="soft-robotic-glove.html">Project details</a></li>
+              <li><a class="link-arrow" href="soft-robotic-glove.html">View project</a></li>
+              <li><a class="link-arrow link-quiet" href="soft-robotic-glove.html#prototype-video">Watch prototype video</a></li>
             </ul>
           </div>
         </article>
@@ -197,7 +202,7 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-name">Muhammad Mustafa Khan</p>
-      <p class="footer-statement">Open to PhD opportunities and research collaborations in robotics, feedback control and learning-based methods for physical systems.</p>
+      <p class="footer-statement">Open to PhD opportunities and research collaborations in control, robotics and physical AI.</p>
       <ul class="footer-links">
         <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
         <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
@@ -208,15 +213,17 @@
     </div>
     <nav aria-label="Footer">
       <ul class="footer-nav">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../index.html#research">Research</a></li>
-        <li><a href="../index.html#outputs">Outputs</a></li>
         <li><a href="../index.html#about">About</a></li>
+        <li><a href="index.html">Projects</a></li>
+        <li><a href="../index.html#outputs">Research outputs</a></li>
         <li><a href="../cv.html">CV</a></li>
       </ul>
     </nav>
   </div>
-  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+  <div class="wrap footer-bottom">
+    <p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p>
+    <p class="footer-status">This portfolio is under active development; further projects and results will be added.</p>
+  </div>
 </footer>
 <script src="../script.js" defer></script>
 </body>

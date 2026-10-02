@@ -6,24 +6,24 @@
 <meta name="color-scheme" content="light">
 <meta name="theme-color" content="#fbfaf7">
 <script>document.documentElement.className += ' js';</script>
-<title>REHABOTICS Pneumatic Soft Robotic Glove — Muhammad Mustafa Khan</title>
-<meta name="description" content="Fibre-reinforced silicone bending actuators designed across three geometries, analysed in ANSYS, cast by soft lithography and characterised on the bench, driven under master–slave pneumatic control.">
+<title>sEMG-Controlled Soft Robotics Glove for Game-Based Hand Rehabilitation — Muhammad Mustafa Khan</title>
+<meta name="description" content="Integrated machine-learning-based sEMG gesture recognition with a soft pneumatic glove and a one-degree-of-freedom rehabilitation game, combining visual feedback with assisted hand movement.">
 <link rel="canonical" href="https://mustafahan786.github.io/projects/soft-robotic-glove.html">
 <meta property="og:type" content="article">
-<meta property="og:title" content="REHABOTICS Pneumatic Soft Robotic Glove">
-<meta property="og:description" content="Fibre-reinforced silicone actuators, from FEA and mould design to bench characterisation and master–slave pneumatic control.">
+<meta property="og:title" content="sEMG-Controlled Soft Robotics Glove for Game-Based Hand Rehabilitation">
+<meta property="og:description" content="Integrated machine-learning-based sEMG gesture recognition with a soft pneumatic glove and a one-degree-of-freedom rehabilitation game, combining visual feedback with assisted hand movement.">
 <meta property="og:url" content="https://mustafahan786.github.io/projects/soft-robotic-glove.html">
-<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/glove.jpg">
-<meta property="og:image:alt" content="REHABOTICS pneumatic soft robotic glove — project">
+<meta property="og:image" content="https://mustafahan786.github.io/assets/img/og/glove-v4.jpg">
+<meta property="og:image:alt" content="Two frames from the prototype demonstration: with the hand open the soft glove is relaxed, and with the hand closed it curls, while the rehabilitation game runs on the monitor between the armband and the glove.">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
 <link rel="alternate icon" href="../assets/favicon.png" sizes="32x32">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../style.css">
+<link rel="stylesheet" href="../style.css?v=2026-10-03">
 </head>
-<body>
+<body class="glove-page">
 <a class="skip" href="#main">Skip to content</a>
 
 <header class="site-header">
@@ -33,10 +33,9 @@
       <span class="bars" aria-hidden="true"><span></span></span>Menu
     </button>
     <nav class="nav" id="site-nav" aria-label="Primary">
-      <a href="index.html" aria-current="page">Work</a>
-      <a href="../index.html#research">Research</a>
-      <a href="../index.html#outputs">Outputs</a>
       <a href="../index.html#about">About</a>
+      <a href="index.html" aria-current="page">Projects</a>
+      <a href="../index.html#outputs">Research outputs</a>
       <a class="nav-cta" href="../cv.html">CV</a>
     </nav>
   </div>
@@ -45,232 +44,533 @@
 <main id="main">
   <section class="case-hero">
     <div class="wrap">
-      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> Soft robotic glove</p>
-      <p class="case-meta">Team project · Final year · Team of four · NUST · 2022 – 2023</p>
-      <h1 class="case-title">REHABOTICS Pneumatic Soft Robotic Glove</h1>
-      <p class="case-sub">Fibre-reinforced silicone bending actuators for hand rehabilitation.</p>
+      <p class="breadcrumb"><a href="index.html">Projects</a> <span aria-hidden="true">/</span> sEMG-Controlled Soft Robotics Glove</p>
+      <p class="case-meta">Final-year project&nbsp;· REHABOTICS&nbsp;· SMME, NUST&nbsp;· <span class="nowrap">2023–2024</span></p>
+      <h1 class="case-title">sEMG-Controlled Soft Robotics Glove for <span class="nowrap">Game-Based</span> Hand Rehabilitation</h1>
+      <p class="case-sub"><strong>Soft pneumatic actuator design, machine-learning gesture recognition, and bilateral hand
+        assistance integrated with an interactive rehabilitation game.</strong></p>
+      <ul class="case-links">
+        <li><a href="#prototype-video"><strong>Watch prototype video</strong></a></li>
+      </ul>
 
-      <figure class="fig fig-hero fig-wide fig-pad">
-        <a class="zoom" href="../assets/img/glove/glove-actuators-card-900.jpg">
-          <img src="../assets/img/glove/glove-actuators-card-900.jpg" width="900" height="675" decoding="async"
-               alt="Composite figure: a CAD model of the selected semicircular chamber with helical fibre wrap, the two-part moulds 3D printed in PLA, and the cast silicone actuators.">
-        </a>
-        <figcaption><span class="tag">CAD</span> and <span class="tag">Photograph</span>Design to part: the
-          selected chamber geometry, the printed two-part moulds, and the cast actuators.</figcaption>
-      </figure>
-
-      <div class="brief">
-        <h2 class="sr-only">Research brief</h2>
+      <div class="brief brief-3">
+        <h2 class="sr-only">Summary</h2>
         <dl>
           <div>
-            <dt>Objective</dt>
-            <dd>Move a paretic hand with a wearable device, designed against targets of under 0.5 kg mass and
-              10–15 N flexion force.</dd>
+            <dt>Research question</dt>
+            <dd>Can machine-learning-based sEMG gesture recognition coordinate an interactive game and soft-glove
+              assistance for bilateral hand rehabilitation?</dd>
           </div>
           <div>
-            <dt>Approach</dt>
-            <dd>Three actuator geometries screened in ANSYS before committing to moulds, then soft
-              lithography, bench characterisation and a master–slave pneumatic drive.</dd>
+            <dt>What I did</dt>
+            <dd>Designed, simulated and fabricated soft pneumatic actuators, and contributed to machine-learning gesture
+              recognition and its integration with pneumatic control and the rehabilitation game.</dd>
           </div>
           <div>
-            <dt>Individual contribution</dt>
-            <dd>Actuator design across the three geometries, the ANSYS analysis, soft-lithography
-              fabrication, and the pneumatic drive and its master–slave control.</dd>
-          </div>
-          <div>
-            <dt>Experimental evidence</dt>
-            <dd><strong>120–180° of flexion per finger segment at 100 kPa</strong>, measured on the bench.
-              Mass and force remained design targets.</dd>
+            <dt>Key result</dt>
+            <dd>The fabricated soft actuators achieved approximately <strong>120–180°</strong> of bending at
+              100&nbsp;kPa. Gesture-based control integrated glove inflation and release with a
+              one-degree-of-freedom rehabilitation game.</dd>
           </div>
         </dl>
       </div>
+
+      <nav class="contents glove-toc" aria-labelledby="contents-h">
+        <h2 id="contents-h">On this page</h2>
+        <ol>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#bilateral">Bilateral control</a></li>
+          <li><a href="#design">Actuator design</a></li>
+          <li><a href="#fabrication">Fabrication</a></li>
+          <li><a href="#control">Control &amp; game</a></li>
+          <li><a href="#results">Results</a></li>
+        </ol>
+      </nav>
     </div>
   </section>
 
-  <section class="stage">
+  <!-- ========== 1. overview and prototype demonstration ========== -->
+  <section class="stage" id="overview">
     <div class="wrap">
-      <h2>Designing motion into the material</h2>
+      <h2>Overview</h2>
       <div class="prose">
         <p>
-          A wearable hand device has to stay light enough not to fatigue the limb it assists, and deliver
-          enough force to be useful against a resisting hand. The project set those targets at under 0.5 kg
-          and 10–15 N, which pointed toward soft pneumatic actuation rather than a rigid linkage.
+          This project extended our earlier <a href="semg-rehabilitation-interface.html">sEMG-based rehabilitation
+          protocol</a> by adding a soft pneumatic glove for physical hand assistance. Machine-learning-based gesture
+          recognition converted forearm muscle activity into commands shared by the rehabilitation game and the glove.
         </p>
         <p>
-          That choice moves the difficulty into the actuator. A chamber pressurised without constraint simply
-          inflates; to make it bend, one side has to be stopped from extending. Three geometries were
-          designed and compared. The selected one is a semicircular chamber with a helical fibre wrap to
-          resist radial growth and an inextensible buckram layer bonded along the base to force curvature
-          rather than elongation.
+          We employed a bilateral master–slave strategy: the functional hand provided the command, while the glove
+          assisted movement of the impaired hand. A hand-close command produced actuator inflation and flexion; an
+          open/rest command released pressure and allowed passive extension.
         </p>
       </div>
-      <div class="fig-grid fig-grid-3">
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-design1-538.jpg">
-            <img src="../assets/img/glove/glove-design1-538.jpg" width="538" height="450" loading="lazy" decoding="async"
-                 alt="First candidate actuator geometry shown in CAD.">
-          </a>
-          <figcaption><span class="tag">CAD</span>Geometry one.</figcaption>
-        </figure>
-        <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-design2-633.jpg">
-            <img src="../assets/img/glove/glove-design2-633.jpg" width="633" height="528" loading="lazy" decoding="async"
-                 alt="Second candidate actuator geometry shown in CAD.">
-          </a>
-          <figcaption><span class="tag">CAD</span>Geometry two.</figcaption>
-        </figure>
+
+      <figure class="fig fig-wide fig-overview-video" id="prototype-video">
+        <div class="video-frame">
+          <video controls preload="none" playsinline muted width="848" height="480"
+                 poster="../assets/video/glove-prototype-linkedin-poster.jpg"
+                 aria-label="Prototype demonstration: a forearm wearing the Myo armband alternates between an open hand and a fist, the soft glove inflates and releases, and the rehabilitation game runs on the display.">
+            <source src="../assets/video/glove-prototype-linkedin.mp4" type="video/mp4">
+            Your browser cannot play this video. It shows the prototype: a forearm wearing the Myo armband alternates
+            between an open hand and a fist while the soft glove inflates and releases and the rehabilitation game runs
+            on the display.
+          </video>
+        </div>
+        <figcaption><span class="tag">Prototype demonstration</span>sEMG-based hand-state recognition coordinates
+          interactive game control with pneumatic glove flexion and release.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 2. bilateral control ========== -->
+  <section class="stage" id="bilateral">
+    <div class="wrap">
+      <h2>Bilateral control</h2>
+      <div class="prose">
+        <p>
+          In this bilateral master–slave control strategy, sEMG from the functional forearm provided commands for the
+          rehabilitation game and the assistive glove. A Raspberry Pi processed the signals, recognised the hand state
+          and coordinated game interaction with pneumatic actuation. Visual feedback from the game guided the
+          participant’s subsequent movement.
+        </p>
+      </div>
+
+      <figure class="fig fig-center glove-schematic">
+        <a class="zoom" href="../assets/img/glove/glove-integration-loop.svg" data-zoom="natural">
+          <picture>
+            <source media="(max-width: 759px)" srcset="../assets/img/glove/glove-integration-loop-narrow.svg" width="340" height="700">
+            <img src="../assets/img/glove/glove-integration-loop.svg" width="900" height="440" loading="lazy" decoding="async"
+                 alt="System schematic. Within the participant, the functional hand is the master input: a Myo armband on its forearm acquires sEMG and sends it to a Raspberry Pi 4, which performs signal processing and machine-learning gesture recognition and outputs one of two states, close or open/rest. The state branches to the interactive game, Cave Dive, where the ball moves up or down, and to the pneumatic drive of pump and valve, which supplies air to inflate or release the soft glove on the impaired hand, the slave. The game gives visual feedback to the participant.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">System schematic</span>Bilateral master–slave architecture linking sEMG gesture
+          recognition, game interaction and pneumatic hand assistance.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ========== 3. actuator design ========== -->
+  <section class="stage" id="design">
+    <div class="wrap">
+      <h2>Actuator design</h2>
+      <div class="prose">
+        <p>
+          The glove was designed around adult hand dimensions. Design targets from the literature were a mass below
+          0.5&nbsp;kg, a flexion force of 10–15&nbsp;N for grasping everyday objects, and enough bending for a closed
+          fist: about 160° at the thumb and 250° at the middle finger.
+        </p>
+        <p>
+          The final actuator is a semicircular single-chamber silicone actuator. Fibre thread wound around the body
+          restrains radial expansion and a fabric layer along the flat base limits strain on that side, so that
+          pressurisation bends the actuator towards its base. Each finger carries one actuator, 20&nbsp;mm wide and
+          20.5&nbsp;mm high, with its length matched to the finger; the glove measures
+          215&nbsp;×&nbsp;95&nbsp;×&nbsp;20.5&nbsp;mm, and all five actuators are supplied in parallel from one
+          pneumatic line.
+        </p>
+      </div>
+
+      <div class="glove-final">
         <figure class="fig fig-frame">
           <a class="zoom" href="../assets/img/glove/glove-design3-658.jpg">
             <img src="../assets/img/glove/glove-design3-658.jpg" width="658" height="412" loading="lazy" decoding="async"
-                 alt="Third candidate actuator geometry in CAD — the semicircular chamber with helical fibre wrap that was selected.">
+                 alt="CAD model of the final actuator: a long body with a semicircular cross-section and a flat base, wound with fibre reinforcement.">
           </a>
-          <figcaption><span class="tag">CAD</span>Geometry three — selected.</figcaption>
+          <figcaption><span class="tag">CAD</span>Final actuator: semicircular chamber with fibre reinforcement and a
+            strain-limiting base.</figcaption>
         </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/glove/glove-assembly-cad-white-520.jpg">
+            <img src="../assets/img/glove/glove-assembly-cad-white-520.jpg" width="520" height="522" loading="lazy" decoding="async"
+                 alt="CAD model of the glove assembly: five dark ribbed actuators held by straps on a grey hand support, four along the fingers and one angled along the thumb.">
+          </a>
+          <figcaption><span class="tag">CAD</span>Glove assembly: five actuators on the hand support.</figcaption>
+        </figure>
+        <div class="table-wrap glove-dims-wrap">
+          <table class="data-table glove-dims">
+            <caption>Actuator dimensions</caption>
+            <thead>
+              <tr><th scope="col">Finger</th><th scope="col" class="num">Actuator length (mm)</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Thumb</th><td class="num">90</td></tr>
+              <tr><th scope="row">Index</th><td class="num">100</td></tr>
+              <tr><th scope="row">Middle</th><td class="num">110</td></tr>
+              <tr><th scope="row">Ring</th><td class="num">105</td></tr>
+              <tr><th scope="row">Little</th><td class="num">85</td></tr>
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
-  </section>
 
-  <section class="stage">
-    <div class="wrap">
-      <h2>Screening designs before cutting moulds</h2>
       <div class="prose">
         <p>
-          Casting silicone is slow and a mould is expensive to be wrong about. Each geometry was analysed in
-          ANSYS with a hyperelastic material model, looking at the deformed shape under pressure and at where
-          stress concentrated in the walls. The selected geometry reached the intended bending at 50 kPa in
-          simulation.
+          The design developed through three geometries. A first concept placed a soft core inside a segmented hard
+          shell. A multi-chamber actuator with a row of chambers along its top was then modelled and analysed by finite
+          elements. The final fibre-reinforced semicircular actuator kept the intended bending with a simpler shape
+          that was easier to cast and to fit to the glove.
+        </p>
+      </div>
+
+      <details class="more">
+        <summary>Design iterations</summary>
+        <div class="fig-grid fig-grid-2 glove-iter">
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-design1-538.jpg">
+              <img src="../assets/img/glove/glove-design1-538.jpg" width="538" height="450" loading="lazy" decoding="async"
+                   alt="CAD model of the first concept: a segmented hard shell of open rings that would surround a soft cylindrical core.">
+            </a>
+            <figcaption><span class="tag">CAD</span>First concept: soft core in a segmented hard shell.</figcaption>
+          </figure>
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-design2-633.jpg">
+              <img src="../assets/img/glove/glove-design2-633.jpg" width="633" height="528" loading="lazy" decoding="async"
+                   alt="CAD model of the multi-chamber actuator: a rectangular block with a row of deep slots across its top, forming separate chambers.">
+            </a>
+            <figcaption><span class="tag">CAD</span>Multi-chamber actuator: the geometry analysed in ANSYS.</figcaption>
+          </figure>
+        </div>
+      </details>
+
+      <h3 class="glove-subhead" id="simulation">Finite-element analysis</h3>
+      <div class="prose">
+        <p>
+          The multi-chamber geometry was modelled as a PneuNet-type index-finger actuator in ANSYS 2020 R2. The
+          nonlinear static structural analysis fixed one end and ramped the internal pressure to 50&nbsp;kPa, with the
+          silicone represented by an incompressible second-order Yeoh model.
+        </p>
+      </div>
+
+      <div class="model-block eq-math glove-eq">
+        <div class="eq-render" role="region" aria-label="Yeoh strain-energy function (scrolls horizontally if needed)" tabindex="0">
+          <math display="block" aria-label="W equals C 1 0 times, I bar 1 minus 3, plus C 2 0 times, I bar 1 minus 3, squared">
+            <mi>W</mi><mo>=</mo>
+            <msub><mi>C</mi><mn>10</mn></msub><mo stretchy="false">(</mo><msub><mover accent="true"><mi>I</mi><mo>‾</mo></mover><mn>1</mn></msub><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo>
+            <mo>+</mo>
+            <msub><mi>C</mi><mn>20</mn></msub><msup><mrow><mo stretchy="false">(</mo><msub><mover accent="true"><mi>I</mi><mo>‾</mo></mover><mn>1</mn></msub><mo>−</mo><mn>3</mn><mo stretchy="false">)</mo></mrow><mn>2</mn></msup>
+          </math>
+          <math display="block" aria-label="C 1 0 equals 0.11 megapascals, C 2 0 equals 0.02 megapascals">
+            <msub><mi>C</mi><mn>10</mn></msub><mo>=</mo><mn>0.11</mn><mspace width="0.2em"></mspace><mtext>MPa</mtext><mo separator="true">,</mo>
+            <mspace width="1.2em"></mspace>
+            <msub><mi>C</mi><mn>20</mn></msub><mo>=</mo><mn>0.02</mn><mspace width="0.2em"></mspace><mtext>MPa</mtext>
+          </math>
+        </div>
+        <p class="model-note eq-note"><i>W</i> is the strain-energy density and <i>Ī</i><sub>1</sub> the first
+          invariant of the isochoric right Cauchy–Green deformation tensor.</p>
+      </div>
+
+      <div class="prose">
+        <p>
+          At 50&nbsp;kPa the simulated multi-chamber actuator curled into an arc, with a maximum total deformation of
+          approximately 109.6&nbsp;mm at its free end and a peak equivalent (von Mises) stress of 0.297&nbsp;MPa near the
+          fixed end, concentrated in the layer beneath the chambers.
+        </p>
+      </div>
+
+      <div class="fig-grid fig-grid-2 glove-fea">
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/glove/glove-fea-deformation-v2-919.jpg">
+            <img src="../assets/img/glove/glove-fea-deformation-v2-459.jpg"
+                 srcset="../assets/img/glove/glove-fea-deformation-v2-459.jpg 459w, ../assets/img/glove/glove-fea-deformation-v2-919.jpg 919w"
+                 sizes="(min-width: 1000px) 455px, (min-width: 720px) 45vw, 92vw" width="459" height="400" loading="lazy" decoding="async"
+                 alt="ANSYS total-deformation contour of the multi-chamber actuator curled into a quarter arc, from blue at the fixed end to red at the free end; legend from 0 to 109.63 millimetres.">
+          </a>
+          <figcaption><span class="tag tag-sim">Simulation</span>Total deformation at 50&nbsp;kPa, multi-chamber
+            geometry.</figcaption>
+        </figure>
+        <figure class="fig fig-frame">
+          <a class="zoom" href="../assets/img/glove/glove-fea-stress-section-927.jpg">
+            <img src="../assets/img/glove/glove-fea-stress-section-463.jpg"
+                 srcset="../assets/img/glove/glove-fea-stress-section-463.jpg 463w, ../assets/img/glove/glove-fea-stress-section-927.jpg 927w"
+                 sizes="(min-width: 1000px) 455px, (min-width: 720px) 45vw, 92vw" width="463" height="400" loading="lazy" decoding="async"
+                 alt="ANSYS equivalent von Mises stress on a section through the curled multi-chamber actuator, showing the chambers; stress is highest in the layer beneath the chambers, with a peak near the fixed end; legend from about zero to 0.297 megapascals.">
+          </a>
+          <figcaption><span class="tag tag-sim">Simulation</span>Equivalent stress at 50&nbsp;kPa, section through the
+            chambers.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 4. fabrication ========== -->
+  <section class="stage" id="fabrication">
+    <div class="wrap">
+      <h2>Fabrication</h2>
+      <div class="prose">
+        <p>
+          The actuators were cast by soft lithography in two-part moulds designed in SolidWorks and printed in PLA:
+          the upper part forms the semicircular body and the lower part carries the rod that forms the air chamber.
+          Ecoflex 00-30 silicone was poured into moulds sealed along their edges with silicone sealant. The
+          strain-limiting buckram (stiff cotton) layer was applied along the flat base, fibre thread was wound around
+          the body, and the open end was closed with silicone and buckram. 3D-printed connectors joined each actuator
+          to its tube.
+        </p>
+      </div>
+
+      <div class="glove-steps">
+        <div class="glove-steps-row glove-steps-r1">
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-mould-cad-626.jpg">
+              <img src="../assets/img/glove/glove-mould-cad-626.jpg" width="626" height="389" loading="lazy" decoding="async"
+                   alt="SolidWorks model of the lower mould part: a flat plate with a raised semicircular rod along its length.">
+            </a>
+            <figcaption><span class="tag">CAD</span>Lower mould with the chamber-forming rod.</figcaption>
+          </figure>
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-moulds-semicircular-345.jpg">
+              <img src="../assets/img/glove/glove-moulds-semicircular-345.jpg" width="345" height="211" loading="lazy" decoding="async"
+                   alt="Two green 3D-printed PLA mould parts: a half-round upper shell and a flat lower plate with a rod.">
+            </a>
+            <figcaption><span class="tag">Photograph</span>Printed PLA mould parts.</figcaption>
+          </figure>
+        </div>
+        <div class="glove-steps-row glove-steps-r2">
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-actuators-semicircular-345.jpg">
+              <img src="../assets/img/glove/glove-actuators-semicircular-345.jpg" width="345" height="256" loading="lazy" decoding="async"
+                   alt="Two cast white silicone actuators: one plain, and one wound with purple fibre thread on a fabric base.">
+            </a>
+            <figcaption><span class="tag">Photograph</span>Cast actuators without and with fibre-thread
+              reinforcement.</figcaption>
+          </figure>
+          <figure class="fig fig-frame">
+            <a class="zoom" href="../assets/img/glove/glove-assembled-580.jpg">
+              <img src="../assets/img/glove/glove-assembled-580.jpg" width="580" height="468" loading="lazy" decoding="async"
+                   alt="The assembled glove held in a hand: five straight white actuators bound by dark straps, with tube connectors at their base and the pump beside it.">
+            </a>
+            <figcaption><span class="tag">Photograph</span>Assembled glove with five actuators and tube
+              connections.</figcaption>
+          </figure>
+        </div>
+      </div>
+
+      <div class="prose">
+        <p>
+          Two practical problems shaped the final process. Air trapped in the silicone formed bubbles; degassing the
+          filled moulds under vacuum while they cured, with a pressure cooker serving as the vacuum chamber, reduced
+          them. Leaks at the tube connections lowered the available pressure; binding the joints with thread and tape
+          and replacing PVC tubing with silicone tubing, which bonded better to the actuators, reduced them.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 5. gesture recognition and control ========== -->
+  <section class="stage" id="control">
+    <div class="wrap">
+      <h2>Gesture recognition and control</h2>
+      <div class="prose">
+        <p>
+          Hand gestures were recognised from forearm sEMG by machine learning. The Myo armband streamed raw
+          eight-channel sEMG at 200&nbsp;Hz to the Raspberry Pi through its Bluetooth dongle. The signals were
+          band-pass filtered and divided into windows, and four time-domain features (integrated EMG, mean absolute
+          value, root-mean-square value and waveform length) were computed for each channel and standardised. A
+          decision-tree classifier mapped these features to the two hand states, close and open/rest.
         </p>
         <p>
-          These are simulation results, used to rank candidates and to catch thin-wall problems early — not
-          as a prediction of what the cast parts would do. No quantitative comparison between simulated and
-          measured deformation was carried out.
+          The decision tree was selected after comparison with other classifiers, including the ensemble methods
+          XGBoost and random forest, because its computational simplicity suited real-time prediction on the
+          Raspberry Pi.
+          A threshold detector on signal amplitude was also implemented as a simpler alternative for the same two
+          states.
         </p>
       </div>
-      <div class="fig-grid fig-grid-2">
+
+      <div class="fig-grid fig-grid-2 glove-semg">
         <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-fea-deformation-1800.jpg">
-            <img src="../assets/img/glove/glove-fea-deformation-900.jpg"
-                 srcset="../assets/img/glove/glove-fea-deformation-900.jpg 900w, ../assets/img/glove/glove-fea-deformation-1800.jpg 1800w"
-                 sizes="(min-width: 720px) 45vw, 92vw" width="900" height="506" loading="lazy" decoding="async"
-                 alt="ANSYS total-deformation contour plot of the actuator curling under internal pressure, with its legend and scale bar.">
+          <a class="zoom" href="../assets/img/glove/glove-semg-rest-507.png">
+            <img src="../assets/img/glove/glove-semg-rest-507.png" width="507" height="419" loading="lazy" decoding="async"
+                 alt="Eight stacked traces of raw sEMG over 512 samples with the hand at rest; every channel is nearly flat.">
           </a>
-          <figcaption><span class="tag tag-sim">Simulation</span>Total deformation under internal pressure,
-            ANSYS.</figcaption>
+          <figcaption><span class="tag">Measured</span>Rest: low-level noise on all eight armband channels.</figcaption>
         </figure>
         <figure class="fig fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-fea-stress-1800.jpg">
-            <img src="../assets/img/glove/glove-fea-stress-900.jpg"
-                 srcset="../assets/img/glove/glove-fea-stress-900.jpg 900w, ../assets/img/glove/glove-fea-stress-1800.jpg 1800w"
-                 sizes="(min-width: 720px) 45vw, 92vw" width="900" height="506" loading="lazy" decoding="async"
-                 alt="ANSYS equivalent-stress contour plot showing where stress concentrates in the actuator walls, with its legend and scale bar.">
+          <a class="zoom" href="../assets/img/glove/glove-semg-close-507.png">
+            <img src="../assets/img/glove/glove-semg-close-507.png" width="507" height="419" loading="lazy" decoding="async"
+                 alt="Eight stacked traces of raw sEMG over 512 samples during hand close; every channel shows dense bursts, strongest on the fourth and seventh traces.">
           </a>
-          <figcaption><span class="tag tag-sim">Simulation</span>Equivalent stress, used to find thin-wall
-            concentrations before moulding.</figcaption>
+          <figcaption><span class="tag">Measured</span>Hand close: amplitude rises across the channels. Raw signals,
+            512 samples at 200&nbsp;Hz.</figcaption>
         </figure>
       </div>
-    </div>
-  </section>
 
-  <section class="stage">
-    <div class="wrap">
-      <div class="split split-wide-media">
-        <div>
-          <h2>Moulds, silicone and trapped air</h2>
-          <div class="prose">
-            <p>
-              Two-part moulds were drawn in SolidWorks and 3D printed in PLA, then cast in Ecoflex 00-30 by
-              soft lithography. The recurring failure was trapped air: a bubble in a chamber wall becomes a
-              weak point that balloons or bursts under pressure.
-            </p>
-            <p>
-              Mixed silicone was therefore degassed under vacuum before pouring, using a pressure cooker as
-              the vacuum chamber. Casting quality visibly improved once degassing was introduced, though no
-              formal yield or defect rate was recorded.
-            </p>
+      <details class="more">
+        <summary>Feature definitions</summary>
+        <div class="model-block eq-math glove-eq glove-feat">
+          <div class="eq-render" role="region" aria-label="Time-domain sEMG features (scrolls horizontally if needed)" tabindex="0">
+            <math display="block" aria-label="IEMG equals the sum over i from 1 to N of the absolute value of x i">
+              <mi>IEMG</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mo>|</mo><msub><mi>x</mi><mi>i</mi></msub><mo>|</mo></mrow>
+            </math>
+            <math display="block" aria-label="MAV equals 1 over N times the sum over i from 1 to N of the absolute value of x i">
+              <mi>MAV</mi><mo>=</mo><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><mrow><mo>|</mo><msub><mi>x</mi><mi>i</mi></msub><mo>|</mo></mrow>
+            </math>
+            <math display="block" aria-label="RMS equals the square root of 1 over N times the sum over i from 1 to N of x i squared">
+              <mi>RMS</mi><mo>=</mo><msqrt><mfrac><mn>1</mn><mi>N</mi></mfrac><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mi>N</mi></munderover><msubsup><mi>x</mi><mi>i</mi><mn>2</mn></msubsup></msqrt>
+            </math>
+            <math display="block" aria-label="WL equals the sum over i from 1 to N minus 1 of the absolute value of x i plus 1 minus x i">
+              <mi>WL</mi><mo>=</mo><munderover><mo>∑</mo><mrow><mi>i</mi><mo>=</mo><mn>1</mn></mrow><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow></munderover><mrow><mo>|</mo><msub><mi>x</mi><mrow><mi>i</mi><mo>+</mo><mn>1</mn></mrow></msub><mo>−</mo><msub><mi>x</mi><mi>i</mi></msub><mo>|</mo></mrow>
+            </math>
           </div>
+          <p class="model-note eq-note"><i>x</i><sub><i>i</i></sub> is the <i>i</i>-th sample of one channel in a window
+            of <i>N</i> samples. Each feature is computed per channel and standardised before classification.</p>
         </div>
-        <figure class="fig split-media fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-mould-cad-626.jpg">
-            <img src="../assets/img/glove/glove-mould-cad-626.jpg" width="626" height="389" loading="lazy" decoding="async"
-                 alt="Two-part mould drawn in SolidWorks, showing the chamber cavity and the core.">
-          </a>
-          <figcaption><span class="tag">CAD</span>The two-part mould.</figcaption>
-        </figure>
-      </div>
-    </div>
-  </section>
+      </details>
 
-  <section class="stage">
-    <div class="wrap">
-      <div class="split split-media-first">
-        <figure class="fig split-media fig-frame">
-          <a class="zoom" href="../assets/img/glove/glove-master-slave-1236.jpg">
-            <img src="../assets/img/glove/glove-master-slave-640.jpg"
-                 srcset="../assets/img/glove/glove-master-slave-640.jpg 640w, ../assets/img/glove/glove-master-slave-1236.jpg 1236w"
-                 sizes="(min-width: 860px) 52vw, 92vw" width="640" height="360" loading="lazy" decoding="async"
-                 alt="Master–slave arrangement: the instrumented functional hand on one side and the actuated glove on the other.">
-          </a>
-          <figcaption><span class="tag">Photograph</span>Master–slave operation: a gesture from the
-            functional hand actuates the paretic hand.</figcaption>
-        </figure>
-        <div>
-          <h2>Driving it</h2>
-          <div class="prose">
-            <p>
-              A Raspberry Pi 4 drives a diaphragm pump through a relay, with a regulator and solenoid valves
-              setting and releasing chamber pressure and a pressure sensor closing the loop on the commanded
-              level.
-            </p>
-            <p>
-              In master–slave mode the intended motion comes from the user's functional hand. The same
-              pneumatic drive also accepts commands from the
-              <a href="semg-rehabilitation-interface.html">sEMG interface</a> built alongside it.
-            </p>
-            <p>
-              On the bench, an individual actuator reached 120–180° of flexion per finger segment at 100 kPa,
-              the working pressure limit of the pump used.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="stage">
-    <div class="wrap">
-      <h2>Limitations</h2>
-      <div class="limits">
-        <h3>Not established</h3>
-        <ul class="tight">
-          <li><strong>Segment flexion is not hand function</strong> — the 120–180° figure is the curvature
-            of one actuator segment. It does not establish the range of motion a wearer's finger achieves,
-            and no assessment of grasp, pinch or task-level hand function was carried out.</li>
-          <li><strong>Mass and force are targets</strong> — under 0.5 kg and 10–15 N were the design
-            requirements. Delivered fingertip force and worn mass were not characterised as measured
-            results.</li>
-          <li><strong>Simulation is not validation</strong> — the FEA guided selection; measured bending was
-            not compared quantitatively against the simulated deformation.</li>
-          <li><strong>Durability</strong> — fatigue life and long-term seal integrity of the cast actuators
-            were not tested.</li>
-        </ul>
-      </div>
-      <div class="prose" style="margin-top:1.5rem">
-        <p class="small muted">
-          A final-year project carried out by a team of four. The project received NUST NGIRI development
-          funding in July 2023 and reached the finals of the Festival of Innovation, Creativity and Skills in
-          August 2023.
+      <div class="prose">
+        <p>
+          The recognised state switched the pneumatic drive through a two-channel relay. A close command switched on
+          the 12&nbsp;V diaphragm pump and opened the solenoid valve, inflating the five actuators in parallel, and the
+          actuation state was held while close persisted. An open/rest command switched both off, releasing the
+          pressure so that the actuators relaxed.
         </p>
       </div>
+
+      <figure class="fig fig-mid fig-center glove-diagram">
+        <a class="zoom" href="../assets/img/glove/glove-pneumatic-control.svg" data-zoom="natural">
+          <picture>
+            <source media="(max-width: 759px)" srcset="../assets/img/glove/glove-pneumatic-control-narrow.svg" width="340" height="676">
+            <img src="../assets/img/glove/glove-pneumatic-control.svg" width="780" height="376" loading="lazy" decoding="async"
+                 alt="Block diagram. Electrical control: the Myo armband acquires sEMG and sends it to a Raspberry Pi 4 for machine-learning gesture recognition; the Pi drives a two-channel relay, on for close and off for open/rest, which switches 12-volt power to the diaphragm pump and the solenoid valve. Pneumatic supply: air flows from the diaphragm pump through the on/off solenoid valve to five soft actuators supplied in parallel, which inflate, hold while close persists, and release.">
+          </picture>
+        </a>
+        <figcaption><span class="tag">Schematic</span>Electrical control path and pneumatic supply path.</figcaption>
+      </figure>
+
+      <details class="more">
+        <summary>Hardware details</summary>
+        <div class="table-wrap">
+          <table class="data-table data-table-stack glove-hw">
+            <caption>Components of the pneumatic and control system; pressures and flows are component ratings.</caption>
+            <thead>
+              <tr><th scope="col">Component</th><th scope="col">Specification</th><th scope="col">Role</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">Controller</th><td data-label="Specification">Raspberry Pi 4, 2&nbsp;GB</td><td data-label="Role">Recognition, game and switching</td></tr>
+              <tr><th scope="row">sEMG input</th><td data-label="Specification">Myo armband, eight electrodes, Bluetooth</td><td data-label="Role">Forearm signals of the functional hand</td></tr>
+              <tr><th scope="row">Pump</th><td data-label="Specification">12&nbsp;V diaphragm pump, rated to 100&nbsp;kPa and 15&nbsp;L/min</td><td data-label="Role">Air supply</td></tr>
+              <tr><th scope="row">Valve</th><td data-label="Specification">12&nbsp;V on/off solenoid valve, two ports</td><td data-label="Role">Opened with the pump for close</td></tr>
+              <tr><th scope="row">Relay</th><td data-label="Specification">Two-channel relay module</td><td data-label="Role">Switches pump and valve from the Pi</td></tr>
+              <tr><th scope="row">Tubing</th><td data-label="Specification">4&nbsp;mm inner, 6&nbsp;mm outer diameter; silicone at the actuators</td><td data-label="Role">Air lines to the five actuators</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </details>
+
+      <h3 class="glove-subhead" id="game">Interactive rehabilitation task</h3>
+      <div class="prose">
+        <p>
+          Cave Dive is a one-degree-of-freedom game: a ball travels through a cave, avoiding spikes on the ceiling and
+          floor while collecting apples. Its single movement axis and two command states map directly onto the two
+          states of the glove.
+        </p>
+      </div>
+
+      <div class="table-wrap glove-map-wrap">
+        <table class="data-table glove-map">
+          <caption>Command mapping</caption>
+          <thead>
+            <tr><th scope="col">Command</th><th scope="col">Game</th><th scope="col">Glove</th></tr>
+          </thead>
+          <tbody>
+            <tr><th scope="row">Hand close</th><td>Ball ascends</td><td>Inflates</td></tr>
+            <tr><th scope="row">Open/rest</th><td>Ball descends</td><td>Releases</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fig-grid fig-grid-2 glove-pair">
+        <figure class="fig">
+          <a class="zoom" href="../assets/img/glove/glove-cave-dive-696.jpg">
+            <img src="../assets/img/glove/glove-cave-dive-696.jpg" width="696" height="600" loading="lazy" decoding="async"
+                 alt="Cave Dive game screen: a dark blue cave with icicle-like spikes hanging from the ceiling and rising from the floor, small red apples, and a larger red ball on the left; the counters read Hits 2 and Score 85.">
+          </a>
+          <figcaption><span class="tag">Screenshot</span>Cave Dive: the ball (left), apples and spikes.</figcaption>
+        </figure>
+        <figure class="fig">
+          <a class="zoom" href="../assets/img/glove/glove-station-791.jpg">
+            <img src="../assets/img/glove/glove-station-791.jpg" width="791" height="682" loading="lazy" decoding="async"
+                 alt="Rehabilitation station on a desk: a monitor shows the Cave Dive game; on the desk lie the glove with its white actuators, the Myo armband and a black hardware enclosure, from which blue tubing runs to the glove.">
+          </a>
+          <figcaption><span class="tag">Photograph</span>Standalone station: game display, glove, Myo armband and
+            hardware enclosure.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== 6. results ========== -->
+  <section class="stage" id="results">
+    <div class="wrap">
+      <h2>Results</h2>
+
+      <h3 class="glove-subhead">Actuator performance</h3>
+      <div class="prose">
+        <p>
+          The fabricated fibre-reinforced actuators achieved approximately 120–180° of bending at 100&nbsp;kPa.
+          Inflation produced finger-flexion assistance, while pressure release allowed the actuators to relax for
+          passive extension.
+        </p>
+      </div>
+
+      <h3 class="glove-subhead">Integrated rehabilitation interface</h3>
+      <div class="prose">
+        <p>
+          The integrated system translated recognised hand states into coordinated game commands and pneumatic
+          actuation. Hand closing triggered glove inflation and upward movement in the one-degree-of-freedom task;
+          opening or relaxing the hand triggered pressure release and downward movement. This extended the earlier
+          sEMG protocol by coupling interactive task practice with physical hand assistance.
+        </p>
+      </div>
+
+      <div class="fig-grid fig-grid-2 glove-demo">
+        <figure class="fig">
+          <a class="zoom" href="../assets/img/glove/glove-demo-close-1200.jpg">
+            <img src="../assets/img/glove/glove-demo-close-640.jpg"
+                 srcset="../assets/img/glove/glove-demo-close-640.jpg 640w, ../assets/img/glove/glove-demo-close-1200.jpg 1200w"
+                 sizes="(min-width: 1000px) 455px, (min-width: 720px) 45vw, 92vw" width="640" height="360" loading="lazy" decoding="async"
+                 alt="Hand close: on the right, a forearm wearing the Myo armband makes a fist; on the left, the gloved hand is closed under a curled white actuator, connected by blue tubing to the pump and relay on the desk.">
+          </a>
+          <figcaption><span class="tag">Photograph</span>Hand close: the glove is inflated over the closed hand.</figcaption>
+        </figure>
+        <figure class="fig">
+          <a class="zoom" href="../assets/img/glove/glove-demo-open-1200.jpg">
+            <img src="../assets/img/glove/glove-demo-open-640.jpg"
+                 srcset="../assets/img/glove/glove-demo-open-640.jpg 640w, ../assets/img/glove/glove-demo-open-1200.jpg 1200w"
+                 sizes="(min-width: 1000px) 455px, (min-width: 720px) 45vw, 92vw" width="640" height="360" loading="lazy" decoding="async"
+                 alt="Open or rest: on the right, the forearm with the Myo armband is raised with the hand open; on the left, the gloved hand is open, its white actuators extended along the fingers.">
+          </a>
+          <figcaption><span class="tag">Photograph</span>Open/rest: the pressure is released and the actuators
+            straighten.</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== project information (not in the page navigation) ========== -->
+  <section class="stage" id="information">
+    <div class="wrap">
+      <h2>Project information</h2>
+      <dl class="glove-facts">
+        <div><dt>Project</dt><dd>REHABOTICS, final-year design project, B.E. Mechanical Engineering</dd></div>
+        <div><dt>Institution</dt><dd>School of Mechanical and Manufacturing Engineering (SMME), NUST</dd></div>
+        <div><dt>Duration</dt><dd>2023–2024</dd></div>
+        <div><dt>Supervision</dt><dd>Dr Asim Waris; co-supervisor Dr Omer Gilani</dd></div>
+        <div class="glove-facts-wide"><dt>Team</dt><dd>Muhammad Farhan, Muhammad Mustafa Khan, Ammar Shahzad and Hamza
+          Suhaib Qarni</dd></div>
+      </dl>
+      <p class="glove-cite">Report: M. Farhan, M. M. Khan, A. Shahzad and H. S. Qarni, “Design and Fabrication of EMG
+        Driven Exoskeleton for the Post Stroke Rehabilitation Using Pattern Recognition Techniques”, final-year project
+        report, SMME, NUST, June 2023.</p>
 
       <h2 class="related-h">Related projects</h2>
       <div class="related">
         <a href="semg-rehabilitation-interface.html">
-          <img src="../assets/img/semg/semg-pipeline-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
-          <span><b>Real-Time sEMG Interface</b><span>The control signal this glove was built to follow</span></span>
+          <img src="../assets/img/semg/semg-graphical-abstract-card-4x3.png" width="466" height="350" loading="lazy" decoding="async" alt="">
+          <span><b>Real-Time sEMG Gesture Control for Upper-Limb Rehabilitation</b><span>The interactive game protocol that this project extended</span></span>
         </a>
         <a href="voice-coil-actuator.html">
-          <img src="../assets/img/vca/vca-bench-cad-card-450.jpg" width="450" height="338" loading="lazy" decoding="async" alt="">
-          <span><b>Voice-Coil Actuator Positioning</b><span>The same design loop on a rigid, measurable actuator</span></span>
+          <img src="../assets/img/vca/vca-concept-figure-640.jpg" width="640" height="480" loading="lazy" decoding="async" alt="">
+          <span><b>Voice-Coil Stage Design and Feedback Control</b><span>Current drive and analogue compensation on a purpose-built stage</span></span>
         </a>
       </div>
     </div>
@@ -281,7 +581,7 @@
   <div class="wrap footer-grid">
     <div>
       <p class="footer-name">Muhammad Mustafa Khan</p>
-      <p class="footer-statement">Open to PhD opportunities and research collaborations in robotics, feedback control and learning-based methods for physical systems.</p>
+      <p class="footer-statement">Open to PhD opportunities and research collaborations in control, robotics and physical AI.</p>
       <ul class="footer-links">
         <li><a href="mailto:mustafamarvat786@gm.gist.ac.kr">mustafamarvat786@gm.gist.ac.kr</a></li>
         <li><a href="https://scholar.google.com/citations?user=AgU49wwAAAAJ&amp;hl=en" rel="noopener">Google Scholar</a></li>
@@ -292,15 +592,17 @@
     </div>
     <nav aria-label="Footer">
       <ul class="footer-nav">
-        <li><a href="index.html">Work</a></li>
-        <li><a href="../index.html#research">Research</a></li>
-        <li><a href="../index.html#outputs">Outputs</a></li>
         <li><a href="../index.html#about">About</a></li>
+        <li><a href="index.html">Projects</a></li>
+        <li><a href="../index.html#outputs">Research outputs</a></li>
         <li><a href="../cv.html">CV</a></li>
       </ul>
     </nav>
   </div>
-  <div class="wrap"><p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p></div>
+  <div class="wrap footer-bottom">
+    <p class="footer-meta">© <span id="year">2026</span> Muhammad Mustafa Khan · Gwangju, Republic of Korea</p>
+    <p class="footer-status">This portfolio is under active development; further projects and results will be added.</p>
+  </div>
 </footer>
 <script src="../script.js" defer></script>
 </body>

@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 262" width="760" height="262" role="img"
+     aria-labelledby="t d" font-family="'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
+  <title id="t">Single op-amp PD and lead–lag compensator networks</title>
+  <desc id="d">Two inverting op-amp circuits. Left, the PD network: the error e enters through resistor R1 in
+    parallel with capacitor C1, and resistor R2 forms the feedback path. Right, the lead or lag network: the
+    same input branch, with resistor R2 in parallel with capacitor C2 in the feedback path. R1 and R2 are
+    0 to 10 kilohm potentiometers. In both circuits the non-inverting input is grounded.</desc>
+  <defs>
+    <g id="res"><path d="M0 0 h17 l3 -7 l6 14 l6 -14 l6 14 l6 -14 l6 14 l3 -7 h17"/></g>
+    <g id="cap"><path d="M0 0 h31 M31 -10 v20 M39 -10 v20 M39 0 h31"/></g>
+    <g id="oa"><path d="M0 -32 L0 32 L56 0 Z" fill="#ffffff"/></g>
+    <g id="gnd"><path d="M-12 0 h24 M-7 5 h14 M-3 10 h6"/></g>
+    <style>
+      .w { stroke:#3a4048; stroke-width:1.6; fill:none; stroke-linejoin:round; stroke-linecap:round }
+      .dot { fill:#3a4048 }
+      .h { font-size:16px; font-weight:600; fill:#1d2126 }
+      .lab { font-size:14px; fill:#1d2126; font-style:italic }
+      .val { font-size:12px; fill:#565d66; font-family:'IBM Plex Mono', ui-monospace, monospace }
+      .pm { font-size:13px; fill:#1d2126 }
+    </style>
+  </defs>
+  <rect width="760" height="262" fill="#fbfaf7"/>
+
+  <!-- (a) PD network -->
+  <g transform="translate(14 0)">
+    <text x="0" y="24" class="h">PD network</text>
+    <g class="w">
+      <path d="M18 176 H50"/>
+      <use href="#res" x="50" y="176"/>
+      <path d="M50 176 V138 M120 138 V176"/>
+      <use href="#cap" x="50" y="138"/>
+      <path d="M120 176 H190"/>
+      <path d="M160 176 V92 H185"/>
+      <use href="#res" x="185" y="92"/>
+      <path d="M255 92 H286 V192"/>
+      <use href="#oa" x="190" y="192"/>
+      <path d="M190 208 H176 V232"/>
+      <use href="#gnd" x="176" y="232"/>
+      <path d="M246 192 H316"/>
+    </g>
+    <circle cx="50" cy="176" r="3" class="dot"/><circle cx="120" cy="176" r="3" class="dot"/>
+    <circle cx="160" cy="176" r="3" class="dot"/><circle cx="286" cy="192" r="3" class="dot"/>
+    <text x="0" y="181" class="lab">e</text>
+    <text x="85" y="124" class="lab" text-anchor="middle">C<tspan font-size="10" dy="3">1</tspan></text>
+    <text x="85" y="165" class="lab" text-anchor="middle">R<tspan font-size="10" dy="3">1</tspan></text>
+    <text x="85" y="201" class="val" text-anchor="middle">0–10 kΩ</text>
+    <text x="220" y="81" class="lab" text-anchor="middle">R<tspan font-size="10" dy="3">2</tspan></text>
+    <text x="220" y="114" class="val" text-anchor="middle">0–10 kΩ</text>
+    <text x="196" y="182" class="pm">−</text><text x="196" y="213" class="pm">+</text>
+    <text x="320" y="197" class="lab">V<tspan font-size="10" dy="3">out</tspan></text>
+  </g>
+
+  <!-- (b) lead / lag network -->
+  <g transform="translate(396 0)">
+    <text x="0" y="24" class="h">Lead / lag network</text>
+    <g class="w">
+      <path d="M18 176 H50"/>
+      <use href="#res" x="50" y="176"/>
+      <path d="M50 176 V138 M120 138 V176"/>
+      <use href="#cap" x="50" y="138"/>
+      <path d="M120 176 H190"/>
+      <path d="M160 176 V52 H185 M160 92 H185"/>
+      <use href="#res" x="185" y="92"/>
+      <use href="#cap" x="185" y="52"/>
+      <path d="M255 92 H286 M255 52 H286 V192"/>
+      <use href="#oa" x="190" y="192"/>
+      <path d="M190 208 H176 V232"/>
+      <use href="#gnd" x="176" y="232"/>
+      <path d="M246 192 H316"/>
+    </g>
+    <circle cx="50" cy="176" r="3" class="dot"/><circle cx="120" cy="176" r="3" class="dot"/>
+    <circle cx="160" cy="176" r="3" class="dot"/><circle cx="160" cy="92" r="3" class="dot"/>
+    <circle cx="286" cy="92" r="3" class="dot"/><circle cx="286" cy="192" r="3" class="dot"/>
+    <text x="0" y="181" class="lab">e</text>
+    <text x="85" y="124" class="lab" text-anchor="middle">C<tspan font-size="10" dy="3">1</tspan></text>
+    <text x="85" y="165" class="lab" text-anchor="middle">R<tspan font-size="10" dy="3">1</tspan></text>
+    <text x="85" y="201" class="val" text-anchor="middle">0–10 kΩ</text>
+    <text x="220" y="37" class="lab" text-anchor="middle">C<tspan font-size="10" dy="3">2</tspan></text>
+    <text x="220" y="81" class="lab" text-anchor="middle">R<tspan font-size="10" dy="3">2</tspan></text>
+    <text x="220" y="114" class="val" text-anchor="middle">0–10 kΩ</text>
+    <text x="196" y="182" class="pm">−</text><text x="196" y="213" class="pm">+</text>
+    <text x="320" y="197" class="lab">V<tspan font-size="10" dy="3">out</tspan></text>
+  </g>
+</svg>

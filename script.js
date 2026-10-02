@@ -15,9 +15,49 @@
     if (link.hasAttribute('aria-current')) { return; }
     var href = link.getAttribute('href');
     if (!href || href.charAt(0) === '#') { return; }
-    var target = new URL(href, location.href).pathname.replace(/index\.html$/, '');
-    if (target === path) { link.setAttribute('aria-current', 'page'); }
+    var target = new URL(href, location.href);
+    if (!target.hash && target.pathname.replace(/index\.html$/, '') === path) {
+      link.setAttribute('aria-current', 'page');
+    }
   });
+
+  /* Homepage links point to sections, so their active state follows the visible section. */
+  var sectionLinks = doc.querySelectorAll('.nav a[href^="#"]');
+  if (sectionLinks.length) {
+    var homeSections = doc.querySelectorAll('main > section[id]');
+    var siteHeader = doc.querySelector('.site-header');
+    var navUpdatePending = false;
+
+    var updateSectionNavigation = function () {
+      navUpdatePending = false;
+      var readingLine = (siteHeader ? siteHeader.getBoundingClientRect().bottom : 0) + 24;
+      var currentId = '';
+      Array.prototype.forEach.call(homeSections, function (section) {
+        var bounds = section.getBoundingClientRect();
+        if (bounds.top <= readingLine && bounds.bottom > readingLine) { currentId = section.id; }
+      });
+      Array.prototype.forEach.call(sectionLinks, function (link) {
+        if (link.getAttribute('href') === '#' + currentId) {
+          link.setAttribute('aria-current', 'location');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    };
+
+    var scheduleSectionNavigation = function () {
+      if (navUpdatePending) { return; }
+      navUpdatePending = true;
+      window.requestAnimationFrame(updateSectionNavigation);
+    };
+
+    window.addEventListener('scroll', scheduleSectionNavigation, { passive: true });
+    window.addEventListener('resize', scheduleSectionNavigation);
+    window.addEventListener('hashchange', scheduleSectionNavigation);
+    window.addEventListener('load', scheduleSectionNavigation);
+    window.addEventListener('pageshow', scheduleSectionNavigation);
+    updateSectionNavigation();
+  }
 
   /* ---------- compact navigation menu (small screens) ---------- */
   var navToggle = doc.querySelector('.nav-toggle');
@@ -44,7 +84,7 @@
       setOpen(!open);
       if (!open) {
         var first = nav.querySelector('a');
-        if (first) { first.focus(); }
+        if (first) { first.focus({ preventScroll: true }); }
       }
     });
 
@@ -88,7 +128,7 @@
     dialog.innerHTML =
       '<div class="lightbox-inner">' +
         '<button type="button" class="lightbox-close" data-close aria-label="Close enlarged figure">✕</button>' +
-        '<img alt="">' +
+        '<div class="lightbox-scroll"><img alt=""></div>' +
         '<p class="lightbox-caption"></p>' +
       '</div>';
     doc.body.appendChild(dialog);
@@ -107,12 +147,22 @@
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) { return; }
         event.preventDefault();
         opener = link;
+        /* data-zoom="natural": show the file at its full pixel size, pannable on small screens */
+        dialog.classList.toggle('is-natural', link.getAttribute('data-zoom') === 'natural');
         var inner = link.querySelector('img');
         image.src = link.getAttribute('href');
         image.alt = inner ? inner.alt : '';
         var fig = link.closest('figure');
         var cap = fig ? fig.querySelector('figcaption') : null;
-        caption.textContent = cap ? cap.textContent.replace(/\s+/g, ' ').trim() : '';
+        var text = '';
+        if (cap) {
+          /* keep the caption tag readable as a label ("Measured · …") and leave out any buttons */
+          var copy = cap.cloneNode(true);
+          Array.prototype.forEach.call(copy.querySelectorAll('.tag'), function (tag) { tag.textContent += ' · '; });
+          Array.prototype.forEach.call(copy.querySelectorAll('button'), function (btn) { btn.parentNode.removeChild(btn); });
+          text = copy.textContent.replace(/\s+/g, ' ').trim();
+        }
+        caption.textContent = text;
         dialog.setAttribute('aria-label',
           caption.textContent ? 'Enlarged figure: ' + caption.textContent.slice(0, 120) : 'Enlarged figure');
         dialog.showModal();
@@ -128,6 +178,7 @@
     });
     dialog.addEventListener('close', function () {
       image.removeAttribute('src');
+      dialog.classList.remove('is-natural');
       var origin = opener;
       opener = null;
       if (origin) { setTimeout(function () { origin.focus(); }, 0); }
@@ -146,6 +197,41 @@
       button.textContent = playing ? 'Pause animation' : 'Play animation';
     });
   });
+
+  /* ---------- looping GIF (sEMG graphical abstract) ----------
+     Without JavaScript the <picture> already shows the static poster to readers who prefer reduced
+     motion. With it, a small button pauses the loop by swapping in the poster frame; resuming
+     restores the GIF, which restarts from its first frame. */
+  Array.prototype.forEach.call(doc.querySelectorAll('[data-gif-toggle]'), function (button) {
+    var figure = button.closest('figure');
+    var frame = figure ? figure.querySelector('[data-gif]') : null;
+    var img = frame ? frame.querySelector('img') : null;
+    if (!img) { return; }
+    var gif = frame.getAttribute('data-gif');
+    var poster = frame.getAttribute('data-poster');
+    var label = button.querySelector('.ga-label');
+    var source = frame.querySelector('source');
+    if (source) { source.parentNode.removeChild(source); }   /* the script now chooses the frame */
+    var setPlaying = function (playing) {
+      img.src = playing ? gif : poster;
+      figure.classList.toggle('is-paused', !playing);
+      if (label) { label.textContent = playing ? 'Pause animation' : 'Play animation'; }
+    };
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    setPlaying(!reduce);
+    button.hidden = false;
+    button.addEventListener('click', function () { setPlaying(figure.classList.contains('is-paused')); });
+  });
+
+  /* ---------- smooth in-page scrolling, switched on after load ----------
+     A page opened at a #fragment (for example from "View imaging results") jumps straight to it.
+     Animating that first jump let late font and image layout leave it off-target, sometimes under
+     the sticky header. The CSS applies smooth scrolling only to html.smooth-scroll. */
+  var enableSmoothScroll = function () {
+    setTimeout(function () { doc.documentElement.classList.add('smooth-scroll'); }, 0);
+  };
+  if (doc.readyState === 'complete') { enableSmoothScroll(); }
+  else { window.addEventListener('load', enableSmoothScroll); }
 
   /* ---------- CV page: say so plainly if the file is not there ---------- */
   var cvPreview = doc.getElementById('cv-preview');

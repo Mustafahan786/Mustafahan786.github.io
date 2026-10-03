@@ -15,7 +15,7 @@ projects/index.html            Project index — four public projects with struc
 projects/<project>.html        One project page each
 style.css                      All styling (design tokens at the top of the file)
 script.js                      Year, current-page nav, mobile menu, figure lightbox, CV-missing notice,
-                               smooth in-page scrolling after load, whole-line setting of the closing note
+                               smooth in-page scrolling after load
 sitemap.xml, robots.txt        Search infrastructure
 assets/img/<project>/…         Images, named <name>-<width>.jpg
 assets/img/cv/…                Rendered CV page previews
@@ -288,10 +288,8 @@ CV-missing check is skipped.
 * Every page links the stylesheet as `style.css?v=YYYY-MM-DD`, the date of the last stylesheet change (`/style.css?v=…`
   on `404.html`). When `style.css` changes, update the date on every page — `index.html`, `cv.html`, `404.html` and
   `projects/*.html` — so a refresh loads the same styles everywhere.
-* The homepage closing note ("Beyond research") is one plain-text paragraph across the full content width.
-  `script.js` chooses its line breaks so every line, the last one included, runs to both edges, at a size between
-  body text and 4% above the lede. Where no size gives even spacing (usually phones) it stays an ordinary
-  ragged paragraph. Keep links and other markup out of it, or the script leaves it as an ordinary paragraph.
+* The homepage closing note ("Beyond research") uses the shared section-heading and body-text tokens,
+  with natural line wrapping and left alignment. No script changes its font size or line breaks.
 * Two webfonts (Newsreader, IBM Plex Sans) and the system monospace stack for technical labels.
 * Nothing that carries meaning is set below 13 px (`--fs-meta`).
 * Claims on the site are traceable to a primary source; simulations, literature thresholds and

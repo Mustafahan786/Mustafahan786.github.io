@@ -1,57 +1,74 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 380" width="700" height="380" role="img"
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 52 760 222" width="760" height="222" role="img"
      aria-labelledby="t d" font-family="'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif">
-  <title id="t">Voice-coil position control loop as built</title>
-  <desc id="d">Block diagram. A reference voltage is compared with the sensor voltage in an op-amp
-    subtractor. The error passes through the analog lead compensator to a PA51 power op-amp configured as a
-    transconductance stage at 0.1 amperes per volt, which drives the voice coil acting on a moving mass with
-    damping and no restoring spring. A laser-triangulation sensor at 10 millimetres per volt measures
-    position and returns it to the subtractor.</desc>
+  <title id="t">Voice-coil position loop as built</title>
+  <desc id="d">Block diagram. An op-amp subtractor forms the error between the reference voltage and the
+    sensor voltage. The error passes through an analogue op-amp compensator C of s, whose output voltage
+    commands a PA51 current amplifier with a gain of 0.1 amperes per volt. The coil current produces a force
+    K t times i on the moving stage, modelled as a mass with viscous damping and no spring, 1 over m s squared
+    plus c s. A Keyence IL-065 laser displacement sensor converts the stage position to voltage at 0.1 volts
+    per millimetre and returns it to the subtractor.</desc>
   <defs>
-    <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+    <marker id="ahv" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
       <path d="M0 0 L10 5 L0 10 z" fill="#8f8574"/>
     </marker>
     <style>
       .b { fill:#ffffff; stroke:#d9d3c7; stroke-width:1.5 }
       .key { fill:#e7eff1; stroke:#0f5c6e; stroke-width:1.75 }
-      .t { font-size:17px; font-weight:600; fill:#1d2126 }
+      .t { font-size:16px; font-weight:600; fill:#1d2126 }
       .s { font-size:13px; fill:#565d66; font-family:'IBM Plex Mono', ui-monospace, monospace }
       .l { stroke:#8f8574; stroke-width:1.6; fill:none }
-      .note { font-size:14.5px; fill:#565d66 }
+      .sig { font-size:14px; fill:#565d66; font-style:italic }
+      .note { font-size:14px; fill:#565d66 }
     </style>
   </defs>
-  <rect width="700" height="380" fill="#fbfaf7"/>
+  <rect width="760" height="290" fill="#fbfaf7"/>
 
-  <text x="20" y="84" class="note">Reference</text>
-  <line x1="20" y1="110" x2="62" y2="110" class="l" marker-end="url(#ah3)"/>
-  <circle cx="80" cy="110" r="17" fill="#ffffff" stroke="#8f8574" stroke-width="1.6"/>
-  <text x="80" y="116" class="t" text-anchor="middle">Σ</text>
-  <text x="60" y="148" class="s">+</text>
-  <text x="96" y="148" class="s">−</text>
+  <!-- reference and summing junction (OP27G subtractor) -->
+  <text x="12" y="84" class="sig">V<tspan font-size="11" dy="3">ref</tspan></text>
+  <line x1="12" y1="104" x2="42" y2="104" class="l" marker-end="url(#ahv)"/>
+  <circle cx="60" cy="104" r="17" fill="#ffffff" stroke="#8f8574" stroke-width="1.6"/>
+  <text x="60" y="110" class="t" text-anchor="middle">Σ</text>
+  <text x="36" y="96" class="s">+</text>
+  <text x="68" y="140" class="s">−</text>
+  <text x="76" y="166" class="s">OP27G subtractor</text>
 
-  <line x1="97" y1="110" x2="118" y2="110" class="l" marker-end="url(#ah3)"/>
-  <rect x="120" y="80" width="180" height="62" rx="4" class="b key"/>
-  <text x="136" y="106" class="t">Lead compensator</text>
-  <text x="136" y="128" class="s">op-amp network</text>
+  <!-- compensator -->
+  <line x1="77" y1="104" x2="104" y2="104" class="l" marker-end="url(#ahv)"/>
+  <text x="88" y="96" class="sig" text-anchor="middle">e</text>
+  <rect x="106" y="73" width="142" height="62" rx="4" class="b key"/>
+  <text x="120" y="99" class="t">Compensator</text>
+  <text x="120" y="121" class="s">C(s) · op-amp</text>
 
-  <line x1="300" y1="110" x2="328" y2="110" class="l" marker-end="url(#ah3)"/>
-  <rect x="330" y="80" width="200" height="62" rx="4" class="b"/>
-  <text x="346" y="106" class="t">PA51 drive</text>
-  <text x="346" y="128" class="s">0.1 A/V current drive</text>
+  <!-- current amplifier -->
+  <line x1="248" y1="104" x2="276" y2="104" class="l" marker-end="url(#ahv)"/>
+  <text x="262" y="96" class="sig" text-anchor="middle">V<tspan font-size="11" dy="3">in</tspan></text>
+  <rect x="278" y="73" width="146" height="62" rx="4" class="b"/>
+  <text x="292" y="99" class="t">Current amp</text>
+  <text x="292" y="121" class="s">PA51 · 0.1 A/V</text>
 
-  <line x1="530" y1="110" x2="548" y2="110" class="l" marker-end="url(#ah3)"/>
-  <rect x="550" y="80" width="130" height="62" rx="4" class="b"/>
-  <text x="566" y="106" class="t">Coil + mass</text>
-  <text x="566" y="128" class="s">mass–damper</text>
+  <!-- voice coil -->
+  <line x1="424" y1="104" x2="452" y2="104" class="l" marker-end="url(#ahv)"/>
+  <text x="438" y="96" class="sig" text-anchor="middle">i</text>
+  <rect x="454" y="73" width="118" height="62" rx="4" class="b"/>
+  <text x="468" y="99" class="t">Voice coil</text>
+  <text x="468" y="121" class="s">F = Kt·i</text>
 
-  <line x1="615" y1="142" x2="615" y2="200" class="l" marker-end="url(#ah3)"/>
-  <rect x="380" y="202" width="300" height="62" rx="4" class="b"/>
-  <text x="396" y="228" class="t">Laser displacement</text>
-  <text x="396" y="250" class="s">triangulation · 10 mm/V</text>
+  <!-- moving stage -->
+  <line x1="572" y1="104" x2="600" y2="104" class="l" marker-end="url(#ahv)"/>
+  <text x="586" y="96" class="sig" text-anchor="middle">F</text>
+  <rect x="602" y="73" width="146" height="62" rx="4" class="b"/>
+  <text x="616" y="99" class="t">Moving stage</text>
+  <text x="616" y="121" class="s">1/(ms² + cs)</text>
 
-  <line x1="380" y1="233" x2="80" y2="233" class="l"/>
-  <line x1="80" y1="233" x2="80" y2="129" class="l" marker-end="url(#ah3)"/>
+  <!-- position to sensor -->
+  <line x1="675" y1="135" x2="675" y2="190" class="l" marker-end="url(#ahv)"/>
+  <text x="686" y="168" class="sig">x <tspan font-style="normal" class="s">[mm]</tspan></text>
+  <rect x="452" y="192" width="296" height="62" rx="4" class="b"/>
+  <text x="466" y="218" class="t">Laser displacement sensor</text>
+  <text x="466" y="240" class="s">Keyence IL-065 · 0.1 V/mm</text>
 
-  <text x="20" y="308" class="note">Driving current rather than voltage keeps coil force proportional to the command</text>
-  <text x="20" y="330" class="note">within the amplifier's compliance and useful bandwidth.</text>
-  <text x="20" y="364" class="s" fill="#8f8574">Diagram — the configuration built on the bench</text>
+  <!-- feedback -->
+  <line x1="452" y1="223" x2="60" y2="223" class="l"/>
+  <line x1="60" y1="223" x2="60" y2="123" class="l" marker-end="url(#ahv)"/>
+  <text x="250" y="214" class="sig" text-anchor="middle">V<tspan font-size="11" dy="3">sensor</tspan></text>
 </svg>

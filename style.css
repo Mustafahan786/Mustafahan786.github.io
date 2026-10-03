@@ -173,7 +173,7 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
   padding: 0.45rem 0; border-bottom: 2px solid transparent; transition: color var(--t), border-color var(--t);
 }
 .nav a { white-space: nowrap; }
-.nav a:hover { color: var(--accent); border-bottom-color: var(--rule-2); }
+.nav a:hover, .nav a:focus-visible { color: var(--accent); border-bottom-color: var(--rule-2); font-weight: 600; }
 .nav a[aria-current] { color: var(--ink); border-bottom-color: var(--accent); font-weight: 600; }
 /* CV button. Scoped as .nav a.nav-cta so it outranks .nav a, whose transparent 2px bottom border used to
    replace the button's bottom edge; all four sides stay visible in every state. */

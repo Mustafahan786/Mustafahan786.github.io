@@ -22,7 +22,7 @@
   });
 
   /* Homepage links point to sections, so their active state follows the visible section. */
-  var sectionLinks = doc.querySelectorAll('.nav a[href^="#"]');
+  var sectionLinks = doc.querySelectorAll('.nav a[href^="#"], .nav a[data-section]');
   if (sectionLinks.length) {
     var homeSections = doc.querySelectorAll('main > section[id]');
     var siteHeader = doc.querySelector('.site-header');
@@ -37,7 +37,8 @@
         if (bounds.top <= readingLine && bounds.bottom > readingLine) { currentId = section.id; }
       });
       Array.prototype.forEach.call(sectionLinks, function (link) {
-        if (link.getAttribute('href') === '#' + currentId) {
+        var sectionId = link.getAttribute('data-section') || link.getAttribute('href').slice(1);
+        if (sectionId === currentId) {
           link.setAttribute('aria-current', 'location');
         } else {
           link.removeAttribute('aria-current');

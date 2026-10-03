@@ -306,6 +306,24 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
   display: block; width: 100%; height: auto;
   border-radius: var(--radius); background: var(--surface);
 }
+.portrait-frame {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: clip;
+  border-radius: 50%;
+  background: linear-gradient(180deg, #c2c7d2 0%, #bec4d0 50%, #b5bbc7 100%);
+}
+.hero-figure .hero-portrait {
+  position: absolute;
+  top: 5%;
+  left: -17.5%;
+  width: 135%;
+  max-width: none;
+  height: auto;
+  border-radius: 0;
+  background: transparent;
+}
 .hero-caption { font-size: 0.875rem; line-height: 1.45; color: var(--muted); margin: 0.55rem 0 0; text-wrap: pretty; }
 .hero-facts { border-top: 2px solid var(--rule-strong); padding-top: 0.9rem; margin-top: 1.25rem; }
 .fact { padding-bottom: 0.9rem; margin-bottom: 0.9rem; border-bottom: 1px solid var(--rule); }

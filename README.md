@@ -240,10 +240,15 @@ under ~5 MB, no sound.
 
 ## The homepage portrait
 
-`assets/img/about/portrait-{312,416,624}.jpg` is a 3:4 crop of an original photograph that stays
-outside this repository. To replace it, export a new 3:4 crop at 624 px wide plus 416 px and 312 px
-versions, keep the filenames, and update the `alt` text and `.hero-caption` in `index.html` if the
-setting changes. Do not publish a portrait larger than its source.
+`assets/img/about/portrait-selected-transparent-1254.png` is the user-selected portrait, copied
+unchanged at 1254 × 1254 px with its transparency intact. The About page places it over a soft grey
+gradient (`#c2c7d2` → `#bec4d0` → `#b5bbc7`) matching the selected reference. The circular frame
+shows the head, shoulders and upper chest, with headroom and all fingers outside the frame.
+No facial retouching or AI regeneration is applied.
+The portrait is 320 px on desktop, 240 px on tablet and 152 px on mobile. Its intrinsic dimensions
+reserve space before loading, and the image has descriptive alt text and high fetch priority.
+Previous portrait assets remain available for recovery. To replace it, add a distinctly named
+image and update its `src`, dimensions and alt text in `index.html` as needed.
 
 ## Accessibility and motion
 

@@ -7,14 +7,15 @@ what is in the repository is exactly what GitHub Pages serves.
 ## Layout
 
 ```
-index.html                     Home: about (introduction, portrait, education), selected work, outputs
+index.html                     Home: about (introduction, portrait, education), selected work, outputs,
+                               and a short personal closing note ("Beyond research")
 cv.html                        CV page: rendered page previews + open/download actions
 404.html                       Not-found page
 projects/index.html            Project index — four public projects with structured metadata
 projects/<project>.html        One project page each
 style.css                      All styling (design tokens at the top of the file)
 script.js                      Year, current-page nav, mobile menu, figure lightbox, CV-missing notice,
-                               smooth in-page scrolling after load
+                               smooth in-page scrolling after load, whole-line setting of the closing note
 sitemap.xml, robots.txt        Search infrastructure
 assets/img/<project>/…         Images, named <name>-<width>.jpg
 assets/img/cv/…                Rendered CV page previews
@@ -31,7 +32,7 @@ The canonical home URL is the root form, `https://mustafahan786.github.io/`, and
 `https://mustafahan786.github.io/projects/`. Every page carries a matching `<link rel="canonical">`,
 `og:url` and `sitemap.xml` entry — keep those three in step when adding a page.
 
-In-page anchors currently in use: `#work`, `#outputs`, `#about` on the home page, and
+In-page anchors currently in use: `#work`, `#outputs`, `#beyond-research`, `#about` on the home page, and
 per-project section ids on the project pages.
 
 Five legacy files in `assets/` (`afm-control.svg`, `afm-hardware.jpg`, `afm-notch.jpg`, `ai-rl.svg`,
@@ -282,6 +283,10 @@ CV-missing check is skipped.
 * Every page links the stylesheet as `style.css?v=YYYY-MM-DD`, the date of the last stylesheet change (`/style.css?v=…`
   on `404.html`). When `style.css` changes, update the date on every page — `index.html`, `cv.html`, `404.html` and
   `projects/*.html` — so a refresh loads the same styles everywhere.
+* The homepage closing note ("Beyond research") is one plain-text paragraph across the full content width.
+  `script.js` chooses its line breaks so every line, the last one included, runs to both edges, at a size between
+  body text and 4% above the lede. Where no size gives even spacing (usually phones) it stays an ordinary
+  ragged paragraph. Keep links and other markup out of it, or the script leaves it as an ordinary paragraph.
 * Two webfonts (Newsreader, IBM Plex Sans) and the system monospace stack for technical labels.
 * Nothing that carries meaning is set below 13 px (`--fs-meta`).
 * Claims on the site are traceable to a primary source; simulations, literature thresholds and

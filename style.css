@@ -428,7 +428,8 @@ code, .mono { font-family: var(--font-mono); font-size: 0.92em; }
 /* ---------- personal note ---------- */
 .personal-note { padding-block: clamp(2rem, 3vw, 3rem); }
 .personal-note h2 { font-size: clamp(1.375rem, 1.2rem + 0.5vw, 1.625rem); margin-bottom: 0.65rem; }
-.personal-note p { max-width: 76ch; margin: 0; color: var(--ink-2); }
+.personal-note p { margin: 0; font-size: var(--fs-lede); line-height: 1.6; color: var(--ink-2); text-wrap: pretty; }   /* full content width */
+.personal-note p.is-fitted { text-align: justify; text-align-last: justify; }   /* script.js set the line breaks so every line, the last one included, fills the width */
 
 /* ---------- case study ---------- */
 .case-hero { padding-block: clamp(1.75rem, 3vw, 2.75rem) 0; }
@@ -1023,6 +1024,7 @@ dialog.lightbox img { max-width: 94vw; max-height: 74vh; width: auto; height: au
   body { background: #fff; font-size: 11pt; }
   .section, .stage { border: 0; padding-block: 1rem; }
   a { color: inherit; text-decoration: none; }
+  .personal-note p { font-size: inherit !important; text-align-last: auto; }   /* the size script.js fits to the screen does not apply on paper */
 }
 
 /* ==========================================================================

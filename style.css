@@ -718,11 +718,10 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
 .cover-overlay { position: absolute; inset: 0; }
 .cover-frame.has-overlay:hover img { transform: scale(1.012); }
 
-/* --- homepage "Selected research projects": heading, and a closing button to the full project list --- */
-.work-head { margin-bottom: 2rem; }                                                   /* 32px to the featured project */
+/* --- homepage "Selected research projects": heading with the button to the full project list --- */
+.work-head { margin-bottom: 2rem; align-items: center; row-gap: 0.75rem; }                                                   /* 32px to the featured project */
 .work-head h2 { margin: 0; font-size: clamp(1.625rem, 1.3rem + 1.2vw, 2.125rem); }   /* 26px phones -> 34px desktop */
-.work-more { margin-top: clamp(2rem, 4vw, 3rem); padding-top: clamp(2rem, 4vw, 3rem); border-top: 1px solid var(--rule); }   /* mirrors the rule under the featured project */
-.work-more .btn { min-height: 44px; padding: 0.5rem 1.15rem; }   /* same as the hero's buttons */
+.work-head .btn { min-height: 44px; padding: 0.5rem 1.15rem; }   /* same as the hero's buttons */
 
 /* --- featured project on the homepage ---
    DOM order is title block -> cover -> summary, contribution, result, actions: the phone reading order.

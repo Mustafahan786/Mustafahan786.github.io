@@ -775,12 +775,11 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
 .wf-result dt { color: var(--accent); }
 .wf-result dd { color: var(--ink); }
 .wf-actions {
-  display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.5rem;
+  display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem;
   list-style: none; margin: 0.15rem 0 0; padding: 1.1rem 0 0; border-top: 1px solid var(--rule);
 }
 .wf-actions li { margin: 0; }
-.wf-actions .btn { min-height: 44px; padding: 0.5rem 1.1rem; font-size: 0.97rem; }
-.wf-actions .btn.link-arrow { gap: 0.45rem; }
+.wf-actions .btn { min-height: 44px; padding: 0.5rem 1.15rem; }   /* same pair as the hero's buttons */
 .work-feature:focus-within .cover-frame { border-color: var(--accent); }
 @media (min-width: 900px) { .wf-summary { font-size: 1.0625rem; } }   /* 17px on desktop, 16px below */
 
@@ -811,8 +810,9 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
 }
 .pcard-methods li { margin: 0; }
 .pcard-methods li + li::before { content: "· "; color: var(--rule-ui); }
-.pcard-links { display: flex; flex-wrap: wrap; gap: 0.2rem 1.25rem; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
+.pcard-links { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 0; padding: 0; font-size: 0.95rem; }
 .pcard-links li { margin: 0; }
+.pcard-links .btn { min-height: 44px; padding: 0.5rem 1.15rem; }   /* same pair as the hero's buttons */
 /* the whole card lifts quietly when either of its links is hovered or focused */
 .pcard:focus-within .cover-frame { border-color: var(--accent); }
 
@@ -905,9 +905,10 @@ a.cover-frame:hover img, a.cover-frame:focus-visible img { transform: scale(1.01
   font-size: var(--fs-meta); letter-spacing: 0.04em; text-transform: uppercase;
   margin-right: 0.35rem;
 }
-.index-links { display: flex; flex-wrap: wrap; gap: 0.3rem 1.4rem; list-style: none; margin: 0; padding: 0; font-size: 0.97rem; }
+.index-links { display: flex; flex-wrap: wrap; gap: 0.6rem; list-style: none; margin: 0; padding: 0; font-size: 0.97rem; }
 .index-links li { margin: 0; }
 .index-links a { display: inline-flex; align-items: center; padding-block: 0.3rem; }
+.index-links .btn { min-height: 44px; padding: 0.5rem 1.15rem; }   /* same pair as the hero's buttons */
 .link-quiet { font-weight: 400; }
 /* the AFM entry's measured result: same modest emphasis as on the homepage */
 .index-result { border-left: 2px solid var(--accent); padding-left: 0.75rem; }
